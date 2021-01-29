@@ -34,8 +34,6 @@ class WithNode extends Node
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler->addDebugInfo($this);
-
 		$parentContextName = $compiler->getVarName();
 
 		$compiler->write(sprintf("\$%s = \$context;\n", $parentContextName));
@@ -48,11 +46,9 @@ class WithNode extends Node
 				->subcompile($node)
 				->raw(";\n")
 				->write(sprintf("if (!twig_test_iterable(\$%s)) {\n", $varsName))
-				->indent()
 				->write("throw new RuntimeError('Variables passed to the \"with\" tag must be a hash.', ")
 				->repr($node->getTemplateLine())
 				->raw(", \$this->getSourceContext());\n")
-				->outdent()
 				->write("}\n")
 				->write(sprintf("\$%s = twig_to_array(\$%s);\n", $varsName, $varsName))
 			;

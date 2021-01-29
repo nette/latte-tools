@@ -31,15 +31,12 @@ class BlockNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->addDebugInfo($this)
 			->write(sprintf("public function block_%s(\$context, array \$blocks = [])\n", $this->getAttribute('name')), "{\n")
-			->indent()
 			->write("\$macros = \$this->macros;\n")
 		;
 
 		$compiler
 			->subcompile($this->getNode('body'))
-			->outdent()
 			->write("}\n\n")
 		;
 	}

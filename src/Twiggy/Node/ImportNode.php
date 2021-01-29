@@ -37,7 +37,6 @@ class ImportNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->addDebugInfo($this)
 			->write('$macros[')
 			->repr($this->getNode('var')->getAttribute('name'))
 			->raw('] = ')

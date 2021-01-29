@@ -45,8 +45,6 @@ class SetNode extends Node implements NodeCaptureInterface
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler->addDebugInfo($this);
-
 		if (\count($this->getNode('names')) > 1) {
 			$compiler->write('list(');
 			foreach ($this->getNode('names') as $idx => $node) {

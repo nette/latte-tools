@@ -51,7 +51,6 @@ class ForNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->addDebugInfo($this)
 			->write("\$context['_parent'] = \$context;\n")
 			->write("\$context['_seq'] = twig_ensure_traversable(")
 			->subcompile($this->getNode('seq'))
@@ -71,13 +70,11 @@ class ForNode extends Node
 				->write("  'first'  => true,\n")
 				->write("];\n")
 				->write("if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_seq'] instanceof \\Countable)) {\n")
-				->indent()
 				->write("\$length = count(\$context['_seq']);\n")
 				->write("\$context['loop']['revindex0'] = \$length - 1;\n")
 				->write("\$context['loop']['revindex'] = \$length;\n")
 				->write("\$context['loop']['length'] = \$length;\n")
 				->write("\$context['loop']['last'] = 1 === \$length;\n")
-				->outdent()
 				->write("}\n")
 			;
 		}
@@ -91,18 +88,14 @@ class ForNode extends Node
 			->raw(' => ')
 			->subcompile($this->getNode('value_target'))
 			->raw(") {\n")
-			->indent()
 			->subcompile($this->getNode('body'))
-			->outdent()
 			->write("}\n")
 		;
 
 		if ($this->hasNode('else')) {
 			$compiler
 				->write("if (!\$context['_iterated']) {\n")
-				->indent()
 				->subcompile($this->getNode('else'))
-				->outdent()
 				->write("}\n")
 			;
 		}

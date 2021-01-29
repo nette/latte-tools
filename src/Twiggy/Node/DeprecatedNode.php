@@ -31,8 +31,6 @@ class DeprecatedNode extends Node
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler->addDebugInfo($this);
-
 		$expr = $this->getNode('expr');
 
 		if ($expr instanceof ConstantExpression) {

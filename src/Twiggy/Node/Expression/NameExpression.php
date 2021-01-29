@@ -34,7 +34,6 @@ class NameExpression extends AbstractExpression
 	{
 		$name = $this->getAttribute('name');
 
-		$compiler->addDebugInfo($this);
 
 		if ($this->getAttribute('is_defined_test')) {
 			if ($this->isSpecial()) {

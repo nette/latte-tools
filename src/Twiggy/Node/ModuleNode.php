@@ -119,8 +119,6 @@ final class ModuleNode extends Node
 
 		$compiler
 			->write("protected function doGetParent(array \$context)\n", "{\n")
-			->indent()
-			->addDebugInfo($parent)
 			->write('return ')
 		;
 
@@ -140,7 +138,6 @@ final class ModuleNode extends Node
 
 		$compiler
 			->raw(";\n")
-			->outdent()
 			->write("}\n\n")
 		;
 	}
@@ -172,7 +169,6 @@ final class ModuleNode extends Node
 			->write('class ' . $compiler->getEnvironment()->getTemplateClass($this->getSourceContext()->getName(), $this->getAttribute('index')))
 			->raw(" extends Template\n")
 			->write("{\n")
-			->indent()
 			->write("private \$source;\n")
 			->write("private \$macros = [];\n\n")
 		;
@@ -183,7 +179,6 @@ final class ModuleNode extends Node
 	{
 		$compiler
 			->write("public function __construct(Environment \$env)\n", "{\n")
-			->indent()
 			->subcompile($this->getNode('constructor_start'))
 			->write("parent::__construct(\$env);\n\n")
 			->write("\$this->source = \$this->getSourceContext();\n\n")
@@ -210,13 +205,11 @@ final class ModuleNode extends Node
 					->repr($node->getTemplateLine())
 					->raw(");\n")
 					->write(sprintf("if (!\$_trait_%s->isTraitable()) {\n", $i))
-					->indent()
 					->write("throw new RuntimeError('Template \"'.")
 					->subcompile($trait->getNode('template'))
 					->raw(".'\" cannot be used as a trait.', ")
 					->repr($node->getTemplateLine())
 					->raw(", \$this->source);\n")
-					->outdent()
 					->write("}\n")
 					->write(sprintf("\$_trait_%s_blocks = \$_trait_%s->getBlocks();\n\n", $i, $i))
 				;
@@ -226,7 +219,6 @@ final class ModuleNode extends Node
 						->write(sprintf('if (!isset($_trait_%s_blocks[', $i))
 						->string($key)
 						->raw("])) {\n")
-						->indent()
 						->write("throw new RuntimeError('Block ")
 						->string($key)
 						->raw(' is not defined in trait ')
@@ -234,7 +226,6 @@ final class ModuleNode extends Node
 						->raw(".', ")
 						->repr($node->getTemplateLine())
 						->raw(", \$this->source);\n")
-						->outdent()
 						->write("}\n\n")
 
 						->write(sprintf('$_trait_%s_blocks[', $i))
@@ -251,7 +242,6 @@ final class ModuleNode extends Node
 			if ($countTraits > 1) {
 				$compiler
 					->write("\$this->traits = array_merge(\n")
-					->indent()
 				;
 
 				for ($i = 0; $i < $countTraits; ++$i) {
@@ -261,7 +251,6 @@ final class ModuleNode extends Node
 				}
 
 				$compiler
-					->outdent()
 					->write(");\n\n")
 				;
 			} else {
@@ -272,7 +261,6 @@ final class ModuleNode extends Node
 
 			$compiler
 				->write("\$this->blocks = array_merge(\n")
-				->indent()
 				->write("\$this->traits,\n")
 				->write("[\n")
 			;
@@ -283,9 +271,6 @@ final class ModuleNode extends Node
 		}
 
 		// blocks
-		$compiler
-			->indent()
-		;
 
 		foreach ($this->getNode('blocks') as $name => $node) {
 			$compiler
@@ -295,21 +280,17 @@ final class ModuleNode extends Node
 
 		if ($countTraits) {
 			$compiler
-				->outdent()
 				->write("]\n")
-				->outdent()
 				->write(");\n")
 			;
 		} else {
 			$compiler
-				->outdent()
 				->write("];\n")
 			;
 		}
 
 		$compiler
 			->subcompile($this->getNode('constructor_end'))
-			->outdent()
 			->write("}\n\n")
 		;
 	}
@@ -319,7 +300,6 @@ final class ModuleNode extends Node
 	{
 		$compiler
 			->write("protected function doDisplay(array \$context, array \$blocks = [])\n", "{\n")
-			->indent()
 			->write("\$macros = \$this->macros;\n")
 			->subcompile($this->getNode('display_start'))
 			->subcompile($this->getNode('body'))
@@ -348,7 +328,6 @@ final class ModuleNode extends Node
 
 		$compiler
 			->subcompile($this->getNode('display_end'))
-			->outdent()
 			->write("}\n\n")
 		;
 	}
@@ -358,7 +337,6 @@ final class ModuleNode extends Node
 	{
 		$compiler
 			->subcompile($this->getNode('class_end'))
-			->outdent()
 			->write("}\n")
 		;
 	}
@@ -374,11 +352,9 @@ final class ModuleNode extends Node
 	{
 		$compiler
 			->write("public function getTemplateName()\n", "{\n")
-			->indent()
 			->write('return ')
 			->repr($this->getSourceContext()->getName())
 			->raw(";\n")
-			->outdent()
 			->write("}\n\n")
 		;
 	}
@@ -429,9 +405,7 @@ final class ModuleNode extends Node
 
 		$compiler
 			->write("public function isTraitable()\n", "{\n")
-			->indent()
 			->write(sprintf("return %s;\n", $traitable ? 'true' : 'false'))
-			->outdent()
 			->write("}\n\n")
 		;
 	}
@@ -441,9 +415,7 @@ final class ModuleNode extends Node
 	{
 		$compiler
 			->write("public function getDebugInfo()\n", "{\n")
-			->indent()
 			->write(sprintf("return %s;\n", str_replace("\n", '', var_export(array_reverse($compiler->getDebugInfo(), true), true))))
-			->outdent()
 			->write("}\n\n")
 		;
 	}
@@ -453,7 +425,6 @@ final class ModuleNode extends Node
 	{
 		$compiler
 			->write("public function getSourceContext()\n", "{\n")
-			->indent()
 			->write('return new Source(')
 			->string($compiler->getEnvironment()->isDebug() ? $this->getSourceContext()->getCode() : '')
 			->raw(', ')
@@ -461,7 +432,6 @@ final class ModuleNode extends Node
 			->raw(', ')
 			->string($this->getSourceContext()->getPath())
 			->raw(");\n")
-			->outdent()
 			->write("}\n")
 		;
 	}

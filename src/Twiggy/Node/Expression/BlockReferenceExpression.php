@@ -40,8 +40,6 @@ class BlockReferenceExpression extends AbstractExpression
 			$this->compileTemplateCall($compiler, 'hasBlock');
 		} else {
 			if ($this->getAttribute('output')) {
-				$compiler->addDebugInfo($this);
-
 				$this
 					->compileTemplateCall($compiler, 'displayBlock')
 					->raw(";\n");

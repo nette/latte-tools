@@ -41,11 +41,9 @@ class CacheNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->addDebugInfo($this)
 			->write('$cached = $this->env->getRuntime(\'LatteTools\Twiggy\Extra\Cache\CacheRuntime\')->getCache()->get(')
 			->subcompile($this->getNode('key'))
 			->raw(", function (\\Symfony\\Contracts\\Cache\\ItemInterface \$item) use (\$context) {\n")
-			->indent()
 		;
 
 		if ($this->hasNode('tags')) {
@@ -69,7 +67,6 @@ class CacheNode extends Node
 			->subcompile($this->getNode('body'))
 			->write("\n")
 			->write("return ob_get_clean();\n")
-			->outdent()
 			->write("});\n")
 			->write("echo '' === \$cached ? '' : new Markup(\$cached, \$this->env->getCharset());\n")
 		;

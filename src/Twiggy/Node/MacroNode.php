@@ -40,7 +40,6 @@ class MacroNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->addDebugInfo($this)
 			->write(sprintf('public function macro_%s(', $this->getAttribute('name')))
 		;
 
@@ -65,10 +64,8 @@ class MacroNode extends Node
 			->raw('...$__varargs__')
 			->raw(")\n")
 			->write("{\n")
-			->indent()
 			->write("\$macros = \$this->macros;\n")
 			->write("\$context = \$this->env->mergeGlobals([\n")
-			->indent()
 		;
 
 		foreach ($this->getNode('arguments') as $name => $default) {
@@ -88,7 +85,6 @@ class MacroNode extends Node
 
 		$compiler
 			->raw("\$__varargs__,\n")
-			->outdent()
 			->write("]);\n\n")
 			->write("\$blocks = [];\n\n")
 		;
@@ -99,17 +95,12 @@ class MacroNode extends Node
 		}
 		$compiler
 			->write("try {\n")
-			->indent()
 			->subcompile($this->getNode('body'))
 			->raw("\n")
 			->write("return ('' === \$tmp = ob_get_contents()) ? '' : new Markup(\$tmp, \$this->env->getCharset());\n")
-			->outdent()
 			->write("} finally {\n")
-			->indent()
 			->write("ob_end_clean();\n")
-			->outdent()
 			->write("}\n")
-			->outdent()
 			->write("}\n\n")
 		;
 	}

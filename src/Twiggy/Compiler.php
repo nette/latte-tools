@@ -22,7 +22,6 @@ class Compiler
 {
 	private $lastLine;
 	private $source;
-	private $indentation;
 	private $env;
 	private $debugInfo = [];
 	private $sourceOffset;
@@ -51,7 +50,7 @@ class Compiler
 	/**
 	 * @return $this
 	 */
-	public function compile(Node $node, int $indentation = 0)
+	public function compile(Node $node)
 	{
 		$this->lastLine = null;
 		$this->source = '';
@@ -59,7 +58,6 @@ class Compiler
 		$this->sourceOffset = 0;
 		// source code starts at 1 (as we then increment it when we encounter new lines)
 		$this->sourceLine = 1;
-		$this->indentation = $indentation;
 		$this->varNameSalt = 0;
 
 		$node->compile($this);
@@ -73,10 +71,6 @@ class Compiler
 	 */
 	public function subcompile(Node $node, bool $raw = true)
 	{
-		if ($raw === false) {
-			$this->source .= str_repeat(' ', $this->indentation * 4);
-		}
-
 		$node->compile($this);
 
 		return $this;
@@ -104,7 +98,7 @@ class Compiler
 	public function write(...$strings)
 	{
 		foreach ($strings as $string) {
-			$this->source .= str_repeat(' ', $this->indentation * 4) . $string;
+			$this->source .= $string;
 		}
 
 		return $this;
@@ -166,59 +160,11 @@ class Compiler
 	}
 
 
-	/**
-	 * @return $this
-	 */
-	public function addDebugInfo(Node $node)
-	{
-		if ($node->getTemplateLine() != $this->lastLine) {
-			$this->write(sprintf("// line %d\n", $node->getTemplateLine()));
-
-			$this->sourceLine += substr_count($this->source, "\n", $this->sourceOffset);
-			$this->sourceOffset = \strlen($this->source);
-			$this->debugInfo[$this->sourceLine] = $node->getTemplateLine();
-
-			$this->lastLine = $node->getTemplateLine();
-		}
-
-		return $this;
-	}
-
-
 	public function getDebugInfo(): array
 	{
 		ksort($this->debugInfo);
 
 		return $this->debugInfo;
-	}
-
-
-	/**
-	 * @return $this
-	 */
-	public function indent(int $step = 1)
-	{
-		$this->indentation += $step;
-
-		return $this;
-	}
-
-
-	/**
-	 * @return $this
-	 *
-	 * @throws \LogicException When trying to outdent too much so the indentation would become negative
-	 */
-	public function outdent(int $step = 1)
-	{
-		// can't outdent by more steps than the current indentation level
-		if ($this->indentation < $step) {
-			throw new \LogicException('Unable to call outdent() as the indentation would become negative.');
-		}
-
-		$this->indentation -= $step;
-
-		return $this;
 	}
 
 

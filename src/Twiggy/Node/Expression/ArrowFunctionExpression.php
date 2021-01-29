@@ -31,7 +31,6 @@ class ArrowFunctionExpression extends AbstractExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->addDebugInfo($this)
 			->raw('function (')
 		;
 		foreach ($this->getNode('names') as $i => $name) {

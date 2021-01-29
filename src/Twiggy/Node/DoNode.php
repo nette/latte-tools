@@ -31,7 +31,6 @@ class DoNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->addDebugInfo($this)
 			->write('')
 			->subcompile($this->getNode('expr'))
 			->raw(";\n")
