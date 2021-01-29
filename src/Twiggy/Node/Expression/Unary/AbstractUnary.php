@@ -27,7 +27,6 @@ abstract class AbstractUnary extends AbstractExpression
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler->raw(' ');
 		$this->operator($compiler);
 		$compiler->subcompile($this->getNode('node'));
 	}

@@ -76,20 +76,49 @@ class ArrayExpression extends AbstractExpression
 
 	public function compile(Compiler $compiler): void
 	{
+		if ($this->hasAttribute('as_arguments')) {
+			$this->compileAsArguments($compiler);
+			return;
+		}
+
 		$compiler->raw('[');
 		$first = true;
+		$counter = 0;
 		foreach ($this->getKeyValuePairs() as $pair) {
 			if (!$first) {
 				$compiler->raw(', ');
 			}
 			$first = false;
 
-			$compiler
-				->subcompile($pair['key'])
-				->raw(' => ')
-				->subcompile($pair['value'])
-			;
+			if (!$pair['key'] instanceof ConstantExpression || $pair['key']->getAttribute('value') !== $counter++) {
+				$compiler
+					->subcompile($pair['key'])
+					->raw(' => ');
+			}
+
+			$compiler->subcompile($pair['value']);
 		}
 		$compiler->raw(']');
+	}
+
+
+	private function compileAsArguments(Compiler $compiler): void
+	{
+		$first = true;
+		$counter = 0;
+		foreach ($this->getKeyValuePairs() as $pair) {
+			if (!$first) {
+				$compiler->raw(', ');
+			}
+			$first = false;
+
+			if (!$pair['key'] instanceof ConstantExpression || $pair['key']->getAttribute('value') !== $counter++) {
+				$compiler
+					->subcompile($pair['key'])
+					->raw(' => ');
+			}
+
+			$compiler->subcompile($pair['value']);
+		}
 	}
 }

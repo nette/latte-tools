@@ -18,9 +18,10 @@ use LatteTools\Twiggy\Compiler;
 class NameExpression extends AbstractExpression
 {
 	private $specialVars = [
-		'_self' => '$this->getTemplateName()',
-		'_context' => '$context',
-		'_charset' => '$this->env->getCharset()',
+		//		'_self' => '$this->getTemplateName()',
+		//		'_context' => '$context',
+		//		'_charset' => '$this->env->getCharset()',
+		'loop' => '$iterator',
 	];
 
 
@@ -34,56 +35,23 @@ class NameExpression extends AbstractExpression
 	{
 		$name = $this->getAttribute('name');
 
-
 		if ($this->getAttribute('is_defined_test')) {
 			if ($this->isSpecial()) {
 				$compiler->repr(true);
-			} elseif (\PHP_VERSION_ID >= 70400) {
-				$compiler
-					->raw('array_key_exists(')
-					->string($name)
-					->raw(', $context)')
-				;
 			} else {
 				$compiler
-					->raw('(isset($context[')
-					->string($name)
-					->raw(']) || array_key_exists(')
-					->string($name)
-					->raw(', $context))')
+					->raw('isset(')
+					->raw('$' . $name)
+					->raw(')')
 				;
 			}
 		} elseif ($this->isSpecial()) {
 			$compiler->raw($this->specialVars[$name]);
-		} elseif ($this->getAttribute('always_defined')) {
-			$compiler
-				->raw('$context[')
-				->string($name)
-				->raw(']')
-			;
+
 		} else {
-			if ($this->getAttribute('ignore_strict_check') || !$compiler->getEnvironment()->isStrictVariables()) {
-				$compiler
-					->raw('($context[')
-					->string($name)
-					->raw('] ?? null)')
+			$compiler
+				->raw('$' . $name)
 				;
-			} else {
-				$compiler
-					->raw('(isset($context[')
-					->string($name)
-					->raw(']) || array_key_exists(')
-					->string($name)
-					->raw(', $context) ? $context[')
-					->string($name)
-					->raw('] : (function () { throw new RuntimeError(\'Variable ')
-					->string($name)
-					->raw(' does not exist.\', ')
-					->repr($this->lineno)
-					->raw(', $this->source); })()')
-					->raw(')')
-				;
-			}
 		}
 	}
 
@@ -91,11 +59,5 @@ class NameExpression extends AbstractExpression
 	public function isSpecial()
 	{
 		return isset($this->specialVars[$this->getAttribute('name')]);
-	}
-
-
-	public function isSimple()
-	{
-		return !$this->isSpecial() && !$this->getAttribute('is_defined_test');
 	}
 }

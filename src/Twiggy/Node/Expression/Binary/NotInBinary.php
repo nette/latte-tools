@@ -19,11 +19,11 @@ class NotInBinary extends AbstractBinary
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('!twig_in_filter(')
+			->raw('!in_array(')
 			->subcompile($this->getNode('left'))
 			->raw(', ')
 			->subcompile($this->getNode('right'))
-			->raw(')')
+			->raw(', true)')
 		;
 	}
 

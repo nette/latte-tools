@@ -30,7 +30,7 @@ class FlushNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->write("flush();\n")
+			->raw('{do flush()}')
 		;
 	}
 }

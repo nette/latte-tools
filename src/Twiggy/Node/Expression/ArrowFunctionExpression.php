@@ -31,7 +31,7 @@ class ArrowFunctionExpression extends AbstractExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('function (')
+			->raw('fn(')
 		;
 		foreach ($this->getNode('names') as $i => $name) {
 			if ($i) {
@@ -39,27 +39,15 @@ class ArrowFunctionExpression extends AbstractExpression
 			}
 
 			$compiler
-				->raw('$__')
+				->raw('$')
 				->raw($name->getAttribute('name'))
-				->raw('__')
 			;
 		}
 		$compiler
-			->raw(') use ($context, $macros) { ')
+			->raw(') => ')
 		;
-		foreach ($this->getNode('names') as $name) {
-			$compiler
-				->raw('$context["')
-				->raw($name->getAttribute('name'))
-				->raw('"] = $__')
-				->raw($name->getAttribute('name'))
-				->raw('__; ')
-			;
-		}
 		$compiler
-			->raw('return ')
 			->subcompile($this->getNode('expr'))
-			->raw('; }')
 		;
 	}
 }

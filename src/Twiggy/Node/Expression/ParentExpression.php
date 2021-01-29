@@ -30,18 +30,8 @@ class ParentExpression extends AbstractExpression
 
 	public function compile(Compiler $compiler): void
 	{
-		if ($this->getAttribute('output')) {
-			$compiler
-				->write('$this->displayParentBlock(')
-				->string($this->getAttribute('name'))
-				->raw(", \$context, \$blocks);\n")
-			;
-		} else {
-			$compiler
-				->raw('$this->renderParentBlock(')
-				->string($this->getAttribute('name'))
-				->raw(', $context, $blocks)')
-			;
-		}
+		$compiler
+			->raw('{include parent}')
+		;
 	}
 }

@@ -15,6 +15,7 @@ namespace LatteTools\Twiggy\TokenParser;
 use LatteTools\Twiggy\Error\SyntaxError;
 use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\UseNode;
 use LatteTools\Twiggy\Token;
 
 /**
@@ -64,7 +65,7 @@ final class UseTokenParser extends AbstractTokenParser
 
 		$this->parser->addTrait(new Node(['template' => $template, 'targets' => new Node($targets)]));
 
-		return new Node;
+		return new UseNode($template, $token->getLine(), $this->getTag());
 	}
 
 

@@ -41,34 +41,29 @@ class CacheNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->write('$cached = $this->env->getRuntime(\'LatteTools\Twiggy\Extra\Cache\CacheRuntime\')->getCache()->get(')
+			->write('{cache ')
 			->subcompile($this->getNode('key'))
-			->raw(", function (\\Symfony\\Contracts\\Cache\\ItemInterface \$item) use (\$context) {\n")
 		;
 
 		if ($this->hasNode('tags')) {
 			$compiler
-				->write('$item->tag(')
+				->write(', tags => [')
 				->subcompile($this->getNode('tags'))
-				->raw(");\n")
+				->raw(']')
 			;
 		}
 
 		if ($this->hasNode('ttl')) {
 			$compiler
-				->write('$item->expiresAfter(')
+				->write(', expiration => ')
 				->subcompile($this->getNode('ttl'))
-				->raw(");\n")
 			;
 		}
 
 		$compiler
-			->write("ob_start(function () { return ''; });\n")
+			->write('}')
 			->subcompile($this->getNode('body'))
-			->write("\n")
-			->write("return ob_get_clean();\n")
-			->write("});\n")
-			->write("echo '' === \$cached ? '' : new Markup(\$cached, \$this->env->getCharset());\n")
+			->write('{/cache}')
 		;
 	}
 }

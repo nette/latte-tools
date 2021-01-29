@@ -15,6 +15,7 @@ namespace LatteTools\Twiggy\Node;
 
 use LatteTools\Twiggy\Compiler;
 use LatteTools\Twiggy\Node\Expression\AbstractExpression;
+use LatteTools\Twiggy\Node\Expression\ArrayExpression;
 
 /**
  * Represents an include node.
@@ -43,48 +44,24 @@ class IncludeNode extends Node implements NodeOutputInterface
 	public function compile(Compiler $compiler): void
 	{
 		if ($this->getAttribute('ignore_missing')) {
-			$template = $compiler->getVarName();
-
-			$compiler
-				->write(sprintf("$%s = null;\n", $template))
-				->write("try {\n")
-				->write(sprintf('$%s = ', $template))
-			;
-
+			$compiler->raw("{try}\n");
 			$this->addGetTemplate($compiler);
-
-			$compiler
-				->raw(";\n")
-				->write("} catch (LoaderError \$e) {\n")
-				->write("// ignore missing template\n")
-				->write("}\n")
-				->write(sprintf("if ($%s) {\n", $template))
-				->write(sprintf('$%s->display(', $template))
-			;
-			$this->addTemplateArguments($compiler);
-			$compiler
-				->raw(");\n")
-				->write("}\n")
-			;
-		} else {
-			$this->addGetTemplate($compiler);
-			$compiler->raw('->display(');
-			$this->addTemplateArguments($compiler);
-			$compiler->raw(");\n");
+			$compiler->raw("{/try}\n");
+			return;
 		}
+
+		$this->addGetTemplate($compiler);
 	}
 
 
 	protected function addGetTemplate(Compiler $compiler)
 	{
 		$compiler
-			->write('$this->loadTemplate(')
-			->subcompile($this->getNode('expr'))
-			->raw(', ')
-			->repr($this->getTemplateName())
-			->raw(', ')
-			->repr($this->getTemplateLine())
-			->raw(')')
+			->raw($this->hasAttribute('sandbox') ? '{sandbox ' : '{include ')
+			->subcompile($this->getNode('expr'));
+		$this->addTemplateArguments($compiler);
+		$compiler
+			->raw('}')
 		;
 	}
 
@@ -92,17 +69,16 @@ class IncludeNode extends Node implements NodeOutputInterface
 	protected function addTemplateArguments(Compiler $compiler)
 	{
 		if (!$this->hasNode('variables')) {
-			$compiler->raw($this->getAttribute('only') === false ? '$context' : '[]');
-		} elseif ($this->getAttribute('only') === false) {
-			$compiler
-				->raw('twig_array_merge($context, ')
-				->subcompile($this->getNode('variables'))
-				->raw(')')
-			;
-		} else {
-			$compiler->raw('twig_to_array(');
-			$compiler->subcompile($this->getNode('variables'));
-			$compiler->raw(')');
+			return;
 		}
+
+		$compiler->raw(', ');
+		$vars = $this->getNode('variables');
+		if ($vars instanceof ArrayExpression) {
+			$vars->setAttribute('as_arguments', true);
+		} else {
+			$compiler->raw('...');
+		}
+		$compiler->subcompile($vars);
 	}
 }

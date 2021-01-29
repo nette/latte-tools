@@ -31,10 +31,15 @@ class PrintNode extends Node implements NodeOutputInterface
 
 	public function compile(Compiler $compiler): void
 	{
+		$subcomp = new Compiler($compiler->getEnvironment());
+		$subcomp->compile($this->getNode('expr'));
+		$code = $subcomp->getSource();
+
 		$compiler
-			->write('echo ')
-			->subcompile($this->getNode('expr'))
-			->raw(";\n")
+			->raw('{')
+			->raw(preg_match('~\$|\w+::|\w+\(|\d+~A', $code) ? '' : '=')
+			->raw($code)
+			->raw('}')
 		;
 	}
 }

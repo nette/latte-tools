@@ -38,29 +38,29 @@ class IfNode extends Node
 		for ($i = 0, $count = \count($this->getNode('tests')); $i < $count; $i += 2) {
 			if ($i > 0) {
 				$compiler
-					->write('} elseif (')
+					->raw('{elseif ')
 				;
 			} else {
 				$compiler
-					->write('if (')
+					->raw('{if ')
 				;
 			}
 
 			$compiler
 				->subcompile($this->getNode('tests')->getNode($i))
-				->raw(") {\n")
+				->raw('}')
 				->subcompile($this->getNode('tests')->getNode($i + 1))
 			;
 		}
 
 		if ($this->hasNode('else')) {
 			$compiler
-				->write("} else {\n")
+				->raw('{else}')
 				->subcompile($this->getNode('else'))
 			;
 		}
 
 		$compiler
-			->write("}\n");
+			->raw('{/if}');
 	}
 }

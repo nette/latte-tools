@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace LatteTools\Twiggy\Extension;
 
-use LatteTools\Twiggy\NodeVisitor\SandboxNodeVisitor;
 use LatteTools\Twiggy\Sandbox\SecurityNotAllowedMethodError;
 use LatteTools\Twiggy\Sandbox\SecurityNotAllowedPropertyError;
 use LatteTools\Twiggy\Sandbox\SecurityPolicyInterface;
@@ -41,7 +40,7 @@ final class SandboxExtension extends AbstractExtension
 
 	public function getNodeVisitors(): array
 	{
-		return [new SandboxNodeVisitor];
+		return [];
 	}
 
 

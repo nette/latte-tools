@@ -18,14 +18,12 @@ class StartsWithBinary extends AbstractBinary
 {
 	public function compile(Compiler $compiler): void
 	{
-		$left = $compiler->getVarName();
-		$right = $compiler->getVarName();
 		$compiler
-			->raw(sprintf('(is_string($%s = ', $left))
+			->raw('str_starts_with(')
 			->subcompile($this->getNode('left'))
-			->raw(sprintf(') && is_string($%s = ', $right))
+			->raw(', ')
 			->subcompile($this->getNode('right'))
-			->raw(sprintf(') && (\'\' === $%2$s || 0 === strpos($%1$s, $%2$s)))', $left, $right))
+			->raw(')')
 		;
 	}
 

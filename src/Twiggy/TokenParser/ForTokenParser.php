@@ -55,7 +55,7 @@ final class ForTokenParser extends AbstractTokenParser
 			$valueTarget = $targets->getNode(1);
 			$valueTarget = new AssignNameExpression($valueTarget->getAttribute('name'), $valueTarget->getTemplateLine());
 		} else {
-			$keyTarget = new AssignNameExpression('_key', $lineno);
+			$keyTarget = new AssignNameExpression('', $lineno);
 			$valueTarget = $targets->getNode(0);
 			$valueTarget = new AssignNameExpression($valueTarget->getAttribute('name'), $valueTarget->getTemplateLine());
 		}

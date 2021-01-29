@@ -28,7 +28,7 @@ abstract class AbstractBinary extends AbstractExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('(')
+			->raw($this->hasAttribute('is_topmost') ? '' : '(')
 			->subcompile($this->getNode('left'))
 			->raw(' ')
 		;
@@ -36,7 +36,7 @@ abstract class AbstractBinary extends AbstractExpression
 		$compiler
 			->raw(' ')
 			->subcompile($this->getNode('right'))
-			->raw(')')
+			->raw($this->hasAttribute('is_topmost') ? '' : ')')
 		;
 	}
 

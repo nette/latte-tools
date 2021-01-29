@@ -23,7 +23,6 @@ use LatteTools\Twiggy\Node\Expression\ConstantExpression;
  */
 class EmbedNode extends IncludeNode
 {
-	// we don't inject the module to avoid node visitors to traverse it twice (as it will be already visited in the main module)
 	public function __construct(
 		string $name,
 		int $index,
@@ -31,27 +30,31 @@ class EmbedNode extends IncludeNode
 		bool $only,
 		bool $ignoreMissing,
 		int $lineno,
-		string $tag = null
+		string $tag = null,
+		Node $body,
+		Node $parent
 	) {
 		parent::__construct(new ConstantExpression('not_used', $lineno), $variables, $only, $ignoreMissing, $lineno, $tag);
 
 		$this->setAttribute('name', $name);
 		$this->setAttribute('index', $index);
+		$this->setAttribute('parent', $parent);
+		$this->setAttribute('body', $body);
 	}
 
 
 	protected function addGetTemplate(Compiler $compiler): void
 	{
 		$compiler
-			->write('$this->loadTemplate(')
-			->string($this->getAttribute('name'))
-			->raw(', ')
-			->repr($this->getTemplateName())
-			->raw(', ')
-			->repr($this->getTemplateLine())
-			->raw(', ')
-			->string($this->getAttribute('index'))
-			->raw(')')
+			->raw('{embed ')
+			->subcompile($this->getAttribute('parent'));
+
+		$this->addTemplateArguments($compiler);
+
+		$compiler
+			->raw("}\n")
+			->subcompile($this->getAttribute('body'))
+			->raw('{/embed}')
 		;
 	}
 }

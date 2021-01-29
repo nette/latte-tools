@@ -49,7 +49,10 @@ final class SandboxTokenParser extends AbstractTokenParser
 				if (!$node instanceof IncludeNode) {
 					throw new SyntaxError('Only "include" tags are allowed within a "sandbox" section.', $node->getTemplateLine(), $stream->getSourceContext());
 				}
+				$node->setAttribute('sandbox', true);
 			}
+		} else {
+			$body->setAttribute('sandbox', true);
 		}
 
 		return new SandboxNode($body, $token->getLine(), $this->getTag());

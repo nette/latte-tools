@@ -22,22 +22,31 @@ use LatteTools\Twiggy\Compiler;
  */
 class BlockNode extends Node
 {
-	public function __construct(string $name, Node $body, int $lineno, string $tag = null)
+	public function __construct(string $name, Node $body, int $lineno, Node $filter = null)
 	{
-		parent::__construct(['body' => $body], ['name' => $name], $lineno, $tag);
+		parent::__construct(['body' => $body], ['name' => $name, 'filter' => $filter], $lineno);
 	}
 
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler
-			->write(sprintf("public function block_%s(\$context, array \$blocks = [])\n", $this->getAttribute('name')), "{\n")
-			->write("\$macros = \$this->macros;\n")
-		;
+		$name = $this->getAttribute('name');
+		$filter = $this->getAttribute('filter');
 
 		$compiler
+			->raw('{block')
+			->raw($name ? " $name" : '');
+
+		if ($filter) {
+			$filter->setAttribute('is_topmost', true);
+			$compiler
+				->subcompile($filter);
+		}
+
+		$compiler
+			->raw('}')
 			->subcompile($this->getNode('body'))
-			->write("}\n\n")
+			->raw('{/block}')
 		;
 	}
 }

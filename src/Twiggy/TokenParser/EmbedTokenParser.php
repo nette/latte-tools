@@ -59,7 +59,7 @@ final class EmbedTokenParser extends IncludeTokenParser
 
 		$stream->expect(Token::BLOCK_END_TYPE);
 
-		return new EmbedNode($module->getTemplateName(), $module->getAttribute('index'), $variables, $only, $ignoreMissing, $token->getLine(), $this->getTag());
+		return new EmbedNode($module->getTemplateName(), $module->getAttribute('index'), $variables, $only, $ignoreMissing, $token->getLine(), $this->getTag(), $module->getNode('blocks'), $parent);
 	}
 
 

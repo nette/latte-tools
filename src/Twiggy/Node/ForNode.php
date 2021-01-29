@@ -50,62 +50,35 @@ class ForNode extends Node
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler
-			->write("\$context['_parent'] = \$context;\n")
-			->write("\$context['_seq'] = twig_ensure_traversable(")
-			->subcompile($this->getNode('seq'))
-			->raw(");\n")
-		;
-
-		if ($this->hasNode('else')) {
-			$compiler->write("\$context['_iterated'] = false;\n");
-		}
-
-		if ($this->getAttribute('with_loop')) {
-			$compiler
-				->write("\$context['loop'] = [\n")
-				->write("  'parent' => \$context['_parent'],\n")
-				->write("  'index0' => 0,\n")
-				->write("  'index'  => 1,\n")
-				->write("  'first'  => true,\n")
-				->write("];\n")
-				->write("if (is_array(\$context['_seq']) || (is_object(\$context['_seq']) && \$context['_seq'] instanceof \\Countable)) {\n")
-				->write("\$length = count(\$context['_seq']);\n")
-				->write("\$context['loop']['revindex0'] = \$length - 1;\n")
-				->write("\$context['loop']['revindex'] = \$length;\n")
-				->write("\$context['loop']['length'] = \$length;\n")
-				->write("\$context['loop']['last'] = 1 === \$length;\n")
-				->write("}\n")
-			;
-		}
-
 		$this->loop->setAttribute('else', $this->hasNode('else'));
 		$this->loop->setAttribute('with_loop', $this->getAttribute('with_loop'));
 
 		$compiler
-			->write("foreach (\$context['_seq'] as ")
-			->subcompile($this->getNode('key_target'))
-			->raw(' => ')
-			->subcompile($this->getNode('value_target'))
-			->raw(") {\n")
-			->subcompile($this->getNode('body'))
-			->write("}\n")
+			->raw('{foreach ')
+			->subcompile($this->getNode('seq'))
+			->raw(' as ')
 		;
 
-		if ($this->hasNode('else')) {
+		if ($this->getNode('key_target')->getAttribute('name') !== '') {
 			$compiler
-				->write("if (!\$context['_iterated']) {\n")
-				->subcompile($this->getNode('else'))
-				->write("}\n")
+				->subcompile($this->getNode('key_target'))
+				->raw(' => ')
 			;
 		}
 
-		$compiler->write("\$_parent = \$context['_parent'];\n");
+		$compiler
+			->subcompile($this->getNode('value_target'))
+			->raw('}')
+			->subcompile($this->getNode('body'));
 
-		// remove some "private" loop variables (needed for nested loops)
-		$compiler->write('unset($context[\'_seq\'], $context[\'_iterated\'], $context[\'' . $this->getNode('key_target')->getAttribute('name') . '\'], $context[\'' . $this->getNode('value_target')->getAttribute('name') . '\'], $context[\'_parent\'], $context[\'loop\']);' . "\n");
 
-		// keep the values set in the inner context for variables defined in the outer context
-		$compiler->write("\$context = array_intersect_key(\$context, \$_parent) + \$_parent;\n");
+		if ($this->hasNode('else')) {
+			$compiler
+				->raw('{else}')
+				->subcompile($this->getNode('else'))
+			;
+		}
+
+		$compiler->raw('{/foreach}');
 	}
 }

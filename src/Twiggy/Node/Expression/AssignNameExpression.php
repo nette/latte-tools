@@ -20,9 +20,7 @@ class AssignNameExpression extends NameExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('$context[')
-			->string($this->getAttribute('name'))
-			->raw(']')
+			->raw('$' . $this->getAttribute('name'))
 		;
 	}
 }

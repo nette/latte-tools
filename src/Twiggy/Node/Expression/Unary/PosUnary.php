@@ -19,6 +19,6 @@ class PosUnary extends AbstractUnary
 {
 	public function operator(Compiler $compiler): Compiler
 	{
-		return $compiler->raw('+');
+		return $compiler->raw(' +');
 	}
 }

@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace LatteTools\Twiggy\Node\Expression;
 
 use LatteTools\Twiggy\Compiler;
-use LatteTools\Twiggy\Extension\SandboxExtension;
-use LatteTools\Twiggy\Template;
 
 class GetAttrExpression extends AbstractExpression
 {
@@ -37,58 +35,47 @@ class GetAttrExpression extends AbstractExpression
 
 	public function compile(Compiler $compiler): void
 	{
-		$env = $compiler->getEnvironment();
+		$type = $this->getAttribute('type');
+		$attr = $this->getNode('attribute');
 
-		// optimize array calls
-		if (
-			$this->getAttribute('optimizable')
-			&& (!$env->isStrictVariables() || $this->getAttribute('ignore_strict_check'))
-			&& !$this->getAttribute('is_defined_test')
-			&& $this->getAttribute('type') === Template::ARRAY_CALL
-		) {
-			$var = '$' . $compiler->getVarName();
-			$compiler
-				->raw('((' . $var . ' = ')
-				->subcompile($this->getNode('node'))
-				->raw(') && is_array(')
-				->raw($var)
-				->raw(') || ')
-				->raw($var)
-				->raw(' instanceof ArrayAccess ? (')
-				->raw($var)
-				->raw('[')
-				->subcompile($this->getNode('attribute'))
-				->raw('] ?? null) : null)')
-			;
+		if ($this->getAttribute('is_defined_test')) {
+			if ($type === 'method') {
+				$compiler->raw('true');
+				return;
+			}
 
-			return;
+			$compiler->raw('isset(');
 		}
 
-		$compiler->raw('twig_get_attribute($this->env, $this->source, ');
+		$property = !$attr instanceof ConstantExpression || !is_int($attr->getAttribute('value'));
 
-		if ($this->getAttribute('ignore_strict_check')) {
-			$this->getNode('node')->setAttribute('ignore_strict_check', true);
-		}
+		$compiler->subcompile($this->getNode('node'))
+			->raw($property ? '->' : '[');
 
-		$compiler
-			->subcompile($this->getNode('node'))
-			->raw(', ')
-			->subcompile($this->getNode('attribute'))
-		;
-
-		if ($this->hasNode('arguments')) {
-			$compiler->raw(', ')->subcompile($this->getNode('arguments'));
+		if ($attr instanceof ConstantExpression) {
+			$compiler->raw($attr->getAttribute('value'));
 		} else {
-			$compiler->raw(', []');
+			$compiler
+				->raw('{')
+				->subcompile($this->getNode('attribute'))
+				->raw('}')
+			;
 		}
 
-		$compiler->raw(', ')
-			->repr($this->getAttribute('type'))
-			->raw(', ')->repr($this->getAttribute('is_defined_test'))
-			->raw(', ')->repr($this->getAttribute('ignore_strict_check'))
-			->raw(', ')->repr($env->hasExtension(SandboxExtension::class))
-			->raw(', ')->repr($this->getNode('node')->getTemplateLine())
-			->raw(')')
-		;
+		if (!$property) {
+			$compiler->raw(']');
+		}
+
+		if ($this->getAttribute('is_defined_test')) {
+			$compiler->raw(')');
+		}
+
+		if ($type === 'method') {
+			$args = $this->getNode('arguments');
+			$args->setAttribute('as_arguments', true);
+			$compiler->raw('(')
+				->subcompile($args)
+				->raw(')');
+		}
 	}
 }

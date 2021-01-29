@@ -22,16 +22,19 @@ use LatteTools\Twiggy\Compiler;
  */
 class BlockReferenceNode extends Node implements NodeOutputInterface
 {
-	public function __construct(string $name, int $lineno, string $tag = null)
+	public function __construct(string $name, int $lineno, string $tag = null, Node $body)
 	{
-		parent::__construct([], ['name' => $name], $lineno, $tag);
+		parent::__construct([], ['name' => $name, 'body' => $body], $lineno, $tag);
 	}
 
 
 	public function compile(Compiler $compiler): void
 	{
+		$name = $this->getAttribute('name');
 		$compiler
-			->write(sprintf("\$this->displayBlock('%s', \$context, \$blocks);\n", $this->getAttribute('name')))
+			->raw("{block $name}")
+			->subcompile($this->getAttribute('body'))
+			->raw('{/block}')
 		;
 	}
 }

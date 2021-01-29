@@ -30,13 +30,11 @@ class ConditionalExpression extends AbstractExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('((')
 			->subcompile($this->getNode('expr1'))
-			->raw(') ? (')
+			->raw(' ? ')
 			->subcompile($this->getNode('expr2'))
-			->raw(') : (')
+			->raw(' : ')
 			->subcompile($this->getNode('expr3'))
-			->raw('))')
 		;
 	}
 }

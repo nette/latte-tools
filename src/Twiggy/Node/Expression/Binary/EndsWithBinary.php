@@ -18,14 +18,12 @@ class EndsWithBinary extends AbstractBinary
 {
 	public function compile(Compiler $compiler): void
 	{
-		$left = $compiler->getVarName();
-		$right = $compiler->getVarName();
 		$compiler
-			->raw(sprintf('(is_string($%s = ', $left))
+			->raw('str_ends_with(')
 			->subcompile($this->getNode('left'))
-			->raw(sprintf(') && is_string($%s = ', $right))
+			->raw(', ')
 			->subcompile($this->getNode('right'))
-			->raw(sprintf(') && (\'\' === $%2$s || $%2$s === substr($%1$s, -strlen($%2$s))))', $left, $right))
+			->raw(')')
 		;
 	}
 

@@ -36,53 +36,39 @@ class BlockReferenceExpression extends AbstractExpression
 
 	public function compile(Compiler $compiler): void
 	{
+		$name = $this->getNode('name');
 		if ($this->getAttribute('is_defined_test')) {
-			$this->compileTemplateCall($compiler, 'hasBlock');
-		} else {
-			if ($this->getAttribute('output')) {
-				$this
-					->compileTemplateCall($compiler, 'displayBlock')
-					->raw(";\n");
-			} else {
-				$this->compileTemplateCall($compiler, 'renderBlock');
+			// TODO
+
+			if (iterator_count($this->getIterator()) > 1) {
+				$compiler->raw('/* NOT SUPPORTED ');
+				foreach ($this as $node) {
+					$compiler->subcompile($node)->raw(' ');
+				}
+				$compiler->raw(' */');
 			}
-		}
-	}
+			if ($name instanceof ConstantExpression) {
+				$compiler->raw('ifset ')
+					->raw($name->getAttribute('value'));
+			} else {
+				$compiler->raw('ifset block ')
+					->subcompile($name);
+			}
 
-
-	private function compileTemplateCall(Compiler $compiler, string $method): Compiler
-	{
-		if (!$this->hasNode('template')) {
-			$compiler->write('$this');
 		} else {
-			$compiler
-				->write('$this->loadTemplate(')
-				->subcompile($this->getNode('template'))
-				->raw(', ')
-				->repr($this->getTemplateName())
-				->raw(', ')
-				->repr($this->getTemplateLine())
-				->raw(')')
-			;
+			$compiler->raw('{include ');
+			if ($name instanceof ConstantExpression) {
+				$compiler->raw($name->getAttribute('value'));
+			} else {
+				$compiler->subcompile($name);
+			}
+
+			if ($this->hasNode('template')) {
+				$compiler->raw(' from ')
+					->subcompile($this->getNode('template'));
+			}
+
+			$compiler->raw('}');
 		}
-
-		$compiler->raw(sprintf('->%s', $method));
-
-		return $this->compileBlockArguments($compiler);
-	}
-
-
-	private function compileBlockArguments(Compiler $compiler): Compiler
-	{
-		$compiler
-			->raw('(')
-			->subcompile($this->getNode('name'))
-			->raw(', $context');
-
-		if (!$this->hasNode('template')) {
-			$compiler->raw(', $blocks');
-		}
-
-		return $compiler->raw(')');
 	}
 }

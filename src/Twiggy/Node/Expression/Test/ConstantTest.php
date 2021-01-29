@@ -29,9 +29,7 @@ class ConstantTest extends TestExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('(')
-			->subcompile($this->getNode('node'))
-			->raw(' === constant(')
+			->raw('constant(')
 		;
 
 		if ($this->getNode('arguments')->hasNode(1)) {
@@ -44,7 +42,8 @@ class ConstantTest extends TestExpression
 
 		$compiler
 			->subcompile($this->getNode('arguments')->getNode(0))
-			->raw('))')
+			->raw(') === ')
+			->subcompile($this->getNode('node'))
 		;
 	}
 }

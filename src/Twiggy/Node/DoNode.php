@@ -31,9 +31,9 @@ class DoNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->write('')
+			->raw('{do ')
 			->subcompile($this->getNode('expr'))
-			->raw(";\n")
+			->raw('}')
 		;
 	}
 }

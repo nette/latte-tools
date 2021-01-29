@@ -14,7 +14,6 @@ namespace LatteTools\Twiggy\Node;
 
 use LatteTools\Twiggy\Compiler;
 use LatteTools\Twiggy\Node\Expression\AbstractExpression;
-use LatteTools\Twiggy\Node\Expression\NameExpression;
 
 /**
  * Represents an import node.
@@ -37,36 +36,8 @@ class ImportNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->write('$macros[')
-			->repr($this->getNode('var')->getAttribute('name'))
-			->raw('] = ')
-		;
-
-		if ($this->getAttribute('global')) {
-			$compiler
-				->raw('$this->macros[')
-				->repr($this->getNode('var')->getAttribute('name'))
-				->raw('] = ')
-			;
-		}
-
-		if (
-			$this->getNode('expr') instanceof NameExpression
-			&& $this->getNode('expr')->getAttribute('name') === '_self'
-		) {
-			$compiler->raw('$this');
-		} else {
-			$compiler
-				->raw('$this->loadTemplate(')
-				->subcompile($this->getNode('expr'))
-				->raw(', ')
-				->repr($this->getTemplateName())
-				->raw(', ')
-				->repr($this->getTemplateLine())
-				->raw(')->unwrap()')
-			;
-		}
-
-		$compiler->raw(";\n");
+			->raw('{import ')
+			->subcompile($this->getNode('expr'))
+			->raw('}');
 	}
 }

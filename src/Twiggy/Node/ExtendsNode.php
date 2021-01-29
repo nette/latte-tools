@@ -5,7 +5,6 @@ declare(strict_types=1);
  * This file is part of Twig.
  *
  * (c) Fabien Potencier
- * (c) Armin Ronacher
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,22 +13,22 @@ declare(strict_types=1);
 namespace LatteTools\Twiggy\Node;
 
 use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 
-/**
- * Represents a text node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
- */
-class TextNode extends Node implements NodeOutputInterface
+class ExtendsNode extends Node
 {
-	public function __construct(string $data, int $lineno)
+	public function __construct(AbstractExpression $expr, int $lineno, string $tag = null)
 	{
-		parent::__construct([], ['data' => $data], $lineno);
+		parent::__construct(['expr' => $expr], [], $lineno, $tag);
 	}
 
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler->raw($this->getAttribute('data'));
+		$compiler
+			->raw('{extends ')
+			->subcompile($this->getNode('expr'))
+			->raw('}')
+		;
 	}
 }

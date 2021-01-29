@@ -41,24 +41,14 @@ class MethodCallExpression extends AbstractExpression
 		}
 
 		$compiler
-			->raw('twig_call_macro($macros[')
-			->repr($this->getNode('node')->getAttribute('name'))
-			->raw('], ')
+			->raw('{include ')
 			->repr($this->getAttribute('method'))
-			->raw(', [')
 		;
-		$first = true;
 		foreach ($this->getNode('arguments')->getKeyValuePairs() as $pair) {
-			if (!$first) {
-				$compiler->raw(', ');
-			}
-			$first = false;
-
+			$compiler->raw(', ');
 			$compiler->subcompile($pair['value']);
 		}
 		$compiler
-			->raw('], ')
-			->repr($this->getTemplateLine())
-			->raw(', $context, $this->getSourceContext())');
+			->raw('}');
 	}
 }

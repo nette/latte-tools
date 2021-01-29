@@ -10,28 +10,25 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace LatteTools\Twiggy\Node\Expression;
+namespace LatteTools\Twiggy\Node;
 
 use LatteTools\Twiggy\Compiler;
-use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 
-/**
- * @internal
- */
-final class InlinePrint extends AbstractExpression
+class UseNode extends Node
 {
-	public function __construct(Node $node, int $lineno)
+	public function __construct(AbstractExpression $expr, int $lineno, string $tag = null)
 	{
-		parent::__construct(['node' => $node], [], $lineno);
+		parent::__construct(['expr' => $expr], [], $lineno, $tag);
 	}
 
 
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('print (')
-			->subcompile($this->getNode('node'))
-			->raw(')')
+			->raw('{import ')
+			->subcompile($this->getNode('expr'))
+			->raw('}')
 		;
 	}
 }

@@ -30,16 +30,7 @@ class SandboxNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->write("if (!\$alreadySandboxed = \$this->sandbox->isSandboxed()) {\n")
-			->write("\$this->sandbox->enableSandbox();\n")
-			->write("}\n")
-			->write("try {\n")
 			->subcompile($this->getNode('body'))
-			->write("} finally {\n")
-			->write("if (!\$alreadySandboxed) {\n")
-			->write("\$this->sandbox->disableSandbox();\n")
-			->write("}\n")
-			->write("}\n")
 		;
 	}
 }

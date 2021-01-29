@@ -14,7 +14,6 @@ namespace LatteTools\Twiggy\Node;
 
 use LatteTools\Twiggy\Compiler;
 use LatteTools\Twiggy\Node\Expression\AbstractExpression;
-use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 
 /**
  * Represents a deprecated node.
@@ -32,22 +31,12 @@ class DeprecatedNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$expr = $this->getNode('expr');
-
-		if ($expr instanceof ConstantExpression) {
-			$compiler->write('@trigger_error(')
-				->subcompile($expr);
-		} else {
-			$varName = $compiler->getVarName();
-			$compiler->write(sprintf('$%s = ', $varName))
-				->subcompile($expr)
-				->raw(";\n")
-				->write(sprintf('@trigger_error($%s', $varName));
-		}
-
 		$compiler
-			->raw('.')
+			->raw('{do trigger_error(')
+			->subcompile($expr)
+			->raw(' . ')
 			->string(sprintf(' ("%s" at line %d).', $this->getTemplateName(), $this->getTemplateLine()))
-			->raw(", E_USER_DEPRECATED);\n")
+			->raw(', E_USER_DEPRECATED) }')
 		;
 	}
 }

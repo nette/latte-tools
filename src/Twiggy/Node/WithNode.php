@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace LatteTools\Twiggy\Node;
 
 use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\ArrayExpression;
 
 /**
  * Represents a nested "with" scope.
@@ -36,33 +37,40 @@ class WithNode extends Node
 	{
 		$parentContextName = $compiler->getVarName();
 
-		$compiler->write(sprintf("\$%s = \$context;\n", $parentContextName));
+		$compiler->raw('{block}');
 
 		if ($this->hasNode('variables')) {
-			$node = $this->getNode('variables');
-			$varsName = $compiler->getVarName();
-			$compiler
-				->write(sprintf('$%s = ', $varsName))
-				->subcompile($node)
-				->raw(";\n")
-				->write(sprintf("if (!twig_test_iterable(\$%s)) {\n", $varsName))
-				->write("throw new RuntimeError('Variables passed to the \"with\" tag must be a hash.', ")
-				->repr($node->getTemplateLine())
-				->raw(", \$this->getSourceContext());\n")
-				->write("}\n")
-				->write(sprintf("\$%s = twig_to_array(\$%s);\n", $varsName, $varsName))
-			;
-
-			if ($this->getAttribute('only')) {
-				$compiler->write("\$context = [];\n");
+			$vars = $this->getNode('variables');
+			if ($vars instanceof ArrayExpression) {
+				$vars = $vars->getKeyValuePairs();
+				if ($vars) {
+					$compiler->raw("\n{var ");
+					foreach ($vars as $id => $pair) {
+						if ($id) {
+							$compiler->raw(', ');
+						}
+						$compiler->subcompile($pair['key'])
+							->raw(' = ')
+							->subcompile($pair['value']);
+					}
+					$compiler->raw('}');
+				}
+			} else {
+				$compiler
+					->raw("\n{var ")
+					->subcompile($vars)
+					->raw('}')
+				;
 			}
 
-			$compiler->write(sprintf("\$context = \$this->env->mergeGlobals(array_merge(\$context, \$%s));\n", $varsName));
+			if ($this->getAttribute('only')) {
+				$compiler->raw("{* WARNING: 'only' is not supported *}");
+			}
 		}
 
 		$compiler
 			->subcompile($this->getNode('body'))
-			->write(sprintf("\$context = \$%s;\n", $parentContextName))
+			->raw('{/block}')
 		;
 	}
 }

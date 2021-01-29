@@ -14,7 +14,6 @@ namespace LatteTools\Twiggy\Node\Expression;
 
 use LatteTools\Twiggy\Compiler;
 use LatteTools\Twiggy\Error\SyntaxError;
-use LatteTools\Twiggy\Extension\ExtensionInterface;
 use LatteTools\Twiggy\Node\Node;
 
 abstract class CallExpression extends AbstractExpression
@@ -24,63 +23,17 @@ abstract class CallExpression extends AbstractExpression
 
 	protected function compileCallable(Compiler $compiler)
 	{
-		$callable = $this->getAttribute('callable');
-
-		$closingParenthesis = false;
-		$isArray = false;
-		if (\is_string($callable) && strpos($callable, '::') === false) {
-			$compiler->raw($callable);
-		} else {
-			[$r, $callable] = $this->reflectCallable($callable);
-			if ($r instanceof \ReflectionMethod && \is_string($callable[0])) {
-				if ($r->isStatic()) {
-					$compiler->raw(sprintf('%s::%s', $callable[0], $callable[1]));
-				} else {
-					$compiler->raw(sprintf('$this->env->getRuntime(\'%s\')->%s', $callable[0], $callable[1]));
-				}
-			} elseif ($r instanceof \ReflectionMethod && $callable[0] instanceof ExtensionInterface) {
-				$class = \get_class($callable[0]);
-				if (!$compiler->getEnvironment()->hasExtension($class)) {
-					// Compile a non-optimized call to trigger a \LatteTools\Twiggy\Error\RuntimeError, which cannot be a compile-time error
-					$compiler->raw(sprintf('$this->env->getExtension(\'%s\')', $class));
-				} else {
-					$compiler->raw(sprintf('$this->extensions[\'%s\']', ltrim($class, '\\')));
-				}
-
-				$compiler->raw(sprintf('->%s', $callable[1]));
-			} else {
-				$closingParenthesis = true;
-				$isArray = true;
-				$compiler->raw(sprintf('call_user_func_array($this->env->get%s(\'%s\')->getCallable(), ', ucfirst($this->getAttribute('type')), $this->getAttribute('name')));
-			}
-		}
-
-		$this->compileArguments($compiler, $isArray);
-
-		if ($closingParenthesis) {
-			$compiler->raw(')');
-		}
+		$name = $this->getAttribute('name');
+		$compiler->raw($name);
+		$this->compileArguments($compiler);
 	}
 
 
-	protected function compileArguments(Compiler $compiler, $isArray = false): void
+	protected function compileArguments(Compiler $compiler): void
 	{
-		$compiler->raw($isArray ? '[' : '(');
+		$compiler->raw('(');
 
 		$first = true;
-
-		if ($this->hasAttribute('needs_environment') && $this->getAttribute('needs_environment')) {
-			$compiler->raw('$this->env');
-			$first = false;
-		}
-
-		if ($this->hasAttribute('needs_context') && $this->getAttribute('needs_context')) {
-			if (!$first) {
-				$compiler->raw(', ');
-			}
-			$compiler->raw('$context');
-			$first = false;
-		}
 
 		if ($this->hasAttribute('arguments')) {
 			foreach ($this->getAttribute('arguments') as $argument) {
@@ -112,7 +65,7 @@ abstract class CallExpression extends AbstractExpression
 			}
 		}
 
-		$compiler->raw($isArray ? ']' : ')');
+		$compiler->raw(')');
 	}
 
 

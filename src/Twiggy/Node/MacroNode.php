@@ -14,6 +14,7 @@ namespace LatteTools\Twiggy\Node;
 
 use LatteTools\Twiggy\Compiler;
 use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 
 /**
  * Represents a macro node.
@@ -40,68 +41,23 @@ class MacroNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->write(sprintf('public function macro_%s(', $this->getAttribute('name')))
-		;
+			->raw('{define ')
+			->raw($this->getAttribute('name'));
 
-		$count = \count($this->getNode('arguments'));
-		$pos = 0;
+
 		foreach ($this->getNode('arguments') as $name => $default) {
-			$compiler
-				->raw('$__' . $name . '__ = ')
-				->subcompile($default)
-			;
-
-			if (++$pos < $count) {
-				$compiler->raw(', ');
+			$compiler->raw(', ');
+			if ($default instanceof ConstantExpression && $default->getAttribute('value') === null) {
+				$compiler->raw('$' . $name);
+			} else {
+				$compiler
+					->raw('$' . $name . ' = ')
+					->subcompile($default);
 			}
 		}
 
-		if ($count) {
-			$compiler->raw(', ');
-		}
-
-		$compiler
-			->raw('...$__varargs__')
-			->raw(")\n")
-			->write("{\n")
-			->write("\$macros = \$this->macros;\n")
-			->write("\$context = \$this->env->mergeGlobals([\n")
-		;
-
-		foreach ($this->getNode('arguments') as $name => $default) {
-			$compiler
-				->write('')
-				->string($name)
-				->raw(' => $__' . $name . '__')
-				->raw(",\n")
-			;
-		}
-
-		$compiler
-			->write('')
-			->string(self::VARARGS_NAME)
-			->raw(' => ')
-		;
-
-		$compiler
-			->raw("\$__varargs__,\n")
-			->write("]);\n\n")
-			->write("\$blocks = [];\n\n")
-		;
-		if ($compiler->getEnvironment()->isDebug()) {
-			$compiler->write("ob_start();\n");
-		} else {
-			$compiler->write("ob_start(function () { return ''; });\n");
-		}
-		$compiler
-			->write("try {\n")
+		$compiler->raw('}')
 			->subcompile($this->getNode('body'))
-			->raw("\n")
-			->write("return ('' === \$tmp = ob_get_contents()) ? '' : new Markup(\$tmp, \$this->env->getCharset());\n")
-			->write("} finally {\n")
-			->write("ob_end_clean();\n")
-			->write("}\n")
-			->write("}\n\n")
-		;
+			->raw('{/define}');
 	}
 }

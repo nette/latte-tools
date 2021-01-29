@@ -35,10 +35,29 @@ class FunctionExpression extends CallExpression
 		$this->setAttribute('arguments', $function->getArguments());
 		$callable = $function->getCallable();
 		if ($name === 'constant' && $this->getAttribute('is_defined_test')) {
-			$callable = 'twig_constant_is_defined';
+			$callable = 'defined';
+			$this->setAttribute('name', 'defined');
 		}
 		$this->setAttribute('callable', $callable);
 		$this->setAttribute('is_variadic', $function->isVariadic());
+
+		if ($name === 'include') {
+			if (!$this->hasAttribute('is_topmost')) {
+				//$compiler->raw('/* NOT SUPPORTED */ ');
+			}
+
+			$first = true;
+			$compiler->raw('{include ');
+			$arguments = $this->getArguments($callable, $this->getNode('arguments'));
+			foreach ($arguments as $node) {
+				$compiler->raw($first ? '' : ', ');
+				$compiler->subcompile($node);
+				$first = false;
+			}
+
+			$compiler->raw('}');
+			return;
+		}
 
 		$this->compileCallable($compiler);
 	}

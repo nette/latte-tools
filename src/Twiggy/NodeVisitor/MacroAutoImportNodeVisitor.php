@@ -61,7 +61,7 @@ final class MacroAutoImportNodeVisitor implements NodeVisitorInterface
 				$this->hasMacroCalls = true;
 
 				$name = $node->getNode('attribute')->getAttribute('value');
-				$node = new MethodCallExpression($node->getNode('node'), 'macro_' . $name, $node->getNode('arguments'), $node->getTemplateLine());
+				$node = new MethodCallExpression($node->getNode('node'), $name, $node->getNode('arguments'), $node->getTemplateLine());
 				$node->setAttribute('safe', true);
 			}
 		}

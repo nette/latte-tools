@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LatteTools\Twiggy\TokenParser;
 
 use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\ExtendsNode;
 use LatteTools\Twiggy\Node\Node;
 use LatteTools\Twiggy\Token;
 
@@ -39,11 +40,11 @@ final class ExtendsTokenParser extends AbstractTokenParser
 		if ($this->parser->getParent() !== null) {
 			throw new SyntaxError('Multiple extends tags are forbidden.', $token->getLine(), $stream->getSourceContext());
 		}
-		$this->parser->setParent($this->parser->getExpressionParser()->parseExpression());
+		$expr = $this->parser->getExpressionParser()->parseExpression();
 
 		$stream->expect(Token::BLOCK_END_TYPE);
 
-		return new Node;
+		return new ExtendsNode($expr, $token->getLine(), $this->getTag());
 	}
 
 

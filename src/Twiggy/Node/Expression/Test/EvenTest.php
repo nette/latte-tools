@@ -27,10 +27,8 @@ class EvenTest extends TestExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('(')
 			->subcompile($this->getNode('node'))
-			->raw(' % 2 == 0')
-			->raw(')')
+			->raw(' % 2 === 0')
 		;
 	}
 }

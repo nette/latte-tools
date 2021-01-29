@@ -32,16 +32,32 @@ class FilterExpression extends CallExpression
 	public function compile(Compiler $compiler): void
 	{
 		$name = $this->getNode('filter')->getAttribute('value');
-		$filter = $compiler->getEnvironment()->getFilter($name);
+		$topMost = $this->hasAttribute('is_topmost');
+		$node = $this->getNode('node');
+		if ($topMost) {
+			$node->setAttribute('is_topmost', true);
+		}
 
-		$this->setAttribute('name', $name);
-		$this->setAttribute('type', 'filter');
-		$this->setAttribute('needs_environment', $filter->needsEnvironment());
-		$this->setAttribute('needs_context', $filter->needsContext());
-		$this->setAttribute('arguments', $filter->getArguments());
-		$this->setAttribute('callable', $filter->getCallable());
-		$this->setAttribute('is_variadic', $filter->isVariadic());
+		$compiler
+			->raw($topMost ? '' : '(')
+			->subcompile($node);
 
-		$this->compileCallable($compiler);
+		$compiler->raw('|' . $name);
+
+		if ($this->hasNode('arguments')) {
+			$arguments = $this->getNode('arguments');
+			$first = true;
+			foreach ($arguments as $name => $node) {
+				$compiler->raw($first ? ':' : ', ');
+				if (is_string($name)) {
+					$compiler->raw($name . ': ');
+				}
+				$compiler->subcompile($node);
+				$first = false;
+			}
+		}
+
+		$compiler
+			->raw($topMost ? '' : ')');
 	}
 }

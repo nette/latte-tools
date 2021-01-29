@@ -69,7 +69,7 @@ class Compiler
 	/**
 	 * @return $this
 	 */
-	public function subcompile(Node $node, bool $raw = true)
+	public function subcompile(Node $node)
 	{
 		$node->compile($this);
 
@@ -126,6 +126,7 @@ class Compiler
 	public function repr($value)
 	{
 		if (\is_int($value) || \is_float($value)) {
+			ini_set('serialize_precision', '14');
 			if (false !== $locale = setlocale(LC_NUMERIC, '0')) {
 				setlocale(LC_NUMERIC, 'C');
 			}
@@ -140,18 +141,21 @@ class Compiler
 		} elseif (\is_bool($value)) {
 			$this->raw($value ? 'true' : 'false');
 		} elseif (\is_array($value)) {
-			$this->raw('array(');
+			$this->raw('[');
 			$first = true;
+			$counter = 0;
 			foreach ($value as $key => $v) {
 				if (!$first) {
 					$this->raw(', ');
 				}
 				$first = false;
-				$this->repr($key);
-				$this->raw(' => ');
+				if ($key !== $counter++) {
+					$this->repr($key);
+					$this->raw($this->isSymbol($key) ? ': ' : ' => ');
+				}
 				$this->repr($v);
 			}
-			$this->raw(')');
+			$this->raw(']');
 		} else {
 			$this->string($value);
 		}

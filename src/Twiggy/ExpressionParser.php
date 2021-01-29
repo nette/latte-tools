@@ -443,10 +443,6 @@ class ExpressionParser
 					throw new SyntaxError('Calling "parent" outside a block is forbidden.', $line, $this->parser->getStream()->getSourceContext());
 				}
 
-				if (!$this->parser->getParent() && !$this->parser->hasTraits()) {
-					throw new SyntaxError('Calling "parent" on a template that does not extend nor "use" another template is forbidden.', $line, $this->parser->getStream()->getSourceContext());
-				}
-
 				return new ParentExpression($this->parser->peekBlockStack(), $line);
 			case 'block':
 				$args = $this->parseArguments();
@@ -521,7 +517,7 @@ class ExpressionParser
 
 				$name = $arg->getAttribute('value');
 
-				$node = new MethodCallExpression($node, 'macro_' . $name, $arguments, $lineno);
+				$node = new MethodCallExpression($node, $name, $arguments, $lineno);
 				$node->setAttribute('safe', true);
 
 				return $node;

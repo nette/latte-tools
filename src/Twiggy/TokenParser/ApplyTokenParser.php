@@ -12,10 +12,8 @@ declare(strict_types=1);
 
 namespace LatteTools\Twiggy\TokenParser;
 
-use LatteTools\Twiggy\Node\Expression\TempNameExpression;
+use LatteTools\Twiggy\Node\BlockNode;
 use LatteTools\Twiggy\Node\Node;
-use LatteTools\Twiggy\Node\PrintNode;
-use LatteTools\Twiggy\Node\SetNode;
 use LatteTools\Twiggy\Token;
 
 /**
@@ -32,21 +30,14 @@ final class ApplyTokenParser extends AbstractTokenParser
 	public function parse(Token $token): Node
 	{
 		$lineno = $token->getLine();
-		$name = $this->parser->getVarName();
-
-		$ref = new TempNameExpression($name, $lineno);
-		$ref->setAttribute('always_defined', true);
-
+		$ref = new Node;
 		$filter = $this->parser->getExpressionParser()->parseFilterExpressionRaw($ref, $this->getTag());
 
 		$this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 		$body = $this->parser->subparse([$this, 'decideApplyEnd'], true);
 		$this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
-		return new Node([
-			new SetNode(true, $ref, $body, $lineno, $this->getTag()),
-			new PrintNode($filter, $lineno, $this->getTag()),
-		]);
+		return new BlockNode('', $body, $lineno, $filter);
 	}
 
 
