@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -21,18 +22,19 @@ use LatteTools\Twiggy\Node\Expression\AbstractExpression;
  */
 class DoNode extends Node
 {
-    public function __construct(AbstractExpression $expr, int $lineno, string $tag = null)
-    {
-        parent::__construct(['expr' => $expr], [], $lineno, $tag);
-    }
+	public function __construct(AbstractExpression $expr, int $lineno, string $tag = null)
+	{
+		parent::__construct(['expr' => $expr], [], $lineno, $tag);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->addDebugInfo($this)
-            ->write('')
-            ->subcompile($this->getNode('expr'))
-            ->raw(";\n")
-        ;
-    }
+
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->addDebugInfo($this)
+			->write('')
+			->subcompile($this->getNode('expr'))
+			->raw(";\n")
+		;
+	}
 }

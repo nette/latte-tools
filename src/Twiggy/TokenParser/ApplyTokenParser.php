@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -28,33 +29,35 @@ use LatteTools\Twiggy\Token;
  */
 final class ApplyTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token): Node
-    {
-        $lineno = $token->getLine();
-        $name = $this->parser->getVarName();
+	public function parse(Token $token): Node
+	{
+		$lineno = $token->getLine();
+		$name = $this->parser->getVarName();
 
-        $ref = new TempNameExpression($name, $lineno);
-        $ref->setAttribute('always_defined', true);
+		$ref = new TempNameExpression($name, $lineno);
+		$ref->setAttribute('always_defined', true);
 
-        $filter = $this->parser->getExpressionParser()->parseFilterExpressionRaw($ref, $this->getTag());
+		$filter = $this->parser->getExpressionParser()->parseFilterExpressionRaw($ref, $this->getTag());
 
-        $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
-        $body = $this->parser->subparse([$this, 'decideApplyEnd'], true);
-        $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
+		$this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
+		$body = $this->parser->subparse([$this, 'decideApplyEnd'], true);
+		$this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
-        return new Node([
-            new SetNode(true, $ref, $body, $lineno, $this->getTag()),
-            new PrintNode($filter, $lineno, $this->getTag()),
-        ]);
-    }
+		return new Node([
+			new SetNode(true, $ref, $body, $lineno, $this->getTag()),
+			new PrintNode($filter, $lineno, $this->getTag()),
+		]);
+	}
 
-    public function decideApplyEnd(Token $token): bool
-    {
-        return $token->test('endapply');
-    }
 
-    public function getTag(): string
-    {
-        return 'apply';
-    }
+	public function decideApplyEnd(Token $token): bool
+	{
+		return $token->test('endapply');
+	}
+
+
+	public function getTag(): string
+	{
+		return 'apply';
+	}
 }

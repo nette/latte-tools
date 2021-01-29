@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -22,154 +23,172 @@ use LatteTools\Twiggy\Source;
  */
 class Node implements \Countable, \IteratorAggregate
 {
-    protected $nodes;
-    protected $attributes;
-    protected $lineno;
-    protected $tag;
+	protected $nodes;
+	protected $attributes;
+	protected $lineno;
+	protected $tag;
 
-    private $name;
-    private $sourceContext;
+	private $name;
+	private $sourceContext;
 
-    /**
-     * @param array  $nodes      An array of named nodes
-     * @param array  $attributes An array of attributes (should not be nodes)
-     * @param int    $lineno     The line number
-     * @param string $tag        The tag name associated with the Node
-     */
-    public function __construct(array $nodes = [], array $attributes = [], int $lineno = 0, string $tag = null)
-    {
-        foreach ($nodes as $name => $node) {
-            if (!$node instanceof self) {
-                throw new \InvalidArgumentException(sprintf('Using "%s" for the value of node "%s" of "%s" is not supported. You must pass a \LatteTools\Twiggy\Node\Node instance.', \is_object($node) ? \get_class($node) : (null === $node ? 'null' : \gettype($node)), $name, static::class));
-            }
-        }
-        $this->nodes = $nodes;
-        $this->attributes = $attributes;
-        $this->lineno = $lineno;
-        $this->tag = $tag;
-    }
 
-    public function __toString()
-    {
-        $attributes = [];
-        foreach ($this->attributes as $name => $value) {
-            $attributes[] = sprintf('%s: %s', $name, str_replace("\n", '', var_export($value, true)));
-        }
+	/**
+	 * @param array  $nodes      An array of named nodes
+	 * @param array  $attributes An array of attributes (should not be nodes)
+	 * @param int    $lineno     The line number
+	 * @param string $tag        The tag name associated with the Node
+	 */
+	public function __construct(array $nodes = [], array $attributes = [], int $lineno = 0, string $tag = null)
+	{
+		foreach ($nodes as $name => $node) {
+			if (!$node instanceof self) {
+				throw new \InvalidArgumentException(sprintf('Using "%s" for the value of node "%s" of "%s" is not supported. You must pass a \LatteTools\Twiggy\Node\Node instance.', \is_object($node) ? \get_class($node) : ($node === null ? 'null' : \gettype($node)), $name, static::class));
+			}
+		}
+		$this->nodes = $nodes;
+		$this->attributes = $attributes;
+		$this->lineno = $lineno;
+		$this->tag = $tag;
+	}
 
-        $repr = [static::class.'('.implode(', ', $attributes)];
 
-        if (\count($this->nodes)) {
-            foreach ($this->nodes as $name => $node) {
-                $len = \strlen($name) + 4;
-                $noderepr = [];
-                foreach (explode("\n", (string) $node) as $line) {
-                    $noderepr[] = str_repeat(' ', $len).$line;
-                }
+	public function __toString()
+	{
+		$attributes = [];
+		foreach ($this->attributes as $name => $value) {
+			$attributes[] = sprintf('%s: %s', $name, str_replace("\n", '', var_export($value, true)));
+		}
 
-                $repr[] = sprintf('  %s: %s', $name, ltrim(implode("\n", $noderepr)));
-            }
+		$repr = [static::class . '(' . implode(', ', $attributes)];
 
-            $repr[] = ')';
-        } else {
-            $repr[0] .= ')';
-        }
+		if (\count($this->nodes)) {
+			foreach ($this->nodes as $name => $node) {
+				$len = \strlen($name) + 4;
+				$noderepr = [];
+				foreach (explode("\n", (string) $node) as $line) {
+					$noderepr[] = str_repeat(' ', $len) . $line;
+				}
 
-        return implode("\n", $repr);
-    }
+				$repr[] = sprintf('  %s: %s', $name, ltrim(implode("\n", $noderepr)));
+			}
 
-    /**
-     * @return void
-     */
-    public function compile(Compiler $compiler)
-    {
-        foreach ($this->nodes as $node) {
-            $node->compile($compiler);
-        }
-    }
+			$repr[] = ')';
+		} else {
+			$repr[0] .= ')';
+		}
 
-    public function getTemplateLine(): int
-    {
-        return $this->lineno;
-    }
+		return implode("\n", $repr);
+	}
 
-    public function getNodeTag(): ?string
-    {
-        return $this->tag;
-    }
 
-    public function hasAttribute(string $name): bool
-    {
-        return \array_key_exists($name, $this->attributes);
-    }
+	/**
+	 * @return void
+	 */
+	public function compile(Compiler $compiler)
+	{
+		foreach ($this->nodes as $node) {
+			$node->compile($compiler);
+		}
+	}
 
-    public function getAttribute(string $name)
-    {
-        if (!\array_key_exists($name, $this->attributes)) {
-            throw new \LogicException(sprintf('Attribute "%s" does not exist for Node "%s".', $name, static::class));
-        }
 
-        return $this->attributes[$name];
-    }
+	public function getTemplateLine(): int
+	{
+		return $this->lineno;
+	}
 
-    public function setAttribute(string $name, $value): void
-    {
-        $this->attributes[$name] = $value;
-    }
 
-    public function removeAttribute(string $name): void
-    {
-        unset($this->attributes[$name]);
-    }
+	public function getNodeTag(): ?string
+	{
+		return $this->tag;
+	}
 
-    public function hasNode(string $name): bool
-    {
-        return isset($this->nodes[$name]);
-    }
 
-    public function getNode(string $name): self
-    {
-        if (!isset($this->nodes[$name])) {
-            throw new \LogicException(sprintf('Node "%s" does not exist for Node "%s".', $name, static::class));
-        }
+	public function hasAttribute(string $name): bool
+	{
+		return \array_key_exists($name, $this->attributes);
+	}
 
-        return $this->nodes[$name];
-    }
 
-    public function setNode(string $name, self $node): void
-    {
-        $this->nodes[$name] = $node;
-    }
+	public function getAttribute(string $name)
+	{
+		if (!\array_key_exists($name, $this->attributes)) {
+			throw new \LogicException(sprintf('Attribute "%s" does not exist for Node "%s".', $name, static::class));
+		}
 
-    public function removeNode(string $name): void
-    {
-        unset($this->nodes[$name]);
-    }
+		return $this->attributes[$name];
+	}
 
-    public function count()
-    {
-        return \count($this->nodes);
-    }
 
-    public function getIterator(): \Traversable
-    {
-        return new \ArrayIterator($this->nodes);
-    }
+	public function setAttribute(string $name, $value): void
+	{
+		$this->attributes[$name] = $value;
+	}
 
-    public function getTemplateName(): ?string
-    {
-        return $this->sourceContext ? $this->sourceContext->getName() : null;
-    }
 
-    public function setSourceContext(Source $source): void
-    {
-        $this->sourceContext = $source;
-        foreach ($this->nodes as $node) {
-            $node->setSourceContext($source);
-        }
-    }
+	public function removeAttribute(string $name): void
+	{
+		unset($this->attributes[$name]);
+	}
 
-    public function getSourceContext(): ?Source
-    {
-        return $this->sourceContext;
-    }
+
+	public function hasNode(string $name): bool
+	{
+		return isset($this->nodes[$name]);
+	}
+
+
+	public function getNode(string $name): self
+	{
+		if (!isset($this->nodes[$name])) {
+			throw new \LogicException(sprintf('Node "%s" does not exist for Node "%s".', $name, static::class));
+		}
+
+		return $this->nodes[$name];
+	}
+
+
+	public function setNode(string $name, self $node): void
+	{
+		$this->nodes[$name] = $node;
+	}
+
+
+	public function removeNode(string $name): void
+	{
+		unset($this->nodes[$name]);
+	}
+
+
+	public function count()
+	{
+		return \count($this->nodes);
+	}
+
+
+	public function getIterator(): \Traversable
+	{
+		return new \ArrayIterator($this->nodes);
+	}
+
+
+	public function getTemplateName(): ?string
+	{
+		return $this->sourceContext ? $this->sourceContext->getName() : null;
+	}
+
+
+	public function setSourceContext(Source $source): void
+	{
+		$this->sourceContext = $source;
+		foreach ($this->nodes as $node) {
+			$node->setSourceContext($source);
+		}
+	}
+
+
+	public function getSourceContext(): ?Source
+	{
+		return $this->sourceContext;
+	}
 }

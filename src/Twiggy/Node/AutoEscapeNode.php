@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -26,13 +27,14 @@ use LatteTools\Twiggy\Compiler;
  */
 class AutoEscapeNode extends Node
 {
-    public function __construct($value, Node $body, int $lineno, string $tag = 'autoescape')
-    {
-        parent::__construct(['body' => $body], ['value' => $value], $lineno, $tag);
-    }
+	public function __construct($value, Node $body, int $lineno, string $tag = 'autoescape')
+	{
+		parent::__construct(['body' => $body], ['value' => $value], $lineno, $tag);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler->subcompile($this->getNode('body'));
-    }
+
+	public function compile(Compiler $compiler): void
+	{
+		$compiler->subcompile($this->getNode('body'));
+	}
 }

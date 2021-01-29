@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -24,35 +25,37 @@ use LatteTools\Twiggy\Token;
  */
 final class AutoEscapeTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token): Node
-    {
-        $lineno = $token->getLine();
-        $stream = $this->parser->getStream();
+	public function parse(Token $token): Node
+	{
+		$lineno = $token->getLine();
+		$stream = $this->parser->getStream();
 
-        if ($stream->test(/* Token::BLOCK_END_TYPE */ 3)) {
-            $value = 'html';
-        } else {
-            $expr = $this->parser->getExpressionParser()->parseExpression();
-            if (!$expr instanceof ConstantExpression) {
-                throw new SyntaxError('An escaping strategy must be a string or false.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
-            }
-            $value = $expr->getAttribute('value');
-        }
+		if ($stream->test(/* Token::BLOCK_END_TYPE */ 3)) {
+			$value = 'html';
+		} else {
+			$expr = $this->parser->getExpressionParser()->parseExpression();
+			if (!$expr instanceof ConstantExpression) {
+				throw new SyntaxError('An escaping strategy must be a string or false.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
+			}
+			$value = $expr->getAttribute('value');
+		}
 
-        $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
-        $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
-        $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
+		$stream->expect(/* Token::BLOCK_END_TYPE */ 3);
+		$body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
+		$stream->expect(/* Token::BLOCK_END_TYPE */ 3);
 
-        return new AutoEscapeNode($value, $body, $lineno, $this->getTag());
-    }
+		return new AutoEscapeNode($value, $body, $lineno, $this->getTag());
+	}
 
-    public function decideBlockEnd(Token $token): bool
-    {
-        return $token->test('endautoescape');
-    }
 
-    public function getTag(): string
-    {
-        return 'autoescape';
-    }
+	public function decideBlockEnd(Token $token): bool
+	{
+		return $token->test('endautoescape');
+	}
+
+
+	public function getTag(): string
+	{
+		return 'autoescape';
+	}
 }

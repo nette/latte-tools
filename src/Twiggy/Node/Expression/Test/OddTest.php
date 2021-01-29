@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -23,13 +24,13 @@ use LatteTools\Twiggy\Node\Expression\TestExpression;
  */
 class OddTest extends TestExpression
 {
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->raw('(')
-            ->subcompile($this->getNode('node'))
-            ->raw(' % 2 != 0')
-            ->raw(')')
-        ;
-    }
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->raw('(')
+			->subcompile($this->getNode('node'))
+			->raw(' % 2 != 0')
+			->raw(')')
+		;
+	}
 }

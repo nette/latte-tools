@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -22,25 +23,25 @@ namespace LatteTools\Twiggy\Cache;
  */
 interface CacheInterface
 {
-    /**
-     * Generates a cache key for the given template class name.
-     */
-    public function generateKey(string $name, string $className): string;
+	/**
+	 * Generates a cache key for the given template class name.
+	 */
+	public function generateKey(string $name, string $className): string;
 
-    /**
-     * Writes the compiled template to cache.
-     *
-     * @param string $content The template representation as a PHP class
-     */
-    public function write(string $key, string $content): void;
+	/**
+	 * Writes the compiled template to cache.
+	 *
+	 * @param string $content The template representation as a PHP class
+	 */
+	public function write(string $key, string $content): void;
 
-    /**
-     * Loads a template from the cache.
-     */
-    public function load(string $key): void;
+	/**
+	 * Loads a template from the cache.
+	 */
+	public function load(string $key): void;
 
-    /**
-     * Returns the modification timestamp of a key.
-     */
-    public function getTimestamp(string $key): int;
+	/**
+	 * Returns the modification timestamp of a key.
+	 */
+	public function getTimestamp(string $key): int;
 }

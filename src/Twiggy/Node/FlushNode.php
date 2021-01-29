@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -20,16 +21,17 @@ use LatteTools\Twiggy\Compiler;
  */
 class FlushNode extends Node
 {
-    public function __construct(int $lineno, string $tag)
-    {
-        parent::__construct([], [], $lineno, $tag);
-    }
+	public function __construct(int $lineno, string $tag)
+	{
+		parent::__construct([], [], $lineno, $tag);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->addDebugInfo($this)
-            ->write("flush();\n")
-        ;
-    }
+
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->addDebugInfo($this)
+			->write("flush();\n")
+		;
+	}
 }

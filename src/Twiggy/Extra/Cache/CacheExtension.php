@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -16,10 +17,10 @@ use LatteTools\Twiggy\Extra\Cache\TokenParser\CacheTokenParser;
 
 final class CacheExtension extends AbstractExtension
 {
-    public function getTokenParsers()
-    {
-        return [
-            new CacheTokenParser(),
-        ];
-    }
+	public function getTokenParsers()
+	{
+		return [
+			new CacheTokenParser,
+		];
+	}
 }

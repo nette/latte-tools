@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -16,13 +17,14 @@ use LatteTools\Twiggy\Compiler;
 
 class ConstantExpression extends AbstractExpression
 {
-    public function __construct($value, int $lineno)
-    {
-        parent::__construct([], ['value' => $value], $lineno);
-    }
+	public function __construct($value, int $lineno)
+	{
+		parent::__construct([], ['value' => $value], $lineno);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler->repr($this->getAttribute('value'));
-    }
+
+	public function compile(Compiler $compiler): void
+	{
+		$compiler->repr($this->getAttribute('value'));
+	}
 }

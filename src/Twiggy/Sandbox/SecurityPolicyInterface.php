@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -18,18 +19,18 @@ namespace LatteTools\Twiggy\Sandbox;
  */
 interface SecurityPolicyInterface
 {
-    /**
-     * @throws SecurityError
-     */
-    public function checkSecurity($tags, $filters, $functions): void;
+	/**
+	 * @throws SecurityError
+	 */
+	public function checkSecurity($tags, $filters, $functions): void;
 
-    /**
-     * @throws SecurityNotAllowedMethodError
-     */
-    public function checkMethodAllowed($obj, $method): void;
+	/**
+	 * @throws SecurityNotAllowedMethodError
+	 */
+	public function checkMethodAllowed($obj, $method): void;
 
-    /**
-     * @throws SecurityNotAllowedPropertyError
-     */
-    public function checkPropertyAllowed($obj, $method): void;
+	/**
+	 * @throws SecurityNotAllowedPropertyError
+	 */
+	public function checkPropertyAllowed($obj, $method): void;
 }

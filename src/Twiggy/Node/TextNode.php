@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -21,18 +22,19 @@ use LatteTools\Twiggy\Compiler;
  */
 class TextNode extends Node implements NodeOutputInterface
 {
-    public function __construct(string $data, int $lineno)
-    {
-        parent::__construct([], ['data' => $data], $lineno);
-    }
+	public function __construct(string $data, int $lineno)
+	{
+		parent::__construct([], ['data' => $data], $lineno);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->addDebugInfo($this)
-            ->write('echo ')
-            ->string($this->getAttribute('data'))
-            ->raw(";\n")
-        ;
-    }
+
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->addDebugInfo($this)
+			->write('echo ')
+			->string($this->getAttribute('data'))
+			->raw(";\n")
+		;
+	}
 }

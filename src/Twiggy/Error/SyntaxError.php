@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -19,28 +20,28 @@ namespace LatteTools\Twiggy\Error;
  */
 class SyntaxError extends Error
 {
-    /**
-     * Tweaks the error message to include suggestions.
-     *
-     * @param string $name  The original name of the item that does not exist
-     * @param array  $items An array of possible items
-     */
-    public function addSuggestions(string $name, array $items): void
-    {
-        $alternatives = [];
-        foreach ($items as $item) {
-            $lev = levenshtein($name, $item);
-            if ($lev <= \strlen($name) / 3 || false !== strpos($item, $name)) {
-                $alternatives[$item] = $lev;
-            }
-        }
+	/**
+	 * Tweaks the error message to include suggestions.
+	 *
+	 * @param string $name  The original name of the item that does not exist
+	 * @param array  $items An array of possible items
+	 */
+	public function addSuggestions(string $name, array $items): void
+	{
+		$alternatives = [];
+		foreach ($items as $item) {
+			$lev = levenshtein($name, $item);
+			if ($lev <= \strlen($name) / 3 || strpos($item, $name) !== false) {
+				$alternatives[$item] = $lev;
+			}
+		}
 
-        if (!$alternatives) {
-            return;
-        }
+		if (!$alternatives) {
+			return;
+		}
 
-        asort($alternatives);
+		asort($alternatives);
 
-        $this->appendMessage(sprintf(' Did you mean "%s"?', implode('", "', array_keys($alternatives))));
-    }
+		$this->appendMessage(sprintf(' Did you mean "%s"?', implode('", "', array_keys($alternatives))));
+	}
 }

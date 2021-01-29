@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -38,190 +39,208 @@ use LatteTools\Twiggy\Template;
  */
 class Error extends \Exception
 {
-    private $lineno;
-    private $name;
-    private $rawMessage;
-    private $sourcePath;
-    private $sourceCode;
+	private $lineno;
+	private $name;
+	private $rawMessage;
+	private $sourcePath;
+	private $sourceCode;
 
-    /**
-     * Constructor.
-     *
-     * By default, automatic guessing is enabled.
-     *
-     * @param string      $message The error message
-     * @param int         $lineno  The template line where the error occurred
-     * @param Source|null $source  The source context where the error occurred
-     */
-    public function __construct(string $message, int $lineno = -1, Source $source = null, \Exception $previous = null)
-    {
-        parent::__construct('', 0, $previous);
 
-        if (null === $source) {
-            $name = null;
-        } else {
-            $name = $source->getName();
-            $this->sourceCode = $source->getCode();
-            $this->sourcePath = $source->getPath();
-        }
+	/**
+	 * Constructor.
+	 *
+	 * By default, automatic guessing is enabled.
+	 *
+	 * @param string      $message The error message
+	 * @param int         $lineno  The template line where the error occurred
+	 * @param Source|null $source  The source context where the error occurred
+	 */
+	public function __construct(string $message, int $lineno = -1, Source $source = null, \Exception $previous = null)
+	{
+		parent::__construct('', 0, $previous);
 
-        $this->lineno = $lineno;
-        $this->name = $name;
-        $this->rawMessage = $message;
-        $this->updateRepr();
-    }
+		if ($source === null) {
+			$name = null;
+		} else {
+			$name = $source->getName();
+			$this->sourceCode = $source->getCode();
+			$this->sourcePath = $source->getPath();
+		}
 
-    public function getRawMessage(): string
-    {
-        return $this->rawMessage;
-    }
+		$this->lineno = $lineno;
+		$this->name = $name;
+		$this->rawMessage = $message;
+		$this->updateRepr();
+	}
 
-    public function getTemplateLine(): int
-    {
-        return $this->lineno;
-    }
 
-    public function setTemplateLine(int $lineno): void
-    {
-        $this->lineno = $lineno;
+	public function getRawMessage(): string
+	{
+		return $this->rawMessage;
+	}
 
-        $this->updateRepr();
-    }
 
-    public function getSourceContext(): ?Source
-    {
-        return $this->name ? new Source($this->sourceCode, $this->name, $this->sourcePath) : null;
-    }
+	public function getTemplateLine(): int
+	{
+		return $this->lineno;
+	}
 
-    public function setSourceContext(Source $source = null): void
-    {
-        if (null === $source) {
-            $this->sourceCode = $this->name = $this->sourcePath = null;
-        } else {
-            $this->sourceCode = $source->getCode();
-            $this->name = $source->getName();
-            $this->sourcePath = $source->getPath();
-        }
 
-        $this->updateRepr();
-    }
+	public function setTemplateLine(int $lineno): void
+	{
+		$this->lineno = $lineno;
 
-    public function guess(): void
-    {
-        $this->guessTemplateInfo();
-        $this->updateRepr();
-    }
+		$this->updateRepr();
+	}
 
-    public function appendMessage($rawMessage): void
-    {
-        $this->rawMessage .= $rawMessage;
-        $this->updateRepr();
-    }
 
-    private function updateRepr(): void
-    {
-        $this->message = $this->rawMessage;
+	public function getSourceContext(): ?Source
+	{
+		return $this->name
+			? new Source($this->sourceCode, $this->name, $this->sourcePath)
+			: null;
+	}
 
-        if ($this->sourcePath && $this->lineno > 0) {
-            $this->file = $this->sourcePath;
-            $this->line = $this->lineno;
 
-            return;
-        }
+	public function setSourceContext(Source $source = null): void
+	{
+		if ($source === null) {
+			$this->sourceCode = $this->name = $this->sourcePath = null;
+		} else {
+			$this->sourceCode = $source->getCode();
+			$this->name = $source->getName();
+			$this->sourcePath = $source->getPath();
+		}
 
-        $dot = false;
-        if ('.' === substr($this->message, -1)) {
-            $this->message = substr($this->message, 0, -1);
-            $dot = true;
-        }
+		$this->updateRepr();
+	}
 
-        $questionMark = false;
-        if ('?' === substr($this->message, -1)) {
-            $this->message = substr($this->message, 0, -1);
-            $questionMark = true;
-        }
 
-        if ($this->name) {
-            if (\is_string($this->name) || (\is_object($this->name) && method_exists($this->name, '__toString'))) {
-                $name = sprintf('"%s"', $this->name);
-            } else {
-                $name = json_encode($this->name);
-            }
-            $this->message .= sprintf(' in %s', $name);
-        }
+	public function guess(): void
+	{
+		$this->guessTemplateInfo();
+		$this->updateRepr();
+	}
 
-        if ($this->lineno && $this->lineno >= 0) {
-            $this->message .= sprintf(' at line %d', $this->lineno);
-        }
 
-        if ($dot) {
-            $this->message .= '.';
-        }
+	public function appendMessage($rawMessage): void
+	{
+		$this->rawMessage .= $rawMessage;
+		$this->updateRepr();
+	}
 
-        if ($questionMark) {
-            $this->message .= '?';
-        }
-    }
 
-    private function guessTemplateInfo(): void
-    {
-        $template = null;
-        $templateClass = null;
+	private function updateRepr(): void
+	{
+		$this->message = $this->rawMessage;
 
-        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT);
-        foreach ($backtrace as $trace) {
-            if (isset($trace['object']) && $trace['object'] instanceof Template) {
-                $currentClass = \get_class($trace['object']);
-                $isEmbedContainer = 0 === strpos($templateClass, $currentClass);
-                if (null === $this->name || ($this->name == $trace['object']->getTemplateName() && !$isEmbedContainer)) {
-                    $template = $trace['object'];
-                    $templateClass = \get_class($trace['object']);
-                }
-            }
-        }
+		if ($this->sourcePath && $this->lineno > 0) {
+			$this->file = $this->sourcePath;
+			$this->line = $this->lineno;
 
-        // update template name
-        if (null !== $template && null === $this->name) {
-            $this->name = $template->getTemplateName();
-        }
+			return;
+		}
 
-        // update template path if any
-        if (null !== $template && null === $this->sourcePath) {
-            $src = $template->getSourceContext();
-            $this->sourceCode = $src->getCode();
-            $this->sourcePath = $src->getPath();
-        }
+		$dot = false;
+		if (substr($this->message, -1) === '.') {
+			$this->message = substr($this->message, 0, -1);
+			$dot = true;
+		}
 
-        if (null === $template || $this->lineno > -1) {
-            return;
-        }
+		$questionMark = false;
+		if (substr($this->message, -1) === '?') {
+			$this->message = substr($this->message, 0, -1);
+			$questionMark = true;
+		}
 
-        $r = new \ReflectionObject($template);
-        $file = $r->getFileName();
+		if ($this->name) {
+			if (\is_string($this->name) || (\is_object($this->name) && method_exists($this->name, '__toString'))) {
+				$name = sprintf('"%s"', $this->name);
+			} else {
+				$name = json_encode($this->name);
+			}
+			$this->message .= sprintf(' in %s', $name);
+		}
 
-        $exceptions = [$e = $this];
-        while ($e = $e->getPrevious()) {
-            $exceptions[] = $e;
-        }
+		if ($this->lineno && $this->lineno >= 0) {
+			$this->message .= sprintf(' at line %d', $this->lineno);
+		}
 
-        while ($e = array_pop($exceptions)) {
-            $traces = $e->getTrace();
-            array_unshift($traces, ['file' => $e->getFile(), 'line' => $e->getLine()]);
+		if ($dot) {
+			$this->message .= '.';
+		}
 
-            while ($trace = array_shift($traces)) {
-                if (!isset($trace['file']) || !isset($trace['line']) || $file != $trace['file']) {
-                    continue;
-                }
+		if ($questionMark) {
+			$this->message .= '?';
+		}
+	}
 
-                foreach ($template->getDebugInfo() as $codeLine => $templateLine) {
-                    if ($codeLine <= $trace['line']) {
-                        // update template line
-                        $this->lineno = $templateLine;
 
-                        return;
-                    }
-                }
-            }
-        }
-    }
+	private function guessTemplateInfo(): void
+	{
+		$template = null;
+		$templateClass = null;
+
+		$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS | DEBUG_BACKTRACE_PROVIDE_OBJECT);
+		foreach ($backtrace as $trace) {
+			if (isset($trace['object']) && $trace['object'] instanceof Template) {
+				$currentClass = \get_class($trace['object']);
+				$isEmbedContainer = strpos($templateClass, $currentClass) === 0;
+				if (
+					$this->name === null
+					|| (
+						$this->name == $trace['object']->getTemplateName()
+						&& !$isEmbedContainer
+					)
+				) {
+					$template = $trace['object'];
+					$templateClass = \get_class($trace['object']);
+				}
+			}
+		}
+
+		// update template name
+		if ($template !== null && $this->name === null) {
+			$this->name = $template->getTemplateName();
+		}
+
+		// update template path if any
+		if ($template !== null && $this->sourcePath === null) {
+			$src = $template->getSourceContext();
+			$this->sourceCode = $src->getCode();
+			$this->sourcePath = $src->getPath();
+		}
+
+		if ($template === null || $this->lineno > -1) {
+			return;
+		}
+
+		$r = new \ReflectionObject($template);
+		$file = $r->getFileName();
+
+		$exceptions = [$e = $this];
+		while ($e = $e->getPrevious()) {
+			$exceptions[] = $e;
+		}
+
+		while ($e = array_pop($exceptions)) {
+			$traces = $e->getTrace();
+			array_unshift($traces, ['file' => $e->getFile(), 'line' => $e->getLine()]);
+
+			while ($trace = array_shift($traces)) {
+				if (!isset($trace['file']) || !isset($trace['line']) || $file != $trace['file']) {
+					continue;
+				}
+
+				foreach ($template->getDebugInfo() as $codeLine => $templateLine) {
+					if ($codeLine <= $trace['line']) {
+						// update template line
+						$this->lineno = $templateLine;
+
+						return;
+					}
+				}
+			}
+		}
+	}
 }

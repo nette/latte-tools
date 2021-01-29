@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -19,17 +20,18 @@ use LatteTools\Twiggy\Node\Node;
  */
 final class InlinePrint extends AbstractExpression
 {
-    public function __construct(Node $node, int $lineno)
-    {
-        parent::__construct(['node' => $node], [], $lineno);
-    }
+	public function __construct(Node $node, int $lineno)
+	{
+		parent::__construct(['node' => $node], [], $lineno);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->raw('print (')
-            ->subcompile($this->getNode('node'))
-            ->raw(')')
-        ;
-    }
+
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->raw('print (')
+			->subcompile($this->getNode('node'))
+			->raw(')')
+		;
+	}
 }

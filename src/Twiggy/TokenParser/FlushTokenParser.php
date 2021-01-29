@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -24,15 +25,16 @@ use LatteTools\Twiggy\Token;
  */
 final class FlushTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token): Node
-    {
-        $this->parser->getStream()->expect(/* Token::BLOCK_END_TYPE */ 3);
+	public function parse(Token $token): Node
+	{
+		$this->parser->getStream()->expect(/* Token::BLOCK_END_TYPE */ 3);
 
-        return new FlushNode($token->getLine(), $this->getTag());
-    }
+		return new FlushNode($token->getLine(), $this->getTag());
+	}
 
-    public function getTag(): string
-    {
-        return 'flush';
-    }
+
+	public function getTag(): string
+	{
+		return 'flush';
+	}
 }

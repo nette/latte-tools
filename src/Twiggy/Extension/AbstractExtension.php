@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -13,33 +14,38 @@ namespace LatteTools\Twiggy\Extension;
 
 abstract class AbstractExtension implements ExtensionInterface
 {
-    public function getTokenParsers()
-    {
-        return [];
-    }
+	public function getTokenParsers()
+	{
+		return [];
+	}
 
-    public function getNodeVisitors()
-    {
-        return [];
-    }
 
-    public function getFilters()
-    {
-        return [];
-    }
+	public function getNodeVisitors()
+	{
+		return [];
+	}
 
-    public function getTests()
-    {
-        return [];
-    }
 
-    public function getFunctions()
-    {
-        return [];
-    }
+	public function getFilters()
+	{
+		return [];
+	}
 
-    public function getOperators()
-    {
-        return [];
-    }
+
+	public function getTests()
+	{
+		return [];
+	}
+
+
+	public function getFunctions()
+	{
+		return [];
+	}
+
+
+	public function getOperators()
+	{
+		return [];
+	}
 }

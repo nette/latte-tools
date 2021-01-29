@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -18,25 +19,27 @@ use LatteTools\Twiggy\Node\Node;
 
 abstract class AbstractBinary extends AbstractExpression
 {
-    public function __construct(Node $left, Node $right, int $lineno)
-    {
-        parent::__construct(['left' => $left, 'right' => $right], [], $lineno);
-    }
+	public function __construct(Node $left, Node $right, int $lineno)
+	{
+		parent::__construct(['left' => $left, 'right' => $right], [], $lineno);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->raw('(')
-            ->subcompile($this->getNode('left'))
-            ->raw(' ')
-        ;
-        $this->operator($compiler);
-        $compiler
-            ->raw(' ')
-            ->subcompile($this->getNode('right'))
-            ->raw(')')
-        ;
-    }
 
-    abstract public function operator(Compiler $compiler): Compiler;
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->raw('(')
+			->subcompile($this->getNode('left'))
+			->raw(' ')
+		;
+		$this->operator($compiler);
+		$compiler
+			->raw(' ')
+			->subcompile($this->getNode('right'))
+			->raw(')')
+		;
+	}
+
+
+	abstract public function operator(Compiler $compiler): Compiler;
 }

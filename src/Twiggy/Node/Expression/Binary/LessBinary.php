@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -15,25 +16,26 @@ use LatteTools\Twiggy\Compiler;
 
 class LessBinary extends AbstractBinary
 {
-    public function compile(Compiler $compiler): void
-    {
-        if (\PHP_VERSION_ID >= 80000) {
-            parent::compile($compiler);
+	public function compile(Compiler $compiler): void
+	{
+		if (\PHP_VERSION_ID >= 80000) {
+			parent::compile($compiler);
 
-            return;
-        }
+			return;
+		}
 
-        $compiler
-            ->raw('(-1 === twig_compare(')
-            ->subcompile($this->getNode('left'))
-            ->raw(', ')
-            ->subcompile($this->getNode('right'))
-            ->raw('))')
-        ;
-    }
+		$compiler
+			->raw('(-1 === twig_compare(')
+			->subcompile($this->getNode('left'))
+			->raw(', ')
+			->subcompile($this->getNode('right'))
+			->raw('))')
+		;
+	}
 
-    public function operator(Compiler $compiler): Compiler
-    {
-        return $compiler->raw('<');
-    }
+
+	public function operator(Compiler $compiler): Compiler
+	{
+		return $compiler->raw('<');
+	}
 }

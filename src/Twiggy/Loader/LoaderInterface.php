@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -21,29 +22,29 @@ use LatteTools\Twiggy\Source;
  */
 interface LoaderInterface
 {
-    /**
-     * Returns the source context for a given template logical name.
-     *
-     * @throws LoaderError When $name is not found
-     */
-    public function getSourceContext(string $name): Source;
+	/**
+	 * Returns the source context for a given template logical name.
+	 *
+	 * @throws LoaderError When $name is not found
+	 */
+	public function getSourceContext(string $name): Source;
 
-    /**
-     * Gets the cache key to use for the cache for a given template name.
-     *
-     * @throws LoaderError When $name is not found
-     */
-    public function getCacheKey(string $name): string;
+	/**
+	 * Gets the cache key to use for the cache for a given template name.
+	 *
+	 * @throws LoaderError When $name is not found
+	 */
+	public function getCacheKey(string $name): string;
 
-    /**
-     * @param int $time Timestamp of the last modification time of the cached template
-     *
-     * @throws LoaderError When $name is not found
-     */
-    public function isFresh(string $name, int $time): bool;
+	/**
+	 * @param int $time Timestamp of the last modification time of the cached template
+	 *
+	 * @throws LoaderError When $name is not found
+	 */
+	public function isFresh(string $name, int $time): bool;
 
-    /**
-     * @return bool
-     */
-    public function exists(string $name);
+	/**
+	 * @return bool
+	 */
+	public function exists(string $name);
 }

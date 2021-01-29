@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -29,24 +30,38 @@ use LatteTools\Twiggy\Node\Node;
  */
 class DefaultFilter extends FilterExpression
 {
-    public function __construct(Node $node, ConstantExpression $filterName, Node $arguments, int $lineno, string $tag = null)
-    {
-        $default = new FilterExpression($node, new ConstantExpression('default', $node->getTemplateLine()), $arguments, $node->getTemplateLine());
+	public function __construct(
+		Node $node,
+		ConstantExpression $filterName,
+		Node $arguments,
+		int $lineno,
+		string $tag = null
+	) {
+		$default = new FilterExpression($node, new ConstantExpression('default', $node->getTemplateLine()), $arguments, $node->getTemplateLine());
 
-        if ('default' === $filterName->getAttribute('value') && ($node instanceof NameExpression || $node instanceof GetAttrExpression)) {
-            $test = new DefinedTest(clone $node, 'defined', new Node(), $node->getTemplateLine());
-            $false = \count($arguments) ? $arguments->getNode(0) : new ConstantExpression('', $node->getTemplateLine());
+		if (
+			$filterName->getAttribute('value') === 'default'
+			&& (
+				$node instanceof NameExpression
+				|| $node instanceof GetAttrExpression
+			)
+		) {
+			$test = new DefinedTest(clone $node, 'defined', new Node, $node->getTemplateLine());
+			$false = \count($arguments)
+				? $arguments->getNode(0)
+				: new ConstantExpression('', $node->getTemplateLine());
 
-            $node = new ConditionalExpression($test, $default, $false, $node->getTemplateLine());
-        } else {
-            $node = $default;
-        }
+			$node = new ConditionalExpression($test, $default, $false, $node->getTemplateLine());
+		} else {
+			$node = $default;
+		}
 
-        parent::__construct($node, $filterName, $arguments, $lineno, $tag);
-    }
+		parent::__construct($node, $filterName, $arguments, $lineno, $tag);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler->subcompile($this->getNode('node'));
-    }
+
+	public function compile(Compiler $compiler): void
+	{
+		$compiler->subcompile($this->getNode('node'));
+	}
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -15,15 +16,17 @@ use LatteTools\Twiggy\NodeVisitor\OptimizerNodeVisitor;
 
 final class OptimizerExtension extends AbstractExtension
 {
-    private $optimizers;
+	private $optimizers;
 
-    public function __construct(int $optimizers = -1)
-    {
-        $this->optimizers = $optimizers;
-    }
 
-    public function getNodeVisitors(): array
-    {
-        return [new OptimizerNodeVisitor($this->optimizers)];
-    }
+	public function __construct(int $optimizers = -1)
+	{
+		$this->optimizers = $optimizers;
+	}
+
+
+	public function getNodeVisitors(): array
+	{
+		return [new OptimizerNodeVisitor($this->optimizers)];
+	}
 }

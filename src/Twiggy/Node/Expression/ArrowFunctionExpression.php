@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -21,44 +22,45 @@ use LatteTools\Twiggy\Node\Node;
  */
 class ArrowFunctionExpression extends AbstractExpression
 {
-    public function __construct(AbstractExpression $expr, Node $names, $lineno, $tag = null)
-    {
-        parent::__construct(['expr' => $expr, 'names' => $names], [], $lineno, $tag);
-    }
+	public function __construct(AbstractExpression $expr, Node $names, $lineno, $tag = null)
+	{
+		parent::__construct(['expr' => $expr, 'names' => $names], [], $lineno, $tag);
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->addDebugInfo($this)
-            ->raw('function (')
-        ;
-        foreach ($this->getNode('names') as $i => $name) {
-            if ($i) {
-                $compiler->raw(', ');
-            }
 
-            $compiler
-                ->raw('$__')
-                ->raw($name->getAttribute('name'))
-                ->raw('__')
-            ;
-        }
-        $compiler
-            ->raw(') use ($context, $macros) { ')
-        ;
-        foreach ($this->getNode('names') as $name) {
-            $compiler
-                ->raw('$context["')
-                ->raw($name->getAttribute('name'))
-                ->raw('"] = $__')
-                ->raw($name->getAttribute('name'))
-                ->raw('__; ')
-            ;
-        }
-        $compiler
-            ->raw('return ')
-            ->subcompile($this->getNode('expr'))
-            ->raw('; }')
-        ;
-    }
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->addDebugInfo($this)
+			->raw('function (')
+		;
+		foreach ($this->getNode('names') as $i => $name) {
+			if ($i) {
+				$compiler->raw(', ');
+			}
+
+			$compiler
+				->raw('$__')
+				->raw($name->getAttribute('name'))
+				->raw('__')
+			;
+		}
+		$compiler
+			->raw(') use ($context, $macros) { ')
+		;
+		foreach ($this->getNode('names') as $name) {
+			$compiler
+				->raw('$context["')
+				->raw($name->getAttribute('name'))
+				->raw('"] = $__')
+				->raw($name->getAttribute('name'))
+				->raw('__; ')
+			;
+		}
+		$compiler
+			->raw('return ')
+			->subcompile($this->getNode('expr'))
+			->raw('; }')
+		;
+	}
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -15,48 +16,49 @@ use LatteTools\Twiggy\Compiler;
 
 class MethodCallExpression extends AbstractExpression
 {
-    public function __construct(AbstractExpression $node, string $method, ArrayExpression $arguments, int $lineno)
-    {
-        parent::__construct(['node' => $node, 'arguments' => $arguments], ['method' => $method, 'safe' => false, 'is_defined_test' => false], $lineno);
+	public function __construct(AbstractExpression $node, string $method, ArrayExpression $arguments, int $lineno)
+	{
+		parent::__construct(['node' => $node, 'arguments' => $arguments], ['method' => $method, 'safe' => false, 'is_defined_test' => false], $lineno);
 
-        if ($node instanceof NameExpression) {
-            $node->setAttribute('always_defined', true);
-        }
-    }
+		if ($node instanceof NameExpression) {
+			$node->setAttribute('always_defined', true);
+		}
+	}
 
-    public function compile(Compiler $compiler): void
-    {
-        if ($this->getAttribute('is_defined_test')) {
-            $compiler
-                ->raw('method_exists($macros[')
-                ->repr($this->getNode('node')->getAttribute('name'))
-                ->raw('], ')
-                ->repr($this->getAttribute('method'))
-                ->raw(')')
-            ;
 
-            return;
-        }
+	public function compile(Compiler $compiler): void
+	{
+		if ($this->getAttribute('is_defined_test')) {
+			$compiler
+				->raw('method_exists($macros[')
+				->repr($this->getNode('node')->getAttribute('name'))
+				->raw('], ')
+				->repr($this->getAttribute('method'))
+				->raw(')')
+			;
 
-        $compiler
-            ->raw('twig_call_macro($macros[')
-            ->repr($this->getNode('node')->getAttribute('name'))
-            ->raw('], ')
-            ->repr($this->getAttribute('method'))
-            ->raw(', [')
-        ;
-        $first = true;
-        foreach ($this->getNode('arguments')->getKeyValuePairs() as $pair) {
-            if (!$first) {
-                $compiler->raw(', ');
-            }
-            $first = false;
+			return;
+		}
 
-            $compiler->subcompile($pair['value']);
-        }
-        $compiler
-            ->raw('], ')
-            ->repr($this->getTemplateLine())
-            ->raw(', $context, $this->getSourceContext())');
-    }
+		$compiler
+			->raw('twig_call_macro($macros[')
+			->repr($this->getNode('node')->getAttribute('name'))
+			->raw('], ')
+			->repr($this->getAttribute('method'))
+			->raw(', [')
+		;
+		$first = true;
+		foreach ($this->getNode('arguments')->getKeyValuePairs() as $pair) {
+			if (!$first) {
+				$compiler->raw(', ');
+			}
+			$first = false;
+
+			$compiler->subcompile($pair['value']);
+		}
+		$compiler
+			->raw('], ')
+			->repr($this->getTemplateLine())
+			->raw(', $context, $this->getSourceContext())');
+	}
 }

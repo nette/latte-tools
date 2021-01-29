@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -16,12 +17,12 @@ use LatteTools\Twiggy\Compiler;
 
 class AssignNameExpression extends NameExpression
 {
-    public function compile(Compiler $compiler): void
-    {
-        $compiler
-            ->raw('$context[')
-            ->string($this->getAttribute('name'))
-            ->raw(']')
-        ;
-    }
+	public function compile(Compiler $compiler): void
+	{
+		$compiler
+			->raw('$context[')
+			->string($this->getAttribute('name'))
+			->raw(']')
+		;
+	}
 }

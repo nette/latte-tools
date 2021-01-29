@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -31,36 +32,38 @@ use LatteTools\Twiggy\Token;
  */
 final class SandboxTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token): Node
-    {
-        $stream = $this->parser->getStream();
-        $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
-        $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
-        $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
+	public function parse(Token $token): Node
+	{
+		$stream = $this->parser->getStream();
+		$stream->expect(/* Token::BLOCK_END_TYPE */ 3);
+		$body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
+		$stream->expect(/* Token::BLOCK_END_TYPE */ 3);
 
-        // in a sandbox tag, only include tags are allowed
-        if (!$body instanceof IncludeNode) {
-            foreach ($body as $node) {
-                if ($node instanceof TextNode && ctype_space($node->getAttribute('data'))) {
-                    continue;
-                }
+		// in a sandbox tag, only include tags are allowed
+		if (!$body instanceof IncludeNode) {
+			foreach ($body as $node) {
+				if ($node instanceof TextNode && ctype_space($node->getAttribute('data'))) {
+					continue;
+				}
 
-                if (!$node instanceof IncludeNode) {
-                    throw new SyntaxError('Only "include" tags are allowed within a "sandbox" section.', $node->getTemplateLine(), $stream->getSourceContext());
-                }
-            }
-        }
+				if (!$node instanceof IncludeNode) {
+					throw new SyntaxError('Only "include" tags are allowed within a "sandbox" section.', $node->getTemplateLine(), $stream->getSourceContext());
+				}
+			}
+		}
 
-        return new SandboxNode($body, $token->getLine(), $this->getTag());
-    }
+		return new SandboxNode($body, $token->getLine(), $this->getTag());
+	}
 
-    public function decideBlockEnd(Token $token): bool
-    {
-        return $token->test('endsandbox');
-    }
 
-    public function getTag(): string
-    {
-        return 'sandbox';
-    }
+	public function decideBlockEnd(Token $token): bool
+	{
+		return $token->test('endsandbox');
+	}
+
+
+	public function getTag(): string
+	{
+		return 'sandbox';
+	}
 }
