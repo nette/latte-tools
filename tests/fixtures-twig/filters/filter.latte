@@ -1,0 +1,41 @@
+Test: "filter" filter
+
+{var $offset = 3}
+
+{foreach ([1, 5, 3, 4, 5]|filter:fn($v) => ($v > $offset)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach (["a" => 1, "b" => 2, "c" => 5, "d" => 8]|filter:fn($v) => ($v > $offset)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach (["a" => 1, "b" => 2, "c" => 5, "d" => 8]|filter:fn($v, $k) => (($v > $offset) && ($k != "d"))) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach ([1, 5, 3, 4, 5]|filter:fn($v) => ($v > $offset)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach ($it|filter:fn($v) => ($v > $offset)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach ($ita|filter:fn($v) => ($v > $offset)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach ($xml|filter:fn($x) => true) as $k => $v}
+{$k}/{$v}
+{/foreach}
+
+{* we can iterate more than once *}
+{foreach ($xml|filter:fn($x) => true) as $k => $v}
+{$k}/{$v}
+{/foreach}
+
+{var $coll = (["a", "b"]|filter:fn($v) => $v === "a")}
+{if (($coll|length) > 0)}
+    {$coll|join:", "}
+{/if}

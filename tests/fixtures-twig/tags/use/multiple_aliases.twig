@@ -1,0 +1,9 @@
+Test: "use" tag
+
+{% use "foo.twig" with content as foo_content %}
+{% use "bar.twig" %}
+
+{{ block('content') }}
+{{ block('foo') }}
+{{ block('bar') }}
+{{ block('foo_content') }}

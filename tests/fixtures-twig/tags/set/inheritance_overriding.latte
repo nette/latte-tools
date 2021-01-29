@@ -1,0 +1,9 @@
+Test: "set" tag with inheritance
+
+{extends "layout.twig"}
+
+{capture $foo}bar{/capture}
+
+{block var_from_child}
+    {$foo}
+{/block}

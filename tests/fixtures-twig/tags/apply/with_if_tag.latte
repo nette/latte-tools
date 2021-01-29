@@ -1,0 +1,20 @@
+Test: "apply" tag applies the filter on "if" tags
+
+{block|upper}
+{if $items}
+{$items|join:", "}
+{/if}
+
+{if isset($items[3])}
+FOO
+{else}
+{$items[1]}
+{/if}
+
+{if isset($items[3])}
+FOO
+{elseif $items[1]}
+{$items[0]}
+{/if}
+
+{/block}

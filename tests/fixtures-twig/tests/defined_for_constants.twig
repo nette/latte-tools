@@ -1,0 +1,6 @@
+Test: "defined" support for constants
+
+{{ constant('DATE_W3C') is defined ? 'ok' : 'ko' }}
+{{ constant('ARRAY_AS_PROPS', object) is defined ? 'ok' : 'ko' }}
+{{ constant('FOOBAR') is not defined ? 'ok' : 'ko' }}
+{{ constant('FOOBAR', object) is not defined ? 'ok' : 'ko' }}

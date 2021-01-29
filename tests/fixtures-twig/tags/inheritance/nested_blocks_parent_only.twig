@@ -1,0 +1,9 @@
+Test: "block" tag
+
+{% block content %}
+    CONTENT
+    {%- block subcontent -%}
+        SUBCONTENT
+    {%- endblock -%}
+    ENDCONTENT
+{% endblock %}

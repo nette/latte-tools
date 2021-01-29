@@ -1,0 +1,7 @@
+Test: "use" tag
+
+{% use 'file2.html.twig'%}
+{% block foobar %}
+    {{- parent() -}}
+    Content of block (second override)
+{% endblock foobar %}

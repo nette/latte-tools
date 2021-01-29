@@ -1,0 +1,14 @@
+Test: "defined" support for blocks
+
+{extends "parent"}
+{block icon}icon{/block}
+{block body}
+    {include parent}
+    {=ifset foo ? "ok" : "ko"}
+    {=ifset footer ? "ok" : "ko"}
+    {=ifset icon ? "ok" : "ko"}
+    {=ifset block1 ? "ok" : "ko"}
+    {embed "embed"}
+{block content}content{/block}{/embed}
+{/block}
+{import "blocks"}

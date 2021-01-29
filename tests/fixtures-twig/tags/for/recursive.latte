@@ -1,0 +1,8 @@
+Test: "for" tags can be nested
+
+{foreach $items as $key => $item}
+* {$key} ({$iterator->length}):
+{foreach $item as $value}
+  * {$value} ({$iterator->length})
+{/foreach}
+{/foreach}

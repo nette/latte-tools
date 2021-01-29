@@ -1,0 +1,9 @@
+Test: Twig supports the string operators as variable names in assignments
+
+{foreach [1, 2] as $matches}
+    {$matches}
+{/foreach}
+
+{var $matches = [1, 2]}
+
+OK

@@ -1,0 +1,11 @@
+Test: "macro" tag
+
+{include "hello", "Fabien"}
+
+{define hello, $name}
+    Hello {include "up", $name}
+{/define}
+
+{define up, $name}
+    {$name|upper}
+{/define}

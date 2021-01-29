@@ -1,0 +1,11 @@
+Test: "set" tag
+
+{% set foo = "foo" %}
+
+{% set bar %}
+    {%- set foo = "bar" -%}
+    bar
+{% endset %}
+
+{{ foo }}
+{{ bar }}

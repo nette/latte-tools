@@ -1,0 +1,4 @@
+Test: "include" function accept variables
+
+{{ include("foo.twig", {'foo': 'bar'}) }}
+{{- include("foo.twig", vars) }}

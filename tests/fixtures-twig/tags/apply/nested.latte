@@ -1,0 +1,9 @@
+Test: "apply" tags can be nested at will
+
+{block|lower|title}
+  {$var}
+  {block|upper}
+    {$var}
+  {/block}
+  {$var}
+{/block}

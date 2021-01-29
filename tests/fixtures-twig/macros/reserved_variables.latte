@@ -1,0 +1,9 @@
+Test: macro
+
+{import $_self}
+
+{define test, $this}
+    {$this}
+{/define}
+
+{include "test", $this}

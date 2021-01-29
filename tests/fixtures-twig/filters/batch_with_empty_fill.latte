@@ -1,0 +1,11 @@
+Test: "batch" filter
+
+<table>
+{foreach ($items|batch:3, "") as $row}
+  <tr>
+  {foreach $row as $column}
+    <td>{$column}</td>
+  {/foreach}
+  </tr>
+{/foreach}
+</table>

@@ -1,0 +1,14 @@
+Test: "autoescape" tag applies escaping on its children
+
+{% autoescape %}
+{{ var }}<br />
+{% endautoescape %}
+{% autoescape 'html' %}
+{{ var }}<br />
+{% endautoescape %}
+{% autoescape false %}
+{{ var }}<br />
+{% endautoescape %}
+{% autoescape false %}
+{{ var }}<br />
+{% endautoescape %}

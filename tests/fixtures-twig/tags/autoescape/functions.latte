@@ -1,0 +1,44 @@
+Test: "autoescape" tag applies escaping after calling functions
+
+
+autoescape false
+
+
+safe_br
+{safe_br()}
+
+unsafe_br
+{unsafe_br()}
+
+
+
+autoescape 'html'
+
+
+safe_br
+{safe_br()}
+
+unsafe_br
+{unsafe_br()}
+
+unsafe_br()|raw
+{unsafe_br()}
+
+safe_br()|escape
+{safe_br()}
+
+safe_br()|raw
+{safe_br()}
+
+unsafe_br()|escape
+{unsafe_br()}
+
+
+
+autoescape js
+
+
+safe_br
+{safe_br()}
+
+

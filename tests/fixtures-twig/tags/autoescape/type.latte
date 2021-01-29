@@ -1,0 +1,39 @@
+Test: escape types
+
+
+1. autoescape 'html' |escape('js')
+
+
+<a onclick="alert(&quot;{$msg}&quot;)"></a>
+
+
+2. autoescape 'html' |escape('js')
+
+
+<a onclick="alert(&quot;{$msg}&quot;)"></a>
+
+
+3. autoescape 'js' |escape('js')
+
+
+<a onclick="alert(&quot;{$msg}&quot;)"></a>
+
+
+4. no escape
+
+
+<a onclick="alert(&quot;{$msg}&quot;)"></a>
+
+
+5. |escape('js')|escape('html')
+
+
+<a onclick="alert(&quot;{$msg}&quot;)"></a>
+
+
+6. autoescape 'html' |escape('js')|escape('html')
+
+
+<a onclick="alert(&quot;{$msg}&quot;)"></a>
+
+

@@ -1,0 +1,12 @@
+Test: Twig parses postfix expressions
+
+{import $_self}
+
+{define foo}foo{/define}
+
+{="a"}
+{="a"|upper}
+{="a"|upper}
+{= -(1|upper)}
+{include "foo"}
+{include "foo"}

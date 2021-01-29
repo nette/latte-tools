@@ -1,0 +1,7 @@
+Test: "for" tag does not reset inner variables
+
+{foreach range(1, 2) as $i}
+  {foreach range(0, 2) as $j}
+    {$k}{var $k = ($k + 1)} {$iterator->parent->loop->index}
+  {/foreach}
+{/foreach}

@@ -1,0 +1,10 @@
+Test: macro
+
+{import $_self}
+
+{define test, $a, $b = "bar"}
+{$a}{$b}
+{/define}
+
+{include "test", "foo"}
+{include "test", "bar", "foo"}

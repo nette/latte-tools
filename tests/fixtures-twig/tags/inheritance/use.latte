@@ -1,0 +1,23 @@
+Test: "parent" function
+
+{extends "parent.twig"}
+
+{import "use1.twig"}
+{import "use2.twig"}
+
+{block content_parent}
+    {include parent}
+{/block}
+
+{block content_use1}
+    {include parent}
+{/block}
+
+{block content_use2}
+    {include parent}
+{/block}
+
+{block content}
+    {include content_use1_only}
+    {include content_use2_only}
+{/block}

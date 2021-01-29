@@ -1,0 +1,34 @@
+Test: "defined" test
+
+{isset($definedVar) ? "ok" : "ko"}
+{=!isset($definedVar) ? "ko" : "ok"}
+{isset($undefinedVar) ? "ko" : "ok"}
+{=!isset($undefinedVar) ? "ok" : "ko"}
+{isset($zeroVar) ? "ok" : "ko"}
+{isset($nullVar) ? "ok" : "ko"}
+{isset($nested->definedVar) ? "ok" : "ko"}
+{isset($nested->definedVar) ? "ok" : "ko"}
+{=!isset($nested->definedVar) ? "ko" : "ok"}
+{isset($nested->undefinedVar) ? "ko" : "ok"}
+{isset($nested->undefinedVar) ? "ko" : "ok"}
+{=!isset($nested->undefinedVar) ? "ok" : "ko"}
+{isset($nested->zeroVar) ? "ok" : "ko"}
+{isset($nested->nullVar) ? "ok" : "ko"}
+{isset($nested->definedArray[0]) ? "ok" : "ko"}
+{isset($nested->definedArray[0]) ? "ok" : "ko"}
+{isset($object->foo) ? "ok" : "ko"}
+{isset($object->undefinedMethod) ? "ko" : "ok"}
+{=true ? "ok" : "ko"}
+{=true ? "ok" : "ko"}
+{=true ? "ko" : "ok"}
+{=true ? "ko" : "ok"}
+{isset($object->self->foo) ? "ok" : "ko"}
+{isset($object->self->undefinedMethod) ? "ko" : "ok"}
+{isset($object->undefinedMethod->self) ? "ko" : "ok"}
+{=true ? "ok" : "ko"}
+{=true ? "ok" : "ko"}
+{=true ? "ok" : "ko"}
+{=true ? "ok" : "ko"}
+{=true ? "ok" : "ko"}
+{=true ? "ok" : "ko"}
+{=true ? "ok" : "ko"}

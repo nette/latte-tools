@@ -1,0 +1,5 @@
+Test: "defined" support for blocks with a template argument
+
+{{ block('foo', 'included.twig') is defined ? 'ok' : 'ko' }}
+{{ block('foo', included_loaded) is defined ? 'ok' : 'ko' }}
+{{ block('foo', included_loaded_internal) is defined ? 'ok' : 'ko' }}

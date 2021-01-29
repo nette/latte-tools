@@ -1,0 +1,7 @@
+Test: "autoescape" tag applies escaping on embedded blocks
+
+{% autoescape 'html' %}
+  {% block foo %}
+    {{ var }}
+  {% endblock %}
+{% endautoescape %}

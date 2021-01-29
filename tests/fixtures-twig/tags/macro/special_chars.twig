@@ -1,0 +1,9 @@
+Test: "§" as a macro name
+
+{% import _self as macros %}
+
+{{ macros.§('foo') }}
+
+{% macro §(foo) %}
+  §{{ foo }}§
+{% endmacro %}

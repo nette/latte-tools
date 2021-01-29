@@ -1,0 +1,5 @@
+Test: "cycle" function
+
+{foreach range(0, 6) as $i}
+{cycle($array1, $i)}-{cycle($array2, $i)}
+{/foreach}

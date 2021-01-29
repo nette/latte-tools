@@ -1,0 +1,5 @@
+Test: "for" tag adds a loop variable to the context locally
+
+{% for item in items %}
+{% endfor %}
+{% if loop is not defined %}WORKS{% endif %}

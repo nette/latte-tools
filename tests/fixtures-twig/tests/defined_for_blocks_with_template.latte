@@ -1,0 +1,5 @@
+Test: "defined" support for blocks with a template argument
+
+{=/* NOT SUPPORTED "foo" "included.twig"  */ifset foo ? "ok" : "ko"}
+{=/* NOT SUPPORTED "foo" $included_loaded  */ifset foo ? "ok" : "ko"}
+{=/* NOT SUPPORTED "foo" $included_loaded_internal  */ifset foo ? "ok" : "ko"}

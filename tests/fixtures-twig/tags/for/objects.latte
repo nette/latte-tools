@@ -1,0 +1,16 @@
+Test: "for" tag iterates over iterable objects
+
+{foreach $items as $item}
+  * {$item}
+  * {$iterator->index}/{$iterator->index0}
+  * {$iterator->first}
+
+{/foreach}
+
+{foreach $items as $key => $value}
+  * {$key}/{$value}
+{/foreach}
+
+{foreach ($items|keys) as $key}
+  * {$key}
+{/foreach}

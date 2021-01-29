@@ -1,0 +1,15 @@
+Test: Twig supports the "same as" operator
+
+{{ 1 is same as(1) ? 'OK' }}
+{{ 1 is same as 1 ? 'OK' }}
+{{ 1 is not same as(true) ? 'OK' }}
+{{ 1 is not same as true ? 'OK' }}
+{{ 1 is same as(1) ? 'OK' }}
+{{ 1 is not same as(true) ? 'OK' }}
+{{ 1 is   same    as   (1) ? 'OK' }}
+{{ 1 is   same    as   1 ? 'OK' }}
+{{ 1 is  not  same    as   '1' ? 'OK' }}
+{{ 1 is not
+    same
+    as
+    (true) ? 'OK' }}

@@ -1,0 +1,5 @@
+Test: "block" function recursively called in a parent template
+
+{% extends "ordered_menu.twig" %}
+{% block label %}"{{ parent() }}"{% endblock %}
+{% block list %}{% set class = 'b' %}{{ parent() }}{% endblock %}

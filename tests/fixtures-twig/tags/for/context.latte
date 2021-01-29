@@ -1,0 +1,8 @@
+Test: "for" tag keeps the context safe
+
+{foreach $items as $item}
+  {foreach $items as $item}
+    * {$item}
+  {/foreach}
+  * {$item}
+{/foreach}

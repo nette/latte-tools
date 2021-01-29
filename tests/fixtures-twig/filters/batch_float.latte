@@ -1,0 +1,9 @@
+Test: "batch" filter
+
+{foreach ($items|batch:3.1) as $row}
+  <div class=row>
+  {foreach $row as $column}
+    <div class=item>{$column}</div>
+  {/foreach}
+  </div>
+{/foreach}

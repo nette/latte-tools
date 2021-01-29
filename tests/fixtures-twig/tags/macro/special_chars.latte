@@ -1,0 +1,9 @@
+Test: "§" as a macro name
+
+{import $_self}
+
+{include "§", "foo"}
+
+{define §, $foo}
+  §{$foo}§
+{/define}

@@ -1,0 +1,9 @@
+Test: capturing "block" tag with "extends" tag
+
+{% extends "layout.twig" %}
+
+{% set foo %}
+    {%- block content %}FOO{% endblock %}
+{% endset %}
+
+{% block content1 %}BAR{{ foo }}{% endblock %}

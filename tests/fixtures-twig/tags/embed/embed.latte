@@ -1,0 +1,29 @@
+{embed "teasers_skeleton.twig"}
+{block left_teaser}
+        Some content for the left teaser box
+    {/block}{block right_teaser}
+        Some content for the right teaser box
+    {/block}{/embed}
+
+
+
+{embed "base", "foo" => "bar"}
+{/embed}
+
+
+{embed "base", "foo" => "bar"}
+{/embed}
+
+
+{try}
+{embed "base"}
+{/embed}{/try}
+
+
+
+{embed ("b" . "c")}
+{/embed}
+
+
+{embed $base}
+{/embed}

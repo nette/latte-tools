@@ -1,0 +1,13 @@
+Test: macro
+
+{import $_self}
+
+{define foo, $data}
+    {$data}
+{/define}
+
+{define bar}
+    <br />
+{/define}
+
+{include "foo", {include "bar"}}

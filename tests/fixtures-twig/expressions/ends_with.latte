@@ -1,0 +1,12 @@
+Test: Twig supports the "ends with" operator
+
+{str_ends_with("foo", "o") ? "OK" : "KO"}
+{=!str_ends_with("foo", "f") ? "OK" : "KO"}
+{=!str_ends_with("foo", "foowaytoolong") ? "OK" : "KO"}
+{str_ends_with("foo", "") ? "OK" : "KO"}
+{str_ends_with("1", true) ? "OK" : "KO"}
+{str_ends_with(1, true) ? "OK" : "KO"}
+{str_ends_with(0, false) ? "OK" : "KO"}
+{str_ends_with("", false) ? "OK" : "KO"}
+{str_ends_with(false, false) ? "OK" : "KO"}
+{str_ends_with(false, "") ? "OK" : "KO"}

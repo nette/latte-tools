@@ -1,0 +1,5 @@
+Test: "block" function recursively called in a parent template
+
+{extends "ordered_menu.twig"}
+{block label}"{include parent}"{/block}
+{block list}{var $class = "b"}{include parent}{/block}

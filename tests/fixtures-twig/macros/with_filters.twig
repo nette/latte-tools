@@ -1,0 +1,9 @@
+Test: macro with a filter
+
+{% import _self as test %}
+
+{% macro test() %}
+    {% apply escape %}foo<br />{% endapply %}
+{% endmacro %}
+
+{{ test.test() }}

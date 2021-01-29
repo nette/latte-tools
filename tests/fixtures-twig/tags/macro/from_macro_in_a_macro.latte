@@ -1,0 +1,13 @@
+Test: "from" tag with syntax error
+
+{import $_self}
+
+{include "foo"}
+
+{define foo}
+    {include "another"}
+{/define}
+
+{define another}
+    OK
+{/define}

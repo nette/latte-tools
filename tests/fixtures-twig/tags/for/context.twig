@@ -1,0 +1,8 @@
+Test: "for" tag keeps the context safe
+
+{% for item in items %}
+  {% for item in items %}
+    * {{ item }}
+  {% endfor %}
+  * {{ item }}
+{% endfor %}

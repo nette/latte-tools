@@ -1,0 +1,11 @@
+Test: nested "with" tags
+
+{var $foo = "foo", $bar = "bar"}
+{block}
+{var "bar" = "BAZ"}
+    {block}
+{var "foo" = "FOO"}
+        {$foo}{$bar}
+    {/block}
+{/block}
+{$foo}{$bar}

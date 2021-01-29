@@ -1,0 +1,11 @@
+{cache "cache key"}
+    Cached forever (depending on the cache implementation)
+{/cache}
+
+{cache "cache key", expiration => 300}
+    Cached for 300 seconds
+{/cache}
+
+{* cache "cache key" tag('blog') %}
+    Some code
+{% endcache *}

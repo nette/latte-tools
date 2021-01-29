@@ -1,0 +1,9 @@
+Test: capturing "block" tag with "extends" tag
+
+{extends "layout.twig"}
+
+{capture $foo}
+    {block content}FOO{/block}
+{/capture}
+
+{block content1}BAR{$foo}{/block}

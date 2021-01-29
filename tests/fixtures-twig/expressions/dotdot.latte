@@ -1,0 +1,11 @@
+Test: Twig supports the .. operator
+
+{foreach range(0, 10) as $i}{$i} {/foreach}
+
+{foreach range("a", "z") as $letter}{$letter} {/foreach}
+
+{foreach range(("a"|upper), ("z"|upper)) as $letter}{$letter} {/foreach}
+
+{foreach range($foo[0], $foo[1]) as $i}{$i} {/foreach}
+
+{foreach range((0 + 1), (10 - 1)) as $i}{$i} {/foreach}

@@ -1,0 +1,12 @@
+Test: "import" tag
+
+{import $_self}
+
+{include "recursive_macro", 10}
+
+{define recursive_macro, $n}
+    {if ($n > 0)}
+        {include "recursive_macro", ($n - 1)}
+    {/if}
+    {$n}
+{/define}

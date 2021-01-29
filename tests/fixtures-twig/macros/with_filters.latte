@@ -1,0 +1,9 @@
+Test: macro with a filter
+
+{import $_self}
+
+{define test}
+    {block|escape}foo<br />{/block}
+{/define}
+
+{include "test"}

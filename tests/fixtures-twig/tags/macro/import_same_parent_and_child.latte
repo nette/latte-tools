@@ -1,0 +1,13 @@
+Test: "import" tag
+
+{extends "parent"}
+
+{define anotherThing}
+    Do it too
+{/define}
+
+{import $_self}
+{block content}
+    {include parent}
+    {include "anotherThing"}
+{/block}

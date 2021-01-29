@@ -1,0 +1,12 @@
+Test: "embed" tag
+
+{embed "foo.twig"}
+{block c1}
+        {include parent}
+        {embed "foo.twig"}
+{block c1}
+                {include parent}
+                block1extended
+            {/block}{/embed}
+
+    {/block}{/embed}

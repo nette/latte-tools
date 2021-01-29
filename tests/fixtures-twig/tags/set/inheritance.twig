@@ -1,0 +1,9 @@
+Test: "set" tag with inheritance
+
+{% extends "layout.twig" %}
+
+{% set bar %}bar{% endset %}
+
+{% block var_from_child %}
+    {{- bar -}}
+{% endblock %}

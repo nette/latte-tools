@@ -1,0 +1,13 @@
+Test: "extends" tag
+
+{extends "foo.twig"}
+
+{block content}
+  {block inside}
+    INSIDE OVERRIDDEN
+  {/block}
+
+  BEFORE
+  {include parent}
+  AFTER
+{/block}

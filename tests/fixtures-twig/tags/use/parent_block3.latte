@@ -1,0 +1,12 @@
+Test: "use" tag
+
+{import "file2.html.twig"}
+{import "file1.html.twig"}
+{block foo}
+    {include parent}
+    Content of foo (second override)
+{/block}
+{block bar}
+    {include parent}
+    Content of bar (second override)
+{/block}

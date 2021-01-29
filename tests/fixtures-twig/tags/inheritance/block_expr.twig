@@ -1,0 +1,8 @@
+Test: block_expr
+
+{% extends "base.twig" %}
+
+{% block element -%}
+    Element:
+    {{- parent() -}}
+{% endblock %}

@@ -1,0 +1,9 @@
+Test: Super globals as macro arguments
+
+{% import _self as macros %}
+
+{{ macros.foo('foo') }}
+
+{% macro foo(GET) %}
+    {{ GET }}
+{% endmacro %}

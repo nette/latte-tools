@@ -1,0 +1,7 @@
+Test: Twig compiles floats properly
+
+{var $val2 = 0.0}
+
+{$val === 0.0 ? "Yes" : "No"}
+{$val2 === 0.0 ? "Yes" : "No"}
+{$val === $val2 ? "Yes" : "No"}

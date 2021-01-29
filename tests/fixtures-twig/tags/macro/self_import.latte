@@ -1,0 +1,10 @@
+Test: "macro" tag
+
+{import $_self}
+
+{include "input", "username"}
+{include "input", "password", null, "password", 1}
+
+{define input, $name, $value, $type, $size}
+  <input type="{isset($type) ? ($type|default:"text") : "text"}" name="{$name}" value="{=($value|default:"")}" size="{isset($size) ? ($size|default:20) : 20}">
+{/define}

@@ -1,0 +1,12 @@
+Test: sandbox tag
+
+{%- sandbox %}
+    {%- include "foo.twig" %}
+{%- endsandbox %}
+
+{%- sandbox %}
+    {%- include "foo.twig" %}
+    {%- include "foo.twig" %}
+{%- endsandbox %}
+
+{%- sandbox %}{% include "foo.twig" %}{% endsandbox %}

@@ -1,0 +1,9 @@
+Test: "apply" tag does not create a new scope
+
+{% set foo = 'baz' %}
+{% apply spaceless %}
+    {% set foo = 'foo' %}
+    {% set bar = 'bar' %}
+{% endapply %}
+{{ 'foo' == foo ? 'OK ' ~ foo : 'KO' }}
+{{ 'bar' == bar ? 'OK ' ~ bar : 'KO' }}

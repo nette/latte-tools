@@ -1,0 +1,7 @@
+Test: "with" tag
+
+{% with %}
+    {% set bar = 'BAZ' %}
+    {{ foo }}{{ bar }}
+{% endwith %}
+{{ foo }}{{ bar }}

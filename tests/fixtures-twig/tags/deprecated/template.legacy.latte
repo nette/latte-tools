@@ -1,0 +1,5 @@
+Test: Deprecating a template with "deprecated" tag
+
+{extends "greeting.twig"}
+
+{do trigger_error("The \"index.twig\" template is deprecated, use \"greeting.twig\" instead." . " (\"main\" at line 5).", E_USER_DEPRECATED) }

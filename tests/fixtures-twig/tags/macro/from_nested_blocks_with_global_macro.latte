@@ -1,0 +1,13 @@
+Test: "macro" tag
+
+{import $_self}
+
+{block foo}
+    {block bar}
+        {include "input", "username"}
+    {/block}
+{/block}
+
+{define input, $name}
+    <input name="{$name}">
+{/define}

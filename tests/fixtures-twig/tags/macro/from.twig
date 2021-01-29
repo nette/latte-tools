@@ -1,0 +1,8 @@
+Test: "macro" tag
+
+{% from 'forms.twig' import foo %}
+{% from 'forms.twig' import foo as foobar, bar %}
+
+{{ foo('foo') }}
+{{ foobar('foo') }}
+{{ bar('foo') }}

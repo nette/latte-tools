@@ -1,0 +1,9 @@
+Test: Twig supports the string operators as variable names in assignments
+
+{% for matches in [1, 2] %}
+    {{- matches }}
+{% endfor %}
+
+{% set matches = [1, 2] %}
+
+OK

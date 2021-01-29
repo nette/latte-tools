@@ -1,0 +1,6 @@
+Test: "defined" support for constants
+
+{defined("DATE_W3C") ? "ok" : "ko"}
+{defined("ARRAY_AS_PROPS", $object) ? "ok" : "ko"}
+{=!defined("FOOBAR") ? "ok" : "ko"}
+{=!defined("FOOBAR", $object) ? "ok" : "ko"}

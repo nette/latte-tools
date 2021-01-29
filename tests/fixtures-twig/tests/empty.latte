@@ -1,0 +1,20 @@
+Test: "empty" test
+
+{empty($string_empty) ? "ok" : "ko"}
+{empty($string_zero) ? "ko" : "ok"}
+{empty($value_null) ? "ok" : "ko"}
+{empty($value_false) ? "ok" : "ko"}
+{empty($value_int_zero) ? "ko" : "ok"}
+{empty($array_empty) ? "ok" : "ko"}
+{empty($array_not_empty) ? "ko" : "ok"}
+{empty($magically_callable) ? "ko" : "ok"}
+{empty($countable_empty) ? "ok" : "ko"}
+{empty($countable_not_empty) ? "ko" : "ok"}
+{empty($tostring_empty) ? "ok" : "ko"}
+{empty($tostring_not_empty) ? "ko" : "ok"}
+{empty($markup_empty) ? "ok" : "ko"}
+{empty($markup_not_empty) ? "ko" : "ok"}
+{empty($iterator) ? "ko" : "ok"}
+{empty($empty_iterator) ? "ok" : "ko"}
+{empty($callback_iterator) ? "ko" : "ok"}
+{empty($empty_callback_iterator) ? "ok" : "ko"}

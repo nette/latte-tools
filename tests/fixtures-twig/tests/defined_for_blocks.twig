@@ -1,0 +1,15 @@
+Test: "defined" support for blocks
+
+{% extends 'parent' %}
+{% block icon %}icon{% endblock %}
+{% block body %}
+    {{ parent() }}
+    {{ block('foo') is defined ? 'ok' : 'ko' }}
+    {{ block('footer') is defined ? 'ok' : 'ko' }}
+    {{ block('icon') is defined ? 'ok' : 'ko' }}
+    {{ block('block1') is defined ? 'ok' : 'ko' }}
+    {%- embed 'embed' %}
+        {% block content %}content{% endblock %}
+    {% endembed %}
+{% endblock %}
+{% use 'blocks' %}

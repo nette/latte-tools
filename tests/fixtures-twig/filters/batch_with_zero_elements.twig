@@ -1,0 +1,4 @@
+Test: "batch" filter with zero elements
+
+{{ []|batch(3)|length }}
+{{ []|batch(3, 'fill')|length }}

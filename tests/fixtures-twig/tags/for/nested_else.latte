@@ -1,0 +1,11 @@
+Test: "for" tag can use an "else" clause
+
+{foreach $items as $item}
+  {foreach $items1 as $item}
+    * {$item}
+  {else}
+    no {$item}
+  {/foreach}
+{else}
+  no item1
+{/foreach}

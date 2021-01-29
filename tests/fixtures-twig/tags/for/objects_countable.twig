@@ -1,0 +1,17 @@
+Test: "for" tag iterates over iterable and countable objects
+
+{% for item in items %}
+  * {{ item }}
+  * {{ loop.index }}/{{ loop.index0 }}
+  * {{ loop.revindex }}/{{ loop.revindex0 }}
+  * {{ loop.first }}/{{ loop.last }}/{{ loop.length }}
+
+{% endfor %}
+
+{% for key, value in items %}
+  * {{ key }}/{{ value }}
+{% endfor %}
+
+{% for key in items|keys %}
+  * {{ key }}
+{% endfor %}

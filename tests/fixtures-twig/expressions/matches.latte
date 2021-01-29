@@ -1,0 +1,5 @@
+Test: Twig supports the "matches" operator
+
+{preg_match("/o/", "foo") ? "OK" : "KO"}
+{preg_match("/^fo/", "foo") ? "OK" : "KO"}
+{preg_match("/O/i", "foo") ? "OK" : "KO"}

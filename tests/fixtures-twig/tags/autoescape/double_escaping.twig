@@ -1,0 +1,5 @@
+Test: "autoescape" tag does not double-escape
+
+{% autoescape 'html' %}
+{{ var|escape }}
+{% endautoescape %}

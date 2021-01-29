@@ -1,0 +1,8 @@
+Test: "for" tag adds a loop variable to the context
+
+{foreach $items as $item}
+  * {$iterator->index}/{$iterator->index0}
+  * {$iterator->revindex}/{$iterator->revindex0}
+  * {$iterator->first}/{$iterator->last}/{$iterator->length}
+
+{/foreach}

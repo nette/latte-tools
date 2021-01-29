@@ -1,0 +1,11 @@
+Test: "set" tag
+
+{var $foo = "foo"}
+
+{capture $bar}
+    {var $foo = "bar"}
+    bar
+{/capture}
+
+{$foo}
+{$bar}

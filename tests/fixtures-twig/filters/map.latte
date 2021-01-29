@@ -1,0 +1,31 @@
+Test: "map" filter
+
+{var $offset = 3}
+
+{foreach ([1, 2]|map:fn($item) => ($item + 2)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach (["a" => 1, "b" => 2]|map:fn($item) => ($item . "*")) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach (["a" => 1, "b" => 2]|map:fn($item, $k) => (($item . "*") . $k)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach ([1, 2]|map:fn($item) => ($item + 2)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{foreach ($it|map:fn($item) => ($item + 2)) as $k => $v}
+    {$k} = {$v}
+{/foreach}
+
+{define local_lower, $string}
+    {$string|lower}
+{/define}
+{=["A"]|map:fn($val) => {include "local_lower", $val}|join}
+
+{import $_self}
+{=["A"]|map:fn($val) => {include "local_lower", $val}|join}

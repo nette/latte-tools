@@ -1,0 +1,7 @@
+Test: "autoescape" tag applies escaping to object method calls
+
+{% autoescape 'html' %}
+{{ user.name }}
+{{ user.name|lower }}
+{{ user }}
+{% endautoescape %}

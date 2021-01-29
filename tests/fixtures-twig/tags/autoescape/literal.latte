@@ -1,0 +1,57 @@
+Test: "autoescape" tag does not apply escaping on literals
+
+
+
+1. Simple literal
+{="<br />"}
+
+2. Conditional expression with only literals
+{=true ? "<br />" : "<br>"}
+
+3. Conditional expression with a variable
+{=true ? "<br />" : $someVar}
+{=false ? "<br />" : $someVar}
+{=true ? $someVar : "<br />"}
+{=false ? $someVar : "<br />"}
+
+4. Nested conditionals with only literals
+{=true ? true ? "<br />" : "<br>" : "
+"}
+
+5. Nested conditionals with a variable
+{=true ? true ? "<br />" : $someVar : "
+"}
+{=true ? false ? "<br />" : $someVar : "
+"}
+{=true ? true ? $someVar : "<br />" : "
+"}
+{=true ? false ? $someVar : "<br />" : "
+"}
+{=false ? "
+" : true ? $someVar : "<br />"}
+{=false ? "
+" : false ? $someVar : "<br />"}
+
+6. Nested conditionals with a variable marked safe
+{=true ? true ? "<br />" : $someVar : "
+"}
+{=true ? false ? "<br />" : $someVar : "
+"}
+{=true ? true ? $someVar : "<br />" : "
+"}
+{=true ? false ? $someVar : "<br />" : "
+"}
+{=false ? "
+" : true ? $someVar : "<br />"}
+{=false ? "
+" : false ? $someVar : "<br />"}
+
+7. Without then clause
+{="<br />" ? "<br />" : $someVar}
+{$someFalseVar ? $someFalseVar : "<br />"}
+
+8. NullCoalesce
+{$aaaa ?? "<br />"}
+{="<br />" ?? $someVar}
+
+
