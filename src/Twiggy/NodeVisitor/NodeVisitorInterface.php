@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\NodeVisitor;
+namespace LatteTools\Twiggy\NodeVisitor;
 
-use Twig\Environment;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Environment;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * Interface for node visitor classes.

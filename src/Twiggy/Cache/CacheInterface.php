@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Cache;
+namespace LatteTools\Twiggy\Cache;
 
 /**
  * Interface implemented by cache classes.

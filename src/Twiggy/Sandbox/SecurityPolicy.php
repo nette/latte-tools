@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Sandbox;
+namespace LatteTools\Twiggy\Sandbox;
 
-use Twig\Markup;
-use Twig\Template;
+use LatteTools\Twiggy\Markup;
+use LatteTools\Twiggy\Template;
 
 /**
  * Represents a security policy which need to be enforced when sandbox mode is enabled.

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extension {
-use Twig\FileExtensionEscapingStrategy;
-use Twig\NodeVisitor\EscaperNodeVisitor;
-use Twig\TokenParser\AutoEscapeTokenParser;
-use Twig\TwigFilter;
+namespace LatteTools\Twiggy\Extension {
+use LatteTools\Twiggy\FileExtensionEscapingStrategy;
+use LatteTools\Twiggy\NodeVisitor\EscaperNodeVisitor;
+use LatteTools\Twiggy\TokenParser\AutoEscapeTokenParser;
+use LatteTools\Twiggy\TwigFilter;
 
 final class EscaperExtension extends AbstractExtension
 {
@@ -136,12 +136,12 @@ final class EscaperExtension extends AbstractExtension
 }
 
 namespace {
-use Twig\Environment;
-use Twig\Error\RuntimeError;
-use Twig\Extension\EscaperExtension;
-use Twig\Markup;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Environment;
+use LatteTools\Twiggy\Error\RuntimeError;
+use LatteTools\Twiggy\Extension\EscaperExtension;
+use LatteTools\Twiggy\Markup;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * Marks a variable as being safe.

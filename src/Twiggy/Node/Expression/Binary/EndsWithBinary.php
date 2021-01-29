@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression\Binary;
+namespace LatteTools\Twiggy\Node\Expression\Binary;
 
-use Twig\Compiler;
+use LatteTools\Twiggy\Compiler;
 
 class EndsWithBinary extends AbstractBinary
 {

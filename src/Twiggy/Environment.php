@@ -9,27 +9,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Cache\CacheInterface;
-use Twig\Cache\FilesystemCache;
-use Twig\Cache\NullCache;
-use Twig\Error\Error;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
-use Twig\Extension\CoreExtension;
-use Twig\Extension\EscaperExtension;
-use Twig\Extension\ExtensionInterface;
-use Twig\Extension\OptimizerExtension;
-use Twig\Loader\ArrayLoader;
-use Twig\Loader\ChainLoader;
-use Twig\Loader\LoaderInterface;
-use Twig\Node\ModuleNode;
-use Twig\Node\Node;
-use Twig\NodeVisitor\NodeVisitorInterface;
-use Twig\RuntimeLoader\RuntimeLoaderInterface;
-use Twig\TokenParser\TokenParserInterface;
+use LatteTools\Twiggy\Cache\CacheInterface;
+use LatteTools\Twiggy\Cache\FilesystemCache;
+use LatteTools\Twiggy\Cache\NullCache;
+use LatteTools\Twiggy\Error\Error;
+use LatteTools\Twiggy\Error\LoaderError;
+use LatteTools\Twiggy\Error\RuntimeError;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Extension\CoreExtension;
+use LatteTools\Twiggy\Extension\EscaperExtension;
+use LatteTools\Twiggy\Extension\ExtensionInterface;
+use LatteTools\Twiggy\Extension\OptimizerExtension;
+use LatteTools\Twiggy\Loader\ArrayLoader;
+use LatteTools\Twiggy\Loader\ChainLoader;
+use LatteTools\Twiggy\Loader\LoaderInterface;
+use LatteTools\Twiggy\Node\ModuleNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\NodeVisitor\NodeVisitorInterface;
+use LatteTools\Twiggy\RuntimeLoader\RuntimeLoaderInterface;
+use LatteTools\Twiggy\TokenParser\TokenParserInterface;
 
 /**
  * Stores the Twig configuration and renders templates.
@@ -75,7 +75,7 @@ class Environment
      *  * charset: The charset used by the templates (default to UTF-8).
      *
      *  * cache: An absolute path where to store the compiled templates,
-     *           a \Twig\Cache\CacheInterface implementation,
+     *           a \LatteTools\Twiggy\Cache\CacheInterface implementation,
      *           or false to disable compilation cache (default).
      *
      *  * auto_reload: Whether to reload the template if the original source changed.
@@ -208,7 +208,7 @@ class Environment
      *
      * @param bool $original Whether to return the original cache option or the real cache instance
      *
-     * @return CacheInterface|string|false A Twig\Cache\CacheInterface implementation,
+     * @return CacheInterface|string|false A LatteTools\Twiggy\Cache\CacheInterface implementation,
      *                                     an absolute path to the compiled templates,
      *                                     or false to disable cache
      */
@@ -220,7 +220,7 @@ class Environment
     /**
      * Sets the current cache implementation.
      *
-     * @param CacheInterface|string|false $cache A Twig\Cache\CacheInterface implementation,
+     * @param CacheInterface|string|false $cache A LatteTools\Twiggy\Cache\CacheInterface implementation,
      *                                           an absolute path to the compiled templates,
      *                                           or false to disable cache
      */
@@ -235,7 +235,7 @@ class Environment
         } elseif ($cache instanceof CacheInterface) {
             $this->originalCache = $this->cache = $cache;
         } else {
-            throw new \LogicException(sprintf('Cache can only be a string, false, or a \Twig\Cache\CacheInterface implementation.'));
+            throw new \LogicException(sprintf('Cache can only be a string, false, or a \LatteTools\Twiggy\Cache\CacheInterface implementation.'));
         }
     }
 
@@ -419,8 +419,8 @@ class Environment
     /**
      * Tries to load a template consecutively from an array.
      *
-     * Similar to load() but it also accepts instances of \Twig\Template and
-     * \Twig\TemplateWrapper, and an array of templates where each is tried to be loaded.
+     * Similar to load() but it also accepts instances of \LatteTools\Twiggy\Template and
+     * \LatteTools\Twiggy\TemplateWrapper, and an array of templates where each is tried to be loaded.
      *
      * @param string|TemplateWrapper|array $names A template or an array of templates to try consecutively
      *

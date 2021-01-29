@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Error;
+namespace LatteTools\Twiggy\Error;
 
 /**
  * \Exception thrown when a syntax error occurs during lexing or parsing of a template.

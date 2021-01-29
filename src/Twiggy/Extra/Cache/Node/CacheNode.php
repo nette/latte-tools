@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extra\Cache\Node;
+namespace LatteTools\Twiggy\Extra\Cache\Node;
 
-use Twig\Compiler;
-use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
+use LatteTools\Twiggy\Node\Node;
 
 class CacheNode extends Node
 {
@@ -34,7 +34,7 @@ class CacheNode extends Node
     {
         $compiler
             ->addDebugInfo($this)
-            ->write('$cached = $this->env->getRuntime(\'Twig\Extra\Cache\CacheRuntime\')->getCache()->get(')
+            ->write('$cached = $this->env->getRuntime(\'LatteTools\Twiggy\Extra\Cache\CacheRuntime\')->getCache()->get(')
             ->subcompile($this->getNode('key'))
             ->raw(", function (\Symfony\Contracts\Cache\ItemInterface \$item) use (\$context) {\n")
             ->indent()

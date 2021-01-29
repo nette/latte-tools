@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Node\Expression\FilterExpression;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Node\Expression\FilterExpression;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * Represents a template filter.

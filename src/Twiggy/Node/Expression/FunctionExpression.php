@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression;
+namespace LatteTools\Twiggy\Node\Expression;
 
-use Twig\Compiler;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Node;
 
 class FunctionExpression extends CallExpression
 {

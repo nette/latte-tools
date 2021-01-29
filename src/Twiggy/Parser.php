@@ -10,21 +10,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Error\SyntaxError;
-use Twig\Node\BlockNode;
-use Twig\Node\BlockReferenceNode;
-use Twig\Node\BodyNode;
-use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\MacroNode;
-use Twig\Node\ModuleNode;
-use Twig\Node\Node;
-use Twig\Node\NodeCaptureInterface;
-use Twig\Node\NodeOutputInterface;
-use Twig\Node\PrintNode;
-use Twig\Node\TextNode;
-use Twig\TokenParser\TokenParserInterface;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\BlockNode;
+use LatteTools\Twiggy\Node\BlockReferenceNode;
+use LatteTools\Twiggy\Node\BodyNode;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
+use LatteTools\Twiggy\Node\MacroNode;
+use LatteTools\Twiggy\Node\ModuleNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\NodeCaptureInterface;
+use LatteTools\Twiggy\Node\NodeOutputInterface;
+use LatteTools\Twiggy\Node\PrintNode;
+use LatteTools\Twiggy\Node\TextNode;
+use LatteTools\Twiggy\TokenParser\TokenParserInterface;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>

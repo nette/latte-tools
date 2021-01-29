@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression\Test;
+namespace LatteTools\Twiggy\Node\Expression\Test;
 
-use Twig\Compiler;
-use Twig\Error\SyntaxError;
-use Twig\Node\Expression\ArrayExpression;
-use Twig\Node\Expression\BlockReferenceExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FunctionExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\MethodCallExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Expression\TestExpression;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\Expression\ArrayExpression;
+use LatteTools\Twiggy\Node\Expression\BlockReferenceExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Expression\FunctionExpression;
+use LatteTools\Twiggy\Node\Expression\GetAttrExpression;
+use LatteTools\Twiggy\Node\Expression\MethodCallExpression;
+use LatteTools\Twiggy\Node\Expression\NameExpression;
+use LatteTools\Twiggy\Node\Expression\TestExpression;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * Checks if a variable is defined in the current context.

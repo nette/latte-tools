@@ -9,17 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\NodeVisitor;
+namespace LatteTools\Twiggy\NodeVisitor;
 
-use Twig\Environment;
-use Twig\Node\Expression\AssignNameExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\MethodCallExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\ImportNode;
-use Twig\Node\ModuleNode;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Environment;
+use LatteTools\Twiggy\Node\Expression\AssignNameExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Expression\GetAttrExpression;
+use LatteTools\Twiggy\Node\Expression\MethodCallExpression;
+use LatteTools\Twiggy\Node\Expression\NameExpression;
+use LatteTools\Twiggy\Node\ImportNode;
+use LatteTools\Twiggy\Node\ModuleNode;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>

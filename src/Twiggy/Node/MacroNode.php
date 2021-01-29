@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node;
+namespace LatteTools\Twiggy\Node;
 
-use Twig\Compiler;
-use Twig\Error\SyntaxError;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Error\SyntaxError;
 
 /**
  * Represents a macro node.

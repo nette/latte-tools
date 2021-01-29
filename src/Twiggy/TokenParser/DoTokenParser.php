@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\DoNode;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Node\DoNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Evaluates an expression, discarding the returned value.

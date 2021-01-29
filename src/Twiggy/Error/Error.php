@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Error;
+namespace LatteTools\Twiggy\Error;
 
-use Twig\Source;
-use Twig\Template;
+use LatteTools\Twiggy\Source;
+use LatteTools\Twiggy\Template;
 
 /**
  * Twig base exception.

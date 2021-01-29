@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Error\SyntaxError;
+use LatteTools\Twiggy\Error\SyntaxError;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>

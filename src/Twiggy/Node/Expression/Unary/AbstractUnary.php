@@ -10,11 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression\Unary;
+namespace LatteTools\Twiggy\Node\Expression\Unary;
 
-use Twig\Compiler;
-use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
+use LatteTools\Twiggy\Node\Node;
 
 abstract class AbstractUnary extends AbstractExpression
 {

@@ -10,11 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression;
+namespace LatteTools\Twiggy\Node\Expression;
 
-use Twig\Compiler;
-use Twig\Extension\SandboxExtension;
-use Twig\Template;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Extension\SandboxExtension;
+use LatteTools\Twiggy\Template;
 
 class GetAttrExpression extends AbstractExpression
 {

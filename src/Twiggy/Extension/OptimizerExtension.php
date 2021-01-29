@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extension;
+namespace LatteTools\Twiggy\Extension;
 
-use Twig\NodeVisitor\OptimizerNodeVisitor;
+use LatteTools\Twiggy\NodeVisitor\OptimizerNodeVisitor;
 
 final class OptimizerExtension extends AbstractExtension
 {

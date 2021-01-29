@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extra\Cache;
+namespace LatteTools\Twiggy\Extra\Cache;
 
-use Twig\Extension\AbstractExtension;
-use Twig\Extra\Cache\TokenParser\CacheTokenParser;
+use LatteTools\Twiggy\Extension\AbstractExtension;
+use LatteTools\Twiggy\Extra\Cache\TokenParser\CacheTokenParser;
 
 final class CacheExtension extends AbstractExtension
 {

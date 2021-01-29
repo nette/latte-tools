@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Error\SyntaxError;
-use Twig\Node\BlockNode;
-use Twig\Node\BlockReferenceNode;
-use Twig\Node\Node;
-use Twig\Node\PrintNode;
-use Twig\Token;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\BlockNode;
+use LatteTools\Twiggy\Node\BlockReferenceNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\PrintNode;
+use LatteTools\Twiggy\Token;
 
 /**
  * Marks a section of a template as being reusable.

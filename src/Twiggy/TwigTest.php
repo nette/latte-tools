@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Node\Expression\TestExpression;
+use LatteTools\Twiggy\Node\Expression\TestExpression;
 
 /**
  * Represents a template test.

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\DeprecatedNode;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Node\DeprecatedNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Deprecates a section of a template.

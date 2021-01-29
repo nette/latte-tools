@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\Expression\TempNameExpression;
-use Twig\Node\Node;
-use Twig\Node\PrintNode;
-use Twig\Node\SetNode;
-use Twig\Token;
+use LatteTools\Twiggy\Node\Expression\TempNameExpression;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\PrintNode;
+use LatteTools\Twiggy\Node\SetNode;
+use LatteTools\Twiggy\Token;
 
 /**
  * Applies filters on a section of a template.

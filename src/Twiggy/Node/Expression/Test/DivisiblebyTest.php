@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression\Test;
+namespace LatteTools\Twiggy\Node\Expression\Test;
 
-use Twig\Compiler;
-use Twig\Node\Expression\TestExpression;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\TestExpression;
 
 /**
  * Checks if a variable is divisible by a number.

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Error\SyntaxError;
-use Twig\Node\AutoEscapeNode;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\AutoEscapeNode;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Marks a section of a template to be escaped or not.

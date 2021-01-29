@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\EmbedNode;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Node\EmbedNode;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Expression\NameExpression;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Embeds a template.

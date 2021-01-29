@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Loader;
+namespace LatteTools\Twiggy\Loader;
 
-use Twig\Error\LoaderError;
-use Twig\Source;
+use LatteTools\Twiggy\Error\LoaderError;
+use LatteTools\Twiggy\Source;
 
 /**
  * Loads a template from an array.

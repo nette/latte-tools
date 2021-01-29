@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression;
+namespace LatteTools\Twiggy\Node\Expression;
 
-use Twig\Compiler;
-use Twig\Node\Expression\Binary\AndBinary;
-use Twig\Node\Expression\Test\DefinedTest;
-use Twig\Node\Expression\Test\NullTest;
-use Twig\Node\Expression\Unary\NotUnary;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\Binary\AndBinary;
+use LatteTools\Twiggy\Node\Expression\Test\DefinedTest;
+use LatteTools\Twiggy\Node\Expression\Test\NullTest;
+use LatteTools\Twiggy\Node\Expression\Unary\NotUnary;
+use LatteTools\Twiggy\Node\Node;
 
 class NullCoalesceExpression extends ConditionalExpression
 {

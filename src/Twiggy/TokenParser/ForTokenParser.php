@@ -10,12 +10,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\Expression\AssignNameExpression;
-use Twig\Node\ForNode;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Node\Expression\AssignNameExpression;
+use LatteTools\Twiggy\Node\ForNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Loops over each item of a sequence.

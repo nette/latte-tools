@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Node\Node;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>

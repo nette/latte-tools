@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression;
+namespace LatteTools\Twiggy\Node\Expression;
 
-use Twig\Compiler;
-use Twig\Error\SyntaxError;
-use Twig\Extension\ExtensionInterface;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Extension\ExtensionInterface;
+use LatteTools\Twiggy\Node\Node;
 
 abstract class CallExpression extends AbstractExpression
 {
@@ -39,7 +39,7 @@ abstract class CallExpression extends AbstractExpression
             } elseif ($r instanceof \ReflectionMethod && $callable[0] instanceof ExtensionInterface) {
                 $class = \get_class($callable[0]);
                 if (!$compiler->getEnvironment()->hasExtension($class)) {
-                    // Compile a non-optimized call to trigger a \Twig\Error\RuntimeError, which cannot be a compile-time error
+                    // Compile a non-optimized call to trigger a \LatteTools\Twiggy\Error\RuntimeError, which cannot be a compile-time error
                     $compiler->raw(sprintf('$this->env->getExtension(\'%s\')', $class));
                 } else {
                     $compiler->raw(sprintf('$this->extensions[\'%s\']', ltrim($class, '\\')));

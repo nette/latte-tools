@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\Expression\AssignNameExpression;
-use Twig\Node\ImportNode;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Node\Expression\AssignNameExpression;
+use LatteTools\Twiggy\Node\ImportNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Imports macros.

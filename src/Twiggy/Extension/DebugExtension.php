@@ -9,8 +9,8 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extension {
-use Twig\TwigFunction;
+namespace LatteTools\Twiggy\Extension {
+use LatteTools\Twiggy\TwigFunction;
 
 final class DebugExtension extends AbstractExtension
 {
@@ -34,9 +34,9 @@ final class DebugExtension extends AbstractExtension
 }
 
 namespace {
-use Twig\Environment;
-use Twig\Template;
-use Twig\TemplateWrapper;
+use LatteTools\Twiggy\Environment;
+use LatteTools\Twiggy\Template;
+use LatteTools\Twiggy\TemplateWrapper;
 
 function twig_var_dump(Environment $env, $context, ...$vars)
 {

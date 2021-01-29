@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node;
+namespace LatteTools\Twiggy\Node;
 
-use Twig\Compiler;
-use Twig\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 
 /**
  * Represents a set node.
@@ -28,7 +28,7 @@ class SetNode extends Node implements NodeCaptureInterface
         /*
          * Optimizes the node when capture is used for a large block of text.
          *
-         * {% set foo %}foo{% endset %} is compiled to $context['foo'] = new Twig\Markup("foo");
+         * {% set foo %}foo{% endset %} is compiled to $context['foo'] = new LatteTools\Twiggy\Markup("foo");
          */
         if ($this->getAttribute('capture')) {
             $this->setAttribute('safe', true);

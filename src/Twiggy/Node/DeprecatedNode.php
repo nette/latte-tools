@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node;
+namespace LatteTools\Twiggy\Node;
 
-use Twig\Compiler;
-use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 
 /**
  * Represents a deprecated node.

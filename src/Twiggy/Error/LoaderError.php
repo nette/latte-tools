@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Error;
+namespace LatteTools\Twiggy\Error;
 
 /**
  * Exception thrown when an error occurs during template loading.

@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Error\SyntaxError;
-use Twig\Node\BodyNode;
-use Twig\Node\MacroNode;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\BodyNode;
+use LatteTools\Twiggy\Node\MacroNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Defines a macro.

@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\FlushNode;
-use Twig\Node\Node;
-use Twig\Token;
+use LatteTools\Twiggy\Node\FlushNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
 
 /**
  * Flushes the output to the client.

@@ -10,12 +10,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node;
+namespace LatteTools\Twiggy\Node;
 
-use Twig\Compiler;
-use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Source;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Source;
 
 /**
  * Represents a module node.
@@ -140,17 +140,17 @@ final class ModuleNode extends Node
         ;
         if (!$this->getAttribute('index')) {
             $compiler
-                ->write("use Twig\Environment;\n")
-                ->write("use Twig\Error\LoaderError;\n")
-                ->write("use Twig\Error\RuntimeError;\n")
-                ->write("use Twig\Extension\SandboxExtension;\n")
-                ->write("use Twig\Markup;\n")
-                ->write("use Twig\Sandbox\SecurityError;\n")
-                ->write("use Twig\Sandbox\SecurityNotAllowedTagError;\n")
-                ->write("use Twig\Sandbox\SecurityNotAllowedFilterError;\n")
-                ->write("use Twig\Sandbox\SecurityNotAllowedFunctionError;\n")
-                ->write("use Twig\Source;\n")
-                ->write("use Twig\Template;\n\n")
+                ->write("use LatteTools\Twiggy\Environment;\n")
+                ->write("use LatteTools\Twiggy\Error\LoaderError;\n")
+                ->write("use LatteTools\Twiggy\Error\RuntimeError;\n")
+                ->write("use LatteTools\Twiggy\Extension\SandboxExtension;\n")
+                ->write("use LatteTools\Twiggy\Markup;\n")
+                ->write("use LatteTools\Twiggy\Sandbox\SecurityError;\n")
+                ->write("use LatteTools\Twiggy\Sandbox\SecurityNotAllowedTagError;\n")
+                ->write("use LatteTools\Twiggy\Sandbox\SecurityNotAllowedFilterError;\n")
+                ->write("use LatteTools\Twiggy\Sandbox\SecurityNotAllowedFunctionError;\n")
+                ->write("use LatteTools\Twiggy\Source;\n")
+                ->write("use LatteTools\Twiggy\Template;\n\n")
             ;
         }
         $compiler

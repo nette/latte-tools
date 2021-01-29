@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extension;
+namespace LatteTools\Twiggy\Extension;
 
-use Twig\NodeVisitor\NodeVisitorInterface;
-use Twig\TokenParser\TokenParserInterface;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
-use Twig\TwigTest;
+use LatteTools\Twiggy\NodeVisitor\NodeVisitorInterface;
+use LatteTools\Twiggy\TokenParser\TokenParserInterface;
+use LatteTools\Twiggy\TwigFilter;
+use LatteTools\Twiggy\TwigFunction;
+use LatteTools\Twiggy\TwigTest;
 
 /**
- * Used by \Twig\Environment as a staging area.
+ * Used by \LatteTools\Twiggy\Environment as a staging area.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *

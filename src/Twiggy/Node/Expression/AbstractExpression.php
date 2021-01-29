@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression;
+namespace LatteTools\Twiggy\Node\Expression;
 
-use Twig\Node\Node;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * Abstract class for all nodes that represents an expression.

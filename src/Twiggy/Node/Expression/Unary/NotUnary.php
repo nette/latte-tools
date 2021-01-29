@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression\Unary;
+namespace LatteTools\Twiggy\Node\Expression\Unary;
 
-use Twig\Compiler;
+use LatteTools\Twiggy\Compiler;
 
 class NotUnary extends AbstractUnary
 {

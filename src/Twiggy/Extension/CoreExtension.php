@@ -9,66 +9,66 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extension {
-use Twig\ExpressionParser;
-use Twig\Node\Expression\Binary\AddBinary;
-use Twig\Node\Expression\Binary\AndBinary;
-use Twig\Node\Expression\Binary\BitwiseAndBinary;
-use Twig\Node\Expression\Binary\BitwiseOrBinary;
-use Twig\Node\Expression\Binary\BitwiseXorBinary;
-use Twig\Node\Expression\Binary\ConcatBinary;
-use Twig\Node\Expression\Binary\DivBinary;
-use Twig\Node\Expression\Binary\EndsWithBinary;
-use Twig\Node\Expression\Binary\EqualBinary;
-use Twig\Node\Expression\Binary\FloorDivBinary;
-use Twig\Node\Expression\Binary\GreaterBinary;
-use Twig\Node\Expression\Binary\GreaterEqualBinary;
-use Twig\Node\Expression\Binary\InBinary;
-use Twig\Node\Expression\Binary\LessBinary;
-use Twig\Node\Expression\Binary\LessEqualBinary;
-use Twig\Node\Expression\Binary\MatchesBinary;
-use Twig\Node\Expression\Binary\ModBinary;
-use Twig\Node\Expression\Binary\MulBinary;
-use Twig\Node\Expression\Binary\NotEqualBinary;
-use Twig\Node\Expression\Binary\NotInBinary;
-use Twig\Node\Expression\Binary\OrBinary;
-use Twig\Node\Expression\Binary\PowerBinary;
-use Twig\Node\Expression\Binary\RangeBinary;
-use Twig\Node\Expression\Binary\SpaceshipBinary;
-use Twig\Node\Expression\Binary\StartsWithBinary;
-use Twig\Node\Expression\Binary\SubBinary;
-use Twig\Node\Expression\Filter\DefaultFilter;
-use Twig\Node\Expression\NullCoalesceExpression;
-use Twig\Node\Expression\Test\ConstantTest;
-use Twig\Node\Expression\Test\DefinedTest;
-use Twig\Node\Expression\Test\DivisiblebyTest;
-use Twig\Node\Expression\Test\EvenTest;
-use Twig\Node\Expression\Test\NullTest;
-use Twig\Node\Expression\Test\OddTest;
-use Twig\Node\Expression\Test\SameasTest;
-use Twig\Node\Expression\Unary\NegUnary;
-use Twig\Node\Expression\Unary\NotUnary;
-use Twig\Node\Expression\Unary\PosUnary;
-use Twig\NodeVisitor\MacroAutoImportNodeVisitor;
-use Twig\TokenParser\ApplyTokenParser;
-use Twig\TokenParser\BlockTokenParser;
-use Twig\TokenParser\DeprecatedTokenParser;
-use Twig\TokenParser\DoTokenParser;
-use Twig\TokenParser\EmbedTokenParser;
-use Twig\TokenParser\ExtendsTokenParser;
-use Twig\TokenParser\FlushTokenParser;
-use Twig\TokenParser\ForTokenParser;
-use Twig\TokenParser\FromTokenParser;
-use Twig\TokenParser\IfTokenParser;
-use Twig\TokenParser\ImportTokenParser;
-use Twig\TokenParser\IncludeTokenParser;
-use Twig\TokenParser\MacroTokenParser;
-use Twig\TokenParser\SetTokenParser;
-use Twig\TokenParser\UseTokenParser;
-use Twig\TokenParser\WithTokenParser;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
-use Twig\TwigTest;
+namespace LatteTools\Twiggy\Extension {
+use LatteTools\Twiggy\ExpressionParser;
+use LatteTools\Twiggy\Node\Expression\Binary\AddBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\AndBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\BitwiseAndBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\BitwiseOrBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\BitwiseXorBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\ConcatBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\DivBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\EndsWithBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\EqualBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\FloorDivBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\GreaterBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\GreaterEqualBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\InBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\LessBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\LessEqualBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\MatchesBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\ModBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\MulBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\NotEqualBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\NotInBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\OrBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\PowerBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\RangeBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\SpaceshipBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\StartsWithBinary;
+use LatteTools\Twiggy\Node\Expression\Binary\SubBinary;
+use LatteTools\Twiggy\Node\Expression\Filter\DefaultFilter;
+use LatteTools\Twiggy\Node\Expression\NullCoalesceExpression;
+use LatteTools\Twiggy\Node\Expression\Test\ConstantTest;
+use LatteTools\Twiggy\Node\Expression\Test\DefinedTest;
+use LatteTools\Twiggy\Node\Expression\Test\DivisiblebyTest;
+use LatteTools\Twiggy\Node\Expression\Test\EvenTest;
+use LatteTools\Twiggy\Node\Expression\Test\NullTest;
+use LatteTools\Twiggy\Node\Expression\Test\OddTest;
+use LatteTools\Twiggy\Node\Expression\Test\SameasTest;
+use LatteTools\Twiggy\Node\Expression\Unary\NegUnary;
+use LatteTools\Twiggy\Node\Expression\Unary\NotUnary;
+use LatteTools\Twiggy\Node\Expression\Unary\PosUnary;
+use LatteTools\Twiggy\NodeVisitor\MacroAutoImportNodeVisitor;
+use LatteTools\Twiggy\TokenParser\ApplyTokenParser;
+use LatteTools\Twiggy\TokenParser\BlockTokenParser;
+use LatteTools\Twiggy\TokenParser\DeprecatedTokenParser;
+use LatteTools\Twiggy\TokenParser\DoTokenParser;
+use LatteTools\Twiggy\TokenParser\EmbedTokenParser;
+use LatteTools\Twiggy\TokenParser\ExtendsTokenParser;
+use LatteTools\Twiggy\TokenParser\FlushTokenParser;
+use LatteTools\Twiggy\TokenParser\ForTokenParser;
+use LatteTools\Twiggy\TokenParser\FromTokenParser;
+use LatteTools\Twiggy\TokenParser\IfTokenParser;
+use LatteTools\Twiggy\TokenParser\ImportTokenParser;
+use LatteTools\Twiggy\TokenParser\IncludeTokenParser;
+use LatteTools\Twiggy\TokenParser\MacroTokenParser;
+use LatteTools\Twiggy\TokenParser\SetTokenParser;
+use LatteTools\Twiggy\TokenParser\UseTokenParser;
+use LatteTools\Twiggy\TokenParser\WithTokenParser;
+use LatteTools\Twiggy\TwigFilter;
+use LatteTools\Twiggy\TwigFunction;
+use LatteTools\Twiggy\TwigTest;
 
 final class CoreExtension extends AbstractExtension
 {
@@ -303,15 +303,15 @@ final class CoreExtension extends AbstractExtension
 }
 
 namespace {
-    use Twig\Environment;
-    use Twig\Error\LoaderError;
-    use Twig\Error\RuntimeError;
-    use Twig\Extension\CoreExtension;
-    use Twig\Extension\SandboxExtension;
-    use Twig\Markup;
-    use Twig\Source;
-    use Twig\Template;
-    use Twig\TemplateWrapper;
+    use LatteTools\Twiggy\Environment;
+    use LatteTools\Twiggy\Error\LoaderError;
+    use LatteTools\Twiggy\Error\RuntimeError;
+    use LatteTools\Twiggy\Extension\CoreExtension;
+    use LatteTools\Twiggy\Extension\SandboxExtension;
+    use LatteTools\Twiggy\Markup;
+    use LatteTools\Twiggy\Source;
+    use LatteTools\Twiggy\Template;
+    use LatteTools\Twiggy\TemplateWrapper;
 
 /**
  * Cycles over a value.
@@ -1361,7 +1361,7 @@ function twig_array_batch($items, $size, $fill = null, $preserveKeys = true)
  * @param mixed  $object            The object or array from where to get the item
  * @param mixed  $item              The item to get from the array or object
  * @param array  $arguments         An array of arguments to pass if the item is an object method
- * @param string $type              The type of attribute (@see \Twig\Template constants)
+ * @param string $type              The type of attribute (@see \LatteTools\Twiggy\Template constants)
  * @param bool   $isDefinedTest     Whether this is only a defined check
  * @param bool   $ignoreStrictCheck Whether to ignore the strict attribute check or not
  * @param int    $lineno            The template line where the attribute was called
@@ -1444,7 +1444,7 @@ function twig_get_attribute(Environment $env, Source $source, $object, $item, ar
     }
 
     if ($object instanceof Template) {
-        throw new RuntimeError('Accessing \Twig\Template attributes is forbidden.', $lineno, $source);
+        throw new RuntimeError('Accessing \LatteTools\Twiggy\Template attributes is forbidden.', $lineno, $source);
     }
 
     // object property
@@ -1583,7 +1583,7 @@ function twig_array_filter(Environment $env, $array, $arrow)
         throw new RuntimeError(sprintf('The "filter" filter expects an array or "Traversable", got "%s".', \is_object($array) ? \get_class($array) : \gettype($array)));
     }
 
-    if (!$arrow instanceof Closure && $env->hasExtension('\Twig\Extension\SandboxExtension') && $env->getExtension('\Twig\Extension\SandboxExtension')->isSandboxed()) {
+    if (!$arrow instanceof Closure && $env->hasExtension('\LatteTools\Twiggy\Extension\SandboxExtension') && $env->getExtension('\LatteTools\Twiggy\Extension\SandboxExtension')->isSandboxed()) {
         throw new RuntimeError('The callable passed to "filter" filter must be a Closure in sandbox mode.');
     }
 
@@ -1597,7 +1597,7 @@ function twig_array_filter(Environment $env, $array, $arrow)
 
 function twig_array_map(Environment $env, $array, $arrow)
 {
-    if (!$arrow instanceof Closure && $env->hasExtension('\Twig\Extension\SandboxExtension') && $env->getExtension('\Twig\Extension\SandboxExtension')->isSandboxed()) {
+    if (!$arrow instanceof Closure && $env->hasExtension('\LatteTools\Twiggy\Extension\SandboxExtension') && $env->getExtension('\LatteTools\Twiggy\Extension\SandboxExtension')->isSandboxed()) {
         throw new RuntimeError('The callable passed to the "map" filter must be a Closure in sandbox mode.');
     }
 
@@ -1611,7 +1611,7 @@ function twig_array_map(Environment $env, $array, $arrow)
 
 function twig_array_reduce(Environment $env, $array, $arrow, $initial = null)
 {
-    if (!$arrow instanceof Closure && $env->hasExtension('\Twig\Extension\SandboxExtension') && $env->getExtension('\Twig\Extension\SandboxExtension')->isSandboxed()) {
+    if (!$arrow instanceof Closure && $env->hasExtension('\LatteTools\Twiggy\Extension\SandboxExtension') && $env->getExtension('\LatteTools\Twiggy\Extension\SandboxExtension')->isSandboxed()) {
         throw new RuntimeError('The callable passed to the "reduce" filter must be a Closure in sandbox mode.');
     }
 

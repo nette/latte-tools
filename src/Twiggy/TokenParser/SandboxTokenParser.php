@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Error\SyntaxError;
-use Twig\Node\IncludeNode;
-use Twig\Node\Node;
-use Twig\Node\SandboxNode;
-use Twig\Node\TextNode;
-use Twig\Token;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\IncludeNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\SandboxNode;
+use LatteTools\Twiggy\Node\TextNode;
+use LatteTools\Twiggy\Token;
 
 /**
  * Marks a section of a template as untrusted code that must be evaluated in the sandbox mode.

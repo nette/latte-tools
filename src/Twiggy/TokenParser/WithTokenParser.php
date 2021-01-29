@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\TokenParser;
+namespace LatteTools\Twiggy\TokenParser;
 
-use Twig\Node\Node;
-use Twig\Node\WithNode;
-use Twig\Token;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\WithNode;
+use LatteTools\Twiggy\Token;
 
 /**
  * Creates a nested scope.

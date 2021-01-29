@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Sandbox;
+namespace LatteTools\Twiggy\Sandbox;
 
 /**
  * Interface that all security policy classes must implements.

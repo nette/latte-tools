@@ -10,26 +10,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Error\SyntaxError;
-use Twig\Node\Expression\AbstractExpression;
-use Twig\Node\Expression\ArrayExpression;
-use Twig\Node\Expression\ArrowFunctionExpression;
-use Twig\Node\Expression\AssignNameExpression;
-use Twig\Node\Expression\Binary\ConcatBinary;
-use Twig\Node\Expression\BlockReferenceExpression;
-use Twig\Node\Expression\ConditionalExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\MethodCallExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Expression\ParentExpression;
-use Twig\Node\Expression\TestExpression;
-use Twig\Node\Expression\Unary\NegUnary;
-use Twig\Node\Expression\Unary\NotUnary;
-use Twig\Node\Expression\Unary\PosUnary;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Node\Expression\AbstractExpression;
+use LatteTools\Twiggy\Node\Expression\ArrayExpression;
+use LatteTools\Twiggy\Node\Expression\ArrowFunctionExpression;
+use LatteTools\Twiggy\Node\Expression\AssignNameExpression;
+use LatteTools\Twiggy\Node\Expression\Binary\ConcatBinary;
+use LatteTools\Twiggy\Node\Expression\BlockReferenceExpression;
+use LatteTools\Twiggy\Node\Expression\ConditionalExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Expression\GetAttrExpression;
+use LatteTools\Twiggy\Node\Expression\MethodCallExpression;
+use LatteTools\Twiggy\Node\Expression\NameExpression;
+use LatteTools\Twiggy\Node\Expression\ParentExpression;
+use LatteTools\Twiggy\Node\Expression\TestExpression;
+use LatteTools\Twiggy\Node\Expression\Unary\NegUnary;
+use LatteTools\Twiggy\Node\Expression\Unary\NotUnary;
+use LatteTools\Twiggy\Node\Expression\Unary\PosUnary;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * Parses expressions.

@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\NodeVisitor;
+namespace LatteTools\Twiggy\NodeVisitor;
 
-use Twig\Environment;
-use Twig\Node\BlockReferenceNode;
-use Twig\Node\Expression\BlockReferenceExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FilterExpression;
-use Twig\Node\Expression\FunctionExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Expression\ParentExpression;
-use Twig\Node\ForNode;
-use Twig\Node\IncludeNode;
-use Twig\Node\Node;
-use Twig\Node\PrintNode;
+use LatteTools\Twiggy\Environment;
+use LatteTools\Twiggy\Node\BlockReferenceNode;
+use LatteTools\Twiggy\Node\Expression\BlockReferenceExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Expression\FilterExpression;
+use LatteTools\Twiggy\Node\Expression\FunctionExpression;
+use LatteTools\Twiggy\Node\Expression\GetAttrExpression;
+use LatteTools\Twiggy\Node\Expression\NameExpression;
+use LatteTools\Twiggy\Node\Expression\ParentExpression;
+use LatteTools\Twiggy\Node\ForNode;
+use LatteTools\Twiggy\Node\IncludeNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\PrintNode;
 
 /**
  * Tries to optimize the AST.

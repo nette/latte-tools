@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node;
+namespace LatteTools\Twiggy\Node;
 
-use Twig\Compiler;
+use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a nested "with" scope.

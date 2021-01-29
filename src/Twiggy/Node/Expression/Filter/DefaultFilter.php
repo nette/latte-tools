@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Node\Expression\Filter;
+namespace LatteTools\Twiggy\Node\Expression\Filter;
 
-use Twig\Compiler;
-use Twig\Node\Expression\ConditionalExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FilterExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Expression\Test\DefinedTest;
-use Twig\Node\Node;
+use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Node\Expression\ConditionalExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Expression\FilterExpression;
+use LatteTools\Twiggy\Node\Expression\GetAttrExpression;
+use LatteTools\Twiggy\Node\Expression\NameExpression;
+use LatteTools\Twiggy\Node\Expression\Test\DefinedTest;
+use LatteTools\Twiggy\Node\Node;
 
 /**
  * Returns the value or the default value when it is undefined or empty.

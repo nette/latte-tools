@@ -9,13 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extra\Cache\TokenParser;
+namespace LatteTools\Twiggy\Extra\Cache\TokenParser;
 
-use Twig\Error\SyntaxError;
-use Twig\Extra\Cache\Node\CacheNode;
-use Twig\Node\Node;
-use Twig\Token;
-use Twig\TokenParser\AbstractTokenParser;
+use LatteTools\Twiggy\Error\SyntaxError;
+use LatteTools\Twiggy\Extra\Cache\Node\CacheNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Token;
+use LatteTools\Twiggy\TokenParser\AbstractTokenParser;
 
 class CacheTokenParser extends AbstractTokenParser
 {

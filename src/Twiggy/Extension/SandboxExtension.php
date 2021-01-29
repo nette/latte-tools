@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extension;
+namespace LatteTools\Twiggy\Extension;
 
-use Twig\NodeVisitor\SandboxNodeVisitor;
-use Twig\Sandbox\SecurityNotAllowedMethodError;
-use Twig\Sandbox\SecurityNotAllowedPropertyError;
-use Twig\Sandbox\SecurityPolicyInterface;
-use Twig\Source;
-use Twig\TokenParser\SandboxTokenParser;
+use LatteTools\Twiggy\NodeVisitor\SandboxNodeVisitor;
+use LatteTools\Twiggy\Sandbox\SecurityNotAllowedMethodError;
+use LatteTools\Twiggy\Sandbox\SecurityNotAllowedPropertyError;
+use LatteTools\Twiggy\Sandbox\SecurityPolicyInterface;
+use LatteTools\Twiggy\Source;
+use LatteTools\Twiggy\TokenParser\SandboxTokenParser;
 
 final class SandboxExtension extends AbstractExtension
 {

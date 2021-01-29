@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\Extra\Html {
+namespace LatteTools\Twiggy\Extra\Html {
 use Symfony\Component\Mime\MimeTypes;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
+use LatteTools\Twiggy\Extension\AbstractExtension;
+use LatteTools\Twiggy\TwigFilter;
+use LatteTools\Twiggy\TwigFunction;
 
 final class HtmlExtension extends AbstractExtension
 {
@@ -83,7 +83,7 @@ final class HtmlExtension extends AbstractExtension
 }
 
 namespace {
-use Twig\Error\RuntimeError;
+use LatteTools\Twiggy\Error\RuntimeError;
 
 function twig_html_classes(...$args): string
 {

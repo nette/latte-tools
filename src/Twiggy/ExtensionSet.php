@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig;
+namespace LatteTools\Twiggy;
 
-use Twig\Error\RuntimeError;
-use Twig\Extension\ExtensionInterface;
-use Twig\Extension\GlobalsInterface;
-use Twig\Extension\StagingExtension;
-use Twig\NodeVisitor\NodeVisitorInterface;
-use Twig\TokenParser\TokenParserInterface;
+use LatteTools\Twiggy\Error\RuntimeError;
+use LatteTools\Twiggy\Extension\ExtensionInterface;
+use LatteTools\Twiggy\Extension\GlobalsInterface;
+use LatteTools\Twiggy\Extension\StagingExtension;
+use LatteTools\Twiggy\NodeVisitor\NodeVisitorInterface;
+use LatteTools\Twiggy\TokenParser\TokenParserInterface;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -435,7 +435,7 @@ final class ExtensionSet
         // token parsers
         foreach ($extension->getTokenParsers() as $parser) {
             if (!$parser instanceof TokenParserInterface) {
-                throw new \LogicException('getTokenParsers() must return an array of \Twig\TokenParser\TokenParserInterface.');
+                throw new \LogicException('getTokenParsers() must return an array of \LatteTools\Twiggy\TokenParser\TokenParserInterface.');
             }
 
             $this->parsers[$parser->getTag()] = $parser;

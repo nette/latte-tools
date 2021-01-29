@@ -9,23 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace Twig\NodeVisitor;
+namespace LatteTools\Twiggy\NodeVisitor;
 
-use Twig\Environment;
-use Twig\Extension\EscaperExtension;
-use Twig\Node\AutoEscapeNode;
-use Twig\Node\BlockNode;
-use Twig\Node\BlockReferenceNode;
-use Twig\Node\DoNode;
-use Twig\Node\Expression\ConditionalExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FilterExpression;
-use Twig\Node\Expression\InlinePrint;
-use Twig\Node\ImportNode;
-use Twig\Node\ModuleNode;
-use Twig\Node\Node;
-use Twig\Node\PrintNode;
-use Twig\NodeTraverser;
+use LatteTools\Twiggy\Environment;
+use LatteTools\Twiggy\Extension\EscaperExtension;
+use LatteTools\Twiggy\Node\AutoEscapeNode;
+use LatteTools\Twiggy\Node\BlockNode;
+use LatteTools\Twiggy\Node\BlockReferenceNode;
+use LatteTools\Twiggy\Node\DoNode;
+use LatteTools\Twiggy\Node\Expression\ConditionalExpression;
+use LatteTools\Twiggy\Node\Expression\ConstantExpression;
+use LatteTools\Twiggy\Node\Expression\FilterExpression;
+use LatteTools\Twiggy\Node\Expression\InlinePrint;
+use LatteTools\Twiggy\Node\ImportNode;
+use LatteTools\Twiggy\Node\ModuleNode;
+use LatteTools\Twiggy\Node\Node;
+use LatteTools\Twiggy\Node\PrintNode;
+use LatteTools\Twiggy\NodeTraverser;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
