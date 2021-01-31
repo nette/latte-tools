@@ -32,6 +32,7 @@ final class Token
 	public const INTERPOLATION_START_TYPE = 10;
 	public const INTERPOLATION_END_TYPE = 11;
 	public const ARROW_TYPE = 12;
+	public const COMMENT_TYPE = 13;
 	private $value;
 	private $type;
 	private $lineno;

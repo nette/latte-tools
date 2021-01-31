@@ -17,6 +17,7 @@ use LatteTools\Twiggy\Error\SyntaxError;
 use LatteTools\Twiggy\Node\BlockNode;
 use LatteTools\Twiggy\Node\BlockReferenceNode;
 use LatteTools\Twiggy\Node\BodyNode;
+use LatteTools\Twiggy\Node\CommentNode;
 use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 use LatteTools\Twiggy\Node\MacroNode;
 use LatteTools\Twiggy\Node\ModuleNode;
@@ -177,6 +178,11 @@ class Parser
 					if ($node !== null) {
 						$rv[] = $node;
 					}
+					break;
+
+				case Token::COMMENT_TYPE:
+					$token = $this->stream->next();
+					$rv[] = new CommentNode($token->getValue(), $token->getLine());
 					break;
 
 				default:

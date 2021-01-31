@@ -402,7 +402,9 @@ class Lexer
 			throw new SyntaxError('Unclosed comment.', $this->lineno, $this->source);
 		}
 
+		$text = substr($this->code, $this->cursor, $match[0][1] - $this->cursor);
 		$this->moveCursor(substr($this->code, $this->cursor, $match[0][1] - $this->cursor) . $match[0][0]);
+		$this->pushToken(Token::COMMENT_TYPE, $text);
 	}
 
 
