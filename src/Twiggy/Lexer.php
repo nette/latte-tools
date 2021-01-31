@@ -69,11 +69,7 @@ class Lexer
 			'lex_var' => '{
                 \s*
                 (?:' .
-					preg_quote($this->options['whitespace_trim'] . $this->options['tag_variable'][1], '#') . '\s*' . // -}}\s*
-					'|' .
-					preg_quote($this->options['whitespace_line_trim'] . $this->options['tag_variable'][1], '#') . '[' . $this->options['whitespace_line_chars'] . ']*' . // ~}}[ \t\0\x0B]*
-					'|' .
-					preg_quote($this->options['tag_variable'][1], '#') . // }}
+					'[~-]?' . preg_quote($this->options['tag_variable'][1], '#') . // }}
 				')
             }Ax',
 
@@ -81,11 +77,7 @@ class Lexer
 			'lex_block' => '{
                 \s*
                 (?:' .
-					preg_quote($this->options['whitespace_trim'] . $this->options['tag_block'][1], '#') . '\s*\n?' . // -%}\s*\n?
-					'|' .
-					preg_quote($this->options['whitespace_line_trim'] . $this->options['tag_block'][1], '#') . '[' . $this->options['whitespace_line_chars'] . ']*' . // ~%}[ \t\0\x0B]*
-					'|' .
-					preg_quote($this->options['tag_block'][1], '#') . '\n?' . // %}\n?
+					'[~-]?' . preg_quote($this->options['tag_block'][1], '#') . // %}
 				')
             }Ax',
 
@@ -98,11 +90,7 @@ class Lexer
 					$this->options['whitespace_line_trim'] . // ~
 				')?\s*endverbatim\s*' .
 				'(?:' .
-					preg_quote($this->options['whitespace_trim'] . $this->options['tag_block'][1], '#') . '\s*' . // -%}
-					'|' .
-					preg_quote($this->options['whitespace_line_trim'] . $this->options['tag_block'][1], '#') . '[' . $this->options['whitespace_line_chars'] . ']*' . // ~%}[ \t\0\x0B]*
-					'|' .
-					preg_quote($this->options['tag_block'][1], '#') . // %}
+					'[~-]?' . preg_quote($this->options['tag_block'][1], '#') . // %}
 				')
             }sx',
 
@@ -111,11 +99,7 @@ class Lexer
 			// #}
 			'lex_comment' => '{
                 (?:' .
-					preg_quote($this->options['whitespace_trim'] . $this->options['tag_comment'][1], '#') . '\s*\n?' . // -#}\s*\n?
-					'|' .
-					preg_quote($this->options['whitespace_line_trim'] . $this->options['tag_comment'][1], '#') . '[' . $this->options['whitespace_line_chars'] . ']*' . // ~#}[ \t\0\x0B]*
-					'|' .
-					preg_quote($this->options['tag_comment'][1], '#') . '\n?' . // #}\n?
+					'[~-]?' . preg_quote($this->options['tag_comment'][1], '#') . // #}
 				')
             }sx',
 
@@ -123,11 +107,7 @@ class Lexer
 			'lex_block_raw' => '{
                 \s*verbatim\s*
                 (?:' .
-					preg_quote($this->options['whitespace_trim'] . $this->options['tag_block'][1], '#') . '\s*' . // -%}\s*
-					'|' .
-					preg_quote($this->options['whitespace_line_trim'] . $this->options['tag_block'][1], '#') . '[' . $this->options['whitespace_line_chars'] . ']*' . // ~%}[ \t\0\x0B]*
-					'|' .
-					preg_quote($this->options['tag_block'][1], '#') . // %}
+					'[~-]?' . preg_quote($this->options['tag_block'][1], '#') . // %}
 				')
             }Asx',
 
@@ -229,17 +209,6 @@ class Lexer
 		// push the template text first
 		$text = $textContent = substr($this->code, $this->cursor, $position[1] - $this->cursor);
 
-		// trim?
-		if (isset($this->positions[2][$this->position][0])) {
-			if ($this->options['whitespace_trim'] === $this->positions[2][$this->position][0]) {
-				// whitespace_trim detected ({%-, {{- or {#-)
-				$text = rtrim($text);
-			} elseif ($this->options['whitespace_line_trim'] === $this->positions[2][$this->position][0]) {
-				// whitespace_line_trim detected ({%~, {{~ or {#~)
-				// don't trim \r and \n
-				$text = rtrim($text, " \t\0\x0B");
-			}
-		}
 		$this->pushToken(Token::TEXT_TYPE, $text);
 		$this->moveCursor($textContent . $position[0]);
 
@@ -379,19 +348,6 @@ class Lexer
 
 		$text = substr($this->code, $this->cursor, $match[0][1] - $this->cursor);
 		$this->moveCursor($text . $match[0][0]);
-
-		// trim?
-		if (isset($match[1][0])) {
-			if ($this->options['whitespace_trim'] === $match[1][0]) {
-				// whitespace_trim detected ({%-, {{- or {#-)
-				$text = rtrim($text);
-			} else {
-				// whitespace_line_trim detected ({%~, {{~ or {#~)
-				// don't trim \r and \n
-				$text = rtrim($text, " \t\0\x0B");
-			}
-		}
-
 		$this->pushToken(Token::TEXT_TYPE, $text);
 	}
 
