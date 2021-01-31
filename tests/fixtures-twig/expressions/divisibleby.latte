@@ -1,8 +1,8 @@
 Test: Twig supports the "divisible by" operator
 
-{8 % 2 === 0 ? OK : ''}
-{8 % 2 === 0 ? OK : ''}
-{=!8 % 3 === 0 ? OK : ''}
-{8 % 2 === 0 ? OK : ''}
-{8 % 2 === 0 ? OK : ''}
-{=!8 % 3 === 0 ? OK : ''}
+{divisibleBy(8, 2) ? OK : ''}
+{divisibleBy(8, 2) ? OK : ''}
+{=!divisibleBy(8, 3) ? OK : ''}
+{divisibleBy(8, 2) ? OK : ''}
+{divisibleBy(8, 2) ? OK : ''}
+{=!divisibleBy(8, 3) ? OK : ''}

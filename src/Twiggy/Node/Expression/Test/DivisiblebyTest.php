@@ -27,10 +27,11 @@ class DivisiblebyTest extends TestExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
+			->raw('divisibleBy(')
 			->subcompile($this->getNode('node'))
-			->raw(' % ')
+			->raw(', ')
 			->subcompile($this->getNode('arguments')->getNode(0))
-			->raw(' === 0')
+			->raw(')')
 		;
 	}
 }
