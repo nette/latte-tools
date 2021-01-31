@@ -4,8 +4,8 @@ Test: macro
 {import $_self}
 
 {define test, $a, $b}
-    {isset($a) ? ($a|default:a) : a}<br />
-    {isset($b) ? ($b|default:b) : b}<br />
+    {$a ?? a}<br />
+    {$b ?? b}<br />
 {/define}
 
 {include test}

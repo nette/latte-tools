@@ -6,5 +6,5 @@ Test: "macro" tag
 {include input, password, null, password, 1}
 
 {define input, $name, $value, $type, $size}
-  <input type="{isset($type) ? ($type|default:text) : text}" name="{$name}" value="{=($value|default:'')}" size="{isset($size) ? ($size|default:20) : 20}">
+  <input type="{$type ?? text}" name="{$name}" value="{=($value|default:'')}" size="{$size ?? 20}">
 {/define}

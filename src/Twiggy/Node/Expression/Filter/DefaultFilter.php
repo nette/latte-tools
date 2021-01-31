@@ -13,12 +13,11 @@ declare(strict_types=1);
 namespace LatteTools\Twiggy\Node\Expression\Filter;
 
 use LatteTools\Twiggy\Compiler;
-use LatteTools\Twiggy\Node\Expression\ConditionalExpression;
 use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 use LatteTools\Twiggy\Node\Expression\FilterExpression;
 use LatteTools\Twiggy\Node\Expression\GetAttrExpression;
 use LatteTools\Twiggy\Node\Expression\NameExpression;
-use LatteTools\Twiggy\Node\Expression\Test\DefinedTest;
+use LatteTools\Twiggy\Node\Expression\NullCoalesceExpression;
 use LatteTools\Twiggy\Node\Node;
 
 /**
@@ -46,12 +45,11 @@ class DefaultFilter extends FilterExpression
 				|| $node instanceof GetAttrExpression
 			)
 		) {
-			$test = new DefinedTest(clone $node, 'defined', new Node, $node->getTemplateLine());
 			$false = \count($arguments)
 				? $arguments->getNode(0)
 				: new ConstantExpression('', $node->getTemplateLine());
 
-			$node = new ConditionalExpression($test, $default, $false, $node->getTemplateLine());
+			$node = new NullCoalesceExpression($node, $false, $lineno);
 		} else {
 			$node = $default;
 		}
@@ -62,6 +60,10 @@ class DefaultFilter extends FilterExpression
 
 	public function compile(Compiler $compiler): void
 	{
-		$compiler->subcompile($this->getNode('node'));
+		$compiler
+			->raw($this->hasAttribute('is_topmost') ? '' : '(')
+			->subcompile($this->getNode('node'))
+			->raw($this->hasAttribute('is_topmost') ? '' : ')')
+		;
 	}
 }

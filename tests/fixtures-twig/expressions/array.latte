@@ -36,6 +36,6 @@ Test: Twig supports array notation
 {$array_access->a}
 
 {* array that does not exist *}
-{isset($does_not_exist[0]) ? ($does_not_exist[0]|default:ok) : ok}
-{isset($does_not_exist[0]->does_not_exist_either) ? ($does_not_exist[0]->does_not_exist_either|default:ok) : ok}
-{isset($does_not_exist[0]->does_not_exist_either) ? ($does_not_exist[0]->does_not_exist_either|default:ok) : ok}
+{$does_not_exist[0] ?? ok}
+{$does_not_exist[0]->does_not_exist_either ?? ok}
+{$does_not_exist[0]->does_not_exist_either ?? ok}
