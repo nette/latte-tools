@@ -58,7 +58,7 @@ class IncludeNode extends Node implements NodeOutputInterface
 	{
 		$compiler
 			->raw($this->hasAttribute('sandbox') ? '{sandbox ' : '{include ')
-			->subcompile($this->getNode('expr'));
+			->filename($this->getNode('expr'));
 		$this->addTemplateArguments($compiler);
 		$compiler
 			->raw('}')

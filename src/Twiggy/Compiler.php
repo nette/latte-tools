@@ -91,6 +91,20 @@ class Compiler
 
 
 	/**
+	 * Adds a node and changes file extesnsion to .latte.
+	 *
+	 * @return $this
+	 */
+	public function filename(Node $node)
+	{
+		$compiler = new self($this->env);
+		$node->compile($compiler);
+		$this->raw(str_replace('.twig', '.latte', $compiler->source));
+		return $this;
+	}
+
+
+	/**
 	 * Writes a string to the compiled code by adding indentation.
 	 *
 	 * @return $this

@@ -3,4 +3,4 @@ Test: "template_from_string" function
 {include template_from_string($template)}
 
 {include template_from_string('Hello {{ name }}')}
-{include template_from_string('{% extends "parent.twig" %}{% block content %}Hello {{ name }}{% endblock %}')}
+{include template_from_string('{% extends "parent.latte" %}{% block content %}Hello {{ name }}{% endblock %}')}

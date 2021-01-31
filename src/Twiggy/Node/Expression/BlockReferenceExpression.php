@@ -65,7 +65,7 @@ class BlockReferenceExpression extends AbstractExpression
 
 			if ($this->hasNode('template')) {
 				$compiler->raw(' from ')
-					->subcompile($this->getNode('template'));
+					->filename($this->getNode('template'));
 			}
 
 			$compiler->raw('}');

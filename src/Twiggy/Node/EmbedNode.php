@@ -47,7 +47,7 @@ class EmbedNode extends IncludeNode
 	{
 		$compiler
 			->raw('{embed ')
-			->subcompile($this->getAttribute('parent'));
+			->filename($this->getAttribute('parent'));
 
 		$this->addTemplateArguments($compiler);
 

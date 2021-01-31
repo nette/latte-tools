@@ -27,7 +27,7 @@ class UseNode extends Node
 	{
 		$compiler
 			->raw('{import ')
-			->subcompile($this->getNode('expr'))
+			->filename($this->getNode('expr'))
 			->raw('}')
 		;
 	}

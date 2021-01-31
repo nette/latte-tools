@@ -27,7 +27,7 @@ class ExtendsNode extends Node
 	{
 		$compiler
 			->raw('{extends ')
-			->subcompile($this->getNode('expr'))
+			->filename($this->getNode('expr'))
 			->raw('}')
 		;
 	}
