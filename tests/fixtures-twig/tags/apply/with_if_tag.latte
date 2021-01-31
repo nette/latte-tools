@@ -2,7 +2,7 @@ Test: "apply" tag applies the filter on "if" tags
 
 {block|upper}
 {if $items}
-{$items|join:', '}
+{$items|implode:', '}
 {/if}
 
 {if isset($items[3])}

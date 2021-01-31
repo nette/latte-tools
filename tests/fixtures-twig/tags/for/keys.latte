@@ -1,5 +1,5 @@
 Test: "for" tag can iterate over keys
 
-{foreach ($items|keys) as $key}
+{foreach array_keys($items) as $key}
   * {$key}
 {/foreach}

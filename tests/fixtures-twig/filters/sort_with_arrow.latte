@@ -1,4 +1,4 @@
 Test: "sort" filter
 
-{$fruits|sort:fn($a, $b) => ($a->quantity == $b->quantity) ? 0 : ($a->quantity > $b->quantity) ? 1 :  -1|column:name|join:', '}
-{$fruits|sort:fn($a, $b) => ($a->quantity <=> $b->quantity)|column:name|join:', '}
+{array_column(($fruits|sort:fn($a, $b) => ($a->quantity == $b->quantity) ? 0 : ($a->quantity > $b->quantity) ? 1 :  -1), name)|implode:', '}
+{array_column(($fruits|sort:fn($a, $b) => ($a->quantity <=> $b->quantity)), name)|implode:', '}

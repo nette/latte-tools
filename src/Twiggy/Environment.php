@@ -65,6 +65,19 @@ class Environment
 	private $runtimes = [];
 	private $optionsHash;
 
+	private $latteFunctions = [
+		'iterable' => 'is_iterable',
+		'source' => 'file_get_contents',
+	];
+
+	private $latteFilters = [
+		'join' => 'implode',
+		'striptags' => 'stripHtml',
+		'raw' => 'noescape',
+		'title' => 'capitalize',
+		'url_encode' => 'query',
+	];
+
 
 	/**
 	 * Constructor.
@@ -123,6 +136,18 @@ class Environment
 		$this->addExtension(new CoreExtension);
 		$this->addExtension(new EscaperExtension($options['autoescape']));
 		$this->addExtension(new OptimizerExtension($options['optimizations']));
+	}
+
+
+	public function addLatteFunction(string $twigName, string $latteName): void
+	{
+		$this->latteFunctions[$twigName] = $latteName;
+	}
+
+
+	public function addLatteFilter(string $twigName, string $latteName): void
+	{
+		$this->latteFilters[$twigName] = $latteName;
 	}
 
 
@@ -706,6 +731,12 @@ class Environment
 	}
 
 
+	public function getLatteFilter(string $name): string
+	{
+		return $this->latteFilters[$name] ?? $name;
+	}
+
+
 	public function registerUndefinedFilterCallback(callable $callable): void
 	{
 		$this->extensionSet->registerUndefinedFilterCallback($callable);
@@ -767,6 +798,12 @@ class Environment
 	public function getFunction(string $name): ?TwigFunction
 	{
 		return $this->extensionSet->getFunction($name);
+	}
+
+
+	public function getLatteFunction(string $name): string
+	{
+		return $this->latteFunctions[$name] ?? $name;
 	}
 
 

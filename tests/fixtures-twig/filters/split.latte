@@ -1,10 +1,10 @@
 Test: "split" filter
 
-{='one,two,three,four,five'|split:','|join:'-'}
-{$foo|split:','|join:'-'}
-{$foo|split:',', 3|join:'-'}
-{$baz|split:''|join:'-'}
-{$baz|split:'', 1|join:'-'}
-{$baz|split:'', 2|join:'-'}
-{$foo|split:',',  -2|join:'-'}
-{=hello0world|split:0|join:'-'}
+{='one,two,three,four,five'|split:','|implode:'-'}
+{$foo|split:','|implode:'-'}
+{$foo|split:',', 3|implode:'-'}
+{$baz|split:''|implode:'-'}
+{$baz|split:'', 1|implode:'-'}
+{$baz|split:'', 2|implode:'-'}
+{$foo|split:',',  -2|implode:'-'}
+{=hello0world|split:0|implode:'-'}

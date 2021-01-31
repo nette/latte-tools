@@ -42,7 +42,8 @@ class FilterExpression extends CallExpression
 			->raw($topMost ? '' : '(')
 			->subcompile($node);
 
-		$compiler->raw('|' . $name);
+		$compiler->raw('|');
+		$compiler->raw($compiler->getEnvironment()->getLatteFilter($name));
 
 		if ($this->hasNode('arguments')) {
 			$arguments = $this->getNode('arguments');

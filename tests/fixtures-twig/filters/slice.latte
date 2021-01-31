@@ -1,26 +1,26 @@
 Test: "slice" filter
 
-{=[1, 2, 3, 4]|slice:1, 2|join:''}
-{=[a => 1, b => 2, c => 3, d => 4]|slice:1, 2|join:''}
-{=[1, 2, 3, 4]|slice:$start, $length|join:''}
-{=[1, 2, 3, 4]|slice:1, 2|join:''}
-{=[1, 2, 3, 4]|slice:1, 2|keys|join:''}
-{=[1, 2, 3, 4]|slice:1, 2, true|keys|join:''}
-{=[a => 1, b => 2, c => 3, d => 4]|slice:1, 2|join:''}
-{=[a => 1, b => 2, c => 3, d => 4]|slice:1, 2|keys|join:''}
+{=[1, 2, 3, 4]|slice:1, 2|implode:''}
+{=[a => 1, b => 2, c => 3, d => 4]|slice:1, 2|implode:''}
+{=[1, 2, 3, 4]|slice:$start, $length|implode:''}
+{=[1, 2, 3, 4]|slice:1, 2|implode:''}
+{array_keys(([1, 2, 3, 4]|slice:1, 2))|implode:''}
+{array_keys(([1, 2, 3, 4]|slice:1, 2, true))|implode:''}
+{=[a => 1, b => 2, c => 3, d => 4]|slice:1, 2|implode:''}
+{array_keys(([a => 1, b => 2, c => 3, d => 4]|slice:1, 2))|implode:''}
 {1234|slice:1, 2}
 {1234|slice:1, 2}
-{$arr|slice:1, 2|join:''}
-{$arr|slice:1, 2|join:''}
-{$arr|slice:4, 1|join:''}
-{$arr|slice:3, 2|join:''}
+{$arr|slice:1, 2|implode:''}
+{$arr|slice:1, 2|implode:''}
+{$arr|slice:4, 1|implode:''}
+{$arr|slice:3, 2|implode:''}
 
-{=[1, 2, 3, 4]|slice:1|join:''}
-{=[1, 2, 3, 4]|slice:1, null|join:''}
+{=[1, 2, 3, 4]|slice:1|implode:''}
+{=[1, 2, 3, 4]|slice:1, null|implode:''}
 {1234|slice:1}
 {1234|slice:1, null}
 {1234|slice:0, 1}
 
-{$arr|slice:3|join:''}
-{$arr|slice:2, null|join:''}
-{$xml|slice:1|join:''}
+{$arr|slice:3|implode:''}
+{$arr|slice:2, null|implode:''}
+{$xml|slice:1|implode:''}

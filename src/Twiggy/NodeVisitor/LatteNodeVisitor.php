@@ -29,12 +29,16 @@ final class LatteNodeVisitor implements NodeVisitorInterface
 
 	public function leaveNode(Node $node, Environment $env): ?Node
 	{
-		// removed |escape filter
-		if (
-			$node instanceof FilterExpression
-			&& in_array($node->getNode('filter')->getAttribute('value'), ['escape', 'e'], true)
-		) {
-			return $node->getNode('node');
+		if ($node instanceof FilterExpression) {
+			$name = $node->getNode('filter')->getAttribute('value');
+
+			// removed |escape filter
+			if (in_array($name, ['escape', 'e'], true)) {
+				return $node->getNode('node');
+			}
+
+			// removed |filter with function()
+			return $this->filterToFunction($node);
 		}
 
 		if ($node instanceof PrintNode) {
@@ -58,5 +62,30 @@ final class LatteNodeVisitor implements NodeVisitorInterface
 	public function getPriority(): int
 	{
 		return 255;
+	}
+
+
+	private function filterToFunction(FilterExpression $node): Node
+	{
+		static $funcs = [
+			'reduce' => 'array_reduce',
+			'merge' => 'array_merge',
+			'map' => 'array_map',
+			'filter' => 'array_filter',
+			'column' => 'array_column',
+			'keys' => 'array_keys',
+			'json_encode' => 'json_encode',
+		];
+
+		$name = $node->getNode('filter')->getAttribute('value');
+		if (!isset($funcs[$name])) {
+			return $node;
+		}
+
+		$arguments = array_merge([$node->getNode('node')], iterator_to_array($node->getNode('arguments')));
+		if ($name === 'map') {
+			$arguments = array_reverse($arguments);
+		}
+		return new FunctionExpression($funcs[$name], new Node($arguments), $node->getTemplateLine());
 	}
 }

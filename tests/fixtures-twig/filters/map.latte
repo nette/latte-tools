@@ -2,30 +2,30 @@ Test: "map" filter
 
 {var $offset = 3}
 
-{foreach ([1, 2]|map:fn($item) => ($item + 2)) as $k => $v}
+{foreach array_map(fn($item) => ($item + 2), [1, 2]) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
-{foreach ([a => 1, b => 2]|map:fn($item) => ($item . '*')) as $k => $v}
+{foreach array_map(fn($item) => ($item . '*'), [a => 1, b => 2]) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
-{foreach ([a => 1, b => 2]|map:fn($item, $k) => (($item . '*') . $k)) as $k => $v}
+{foreach array_map(fn($item, $k) => (($item . '*') . $k), [a => 1, b => 2]) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
-{foreach ([1, 2]|map:fn($item) => ($item + 2)) as $k => $v}
+{foreach array_map(fn($item) => ($item + 2), [1, 2]) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
-{foreach ($it|map:fn($item) => ($item + 2)) as $k => $v}
+{foreach array_map(fn($item) => ($item + 2), $it) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
 {define local_lower, $string}
     {$string|lower}
 {/define}
-{=[A]|map:fn($val) => {include local_lower, $val}|join}
+{array_map(fn($val) => {include local_lower, $val}, [A])|implode}
 
 {import $_self}
-{=[A]|map:fn($val) => {include local_lower, $val}|join}
+{array_map(fn($val) => {include local_lower, $val}, [A])|implode}

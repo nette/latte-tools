@@ -1,36 +1,36 @@
 Test: Twig supports array notation
 
 {* empty array *}
-{=[]|join:','}
+{=[]|implode:','}
 
-{=[1, 2]|join:','}
-{=[foo, bar]|join:','}
-{=[1, foo => bar]|join:','}
-{=[1, foo => bar]|keys|join:','}
+{=[1, 2]|implode:','}
+{=[foo, bar]|implode:','}
+{=[1, foo => bar]|implode:','}
+{array_keys([1, foo => bar])|implode:','}
 
-{=[1, foo => bar]|join:','}
-{=[1, foo => bar]|keys|join:','}
+{=[1, foo => bar]|implode:','}
+{array_keys([1, foo => bar])|implode:','}
 
 {* nested arrays *}
 {var $a = [1, 2, [1, 2], [foo => [foo => bar]]]}
-{$a[2]|join:','}
-{$a[3]->foo|join:','}
+{$a[2]|implode:','}
+{$a[3]->foo|implode:','}
 
 {* works even if [] is used inside the array *}
-{=[$foo->{$bar}]|join:','}
+{=[$foo->{$bar}]|implode:','}
 
 {* elements can be any expression *}
-{=[(foo|upper), ($bar|upper), ($bar == $foo)]|join:','}
+{=[(foo|upper), ($bar|upper), ($bar == $foo)]|implode:','}
 
 {* arrays can have a trailing , like in PHP *}
-{=[1, 2]|join:','}
+{=[1, 2]|implode:','}
 
 {* keys can be any expression *}
 {var $a = 1}
 {var $b = foo}
 {var $ary = [$a => a, $b => b, c => c, ($a . $b) => d]}
-{$ary|keys|join:','}
-{$ary|join:','}
+{array_keys($ary)|implode:','}
+{$ary|implode:','}
 
 {* ArrayAccess *}
 {$array_access->a}

@@ -24,7 +24,7 @@ abstract class CallExpression extends AbstractExpression
 	protected function compileCallable(Compiler $compiler)
 	{
 		$name = $this->getAttribute('name');
-		$compiler->raw($name);
+		$compiler->raw($compiler->getEnvironment()->getLatteFunction($name));
 		$this->compileArguments($compiler);
 	}
 
