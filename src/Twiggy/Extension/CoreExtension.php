@@ -1430,10 +1430,10 @@ function twig_array_batch($items, $size, $fill = null, $preserveKeys = true)
  *
  * @internal
  */
-function twig_get_attribute(Environment $env, Source $source, $object, $item, array $arguments = [], $type = /* Template::ANY_CALL */ 'any', $isDefinedTest = false, $ignoreStrictCheck = false, $sandboxed = false, int $lineno = -1)
+function twig_get_attribute(Environment $env, Source $source, $object, $item, array $arguments = [], $type = Template::ANY_CALL, $isDefinedTest = false, $ignoreStrictCheck = false, $sandboxed = false, int $lineno = -1)
 {
 	// array
-	if ($type !== /* Template::METHOD_CALL */ 'method') {
+	if ($type !== Template::METHOD_CALL) {
 		$arrayItem = \is_bool($item) || \is_float($item) ? (int) $item : $item;
 
 		if (((\is_array($object) || $object instanceof \ArrayObject) && (isset($object[$arrayItem]) || \array_key_exists($arrayItem, (array) $object)))
@@ -1446,7 +1446,7 @@ function twig_get_attribute(Environment $env, Source $source, $object, $item, ar
 			return $object[$arrayItem];
 		}
 
-		if ($type === /* Template::ARRAY_CALL */ 'array' || !\is_object($object)) {
+		if ($type === Template::ARRAY_CALL || !\is_object($object)) {
 			if ($isDefinedTest) {
 				return false;
 			}
@@ -1465,7 +1465,7 @@ function twig_get_attribute(Environment $env, Source $source, $object, $item, ar
 				} else {
 					$message = sprintf('Key "%s" for array with keys "%s" does not exist.', $arrayItem, implode(', ', array_keys($object)));
 				}
-			} elseif ($type === /* Template::ARRAY_CALL */ 'array') {
+			} elseif ($type === Template::ARRAY_CALL) {
 				if ($object === null) {
 					$message = sprintf('Impossible to access a key ("%s") on a null variable.', $item);
 				} else {
@@ -1506,7 +1506,7 @@ function twig_get_attribute(Environment $env, Source $source, $object, $item, ar
 	}
 
 	// object property
-	if ($type !== /* Template::METHOD_CALL */ 'method') {
+	if ($type !== Template::METHOD_CALL) {
 		if (isset($object->$item) || \array_key_exists((string) $item, (array) $object)) {
 			if ($isDefinedTest) {
 				return true;

@@ -123,23 +123,23 @@ class Parser
 		$rv = [];
 		while (!$this->stream->isEOF()) {
 			switch ($this->getCurrentToken()->getType()) {
-				case /* Token::TEXT_TYPE */ 0:
+				case Token::TEXT_TYPE:
 					$token = $this->stream->next();
 					$rv[] = new TextNode($token->getValue(), $token->getLine());
 					break;
 
-				case /* Token::VAR_START_TYPE */ 2:
+				case Token::VAR_START_TYPE:
 					$token = $this->stream->next();
 					$expr = $this->expressionParser->parseExpression();
-					$this->stream->expect(/* Token::VAR_END_TYPE */ 4);
+					$this->stream->expect(Token::VAR_END_TYPE);
 					$rv[] = new PrintNode($expr, $token->getLine());
 					break;
 
-				case /* Token::BLOCK_START_TYPE */ 1:
+				case Token::BLOCK_START_TYPE:
 					$this->stream->next();
 					$token = $this->getCurrentToken();
 
-					if ($token->getType() !== /* Token::NAME_TYPE */ 5) {
+					if ($token->getType() !== Token::NAME_TYPE) {
 						throw new SyntaxError('A block must start with a tag name.', $token->getLine(), $this->stream->getSourceContext());
 					}
 

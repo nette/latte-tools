@@ -126,7 +126,7 @@ final class TokenStream
 	 */
 	public function isEOF(): bool
 	{
-		return $this->tokens[$this->current]->getType() === /* Token::EOF_TYPE */ -1;
+		return $this->tokens[$this->current]->getType() === Token::EOF_TYPE;
 	}
 
 
