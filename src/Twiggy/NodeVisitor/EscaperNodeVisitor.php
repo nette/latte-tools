@@ -146,7 +146,7 @@ final class EscaperNodeVisitor implements NodeVisitorInterface
 	}
 
 
-	private function escapePrintNode(PrintNode $node, Environment $env, string $type): Node
+	private function escapePrintNode(PrintNode $node, Environment $env, string|bool $type): Node
 	{
 		if ($type === false) {
 			return $node;
@@ -184,7 +184,7 @@ final class EscaperNodeVisitor implements NodeVisitorInterface
 	}
 
 
-	private function isSafeFor(string $type, Node $expression, Environment $env): bool
+	private function isSafeFor(string|bool $type, Node $expression, Environment $env): bool
 	{
 		$safe = $this->safeAnalysis->getSafe($expression);
 
@@ -213,7 +213,7 @@ final class EscaperNodeVisitor implements NodeVisitorInterface
 	}
 
 
-	private function getEscaperFilter(string $type, Node $node): FilterExpression
+	private function getEscaperFilter(string|bool $type, Node $node): FilterExpression
 	{
 		$line = $node->getTemplateLine();
 		$name = new ConstantExpression('escape', $line);

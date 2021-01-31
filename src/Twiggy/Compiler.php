@@ -88,7 +88,7 @@ class Compiler
 	 *
 	 * @return $this
 	 */
-	public function raw(string $string)
+	public function raw(int|string $string)
 	{
 		$this->source .= $string;
 
