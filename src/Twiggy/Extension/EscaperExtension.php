@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace LatteTools\Twiggy\Extension {
 use LatteTools\Twiggy\FileExtensionEscapingStrategy;
-use LatteTools\Twiggy\NodeVisitor\EscaperNodeVisitor;
 use LatteTools\Twiggy\TokenParser\AutoEscapeTokenParser;
 use LatteTools\Twiggy\TwigFilter;
 
@@ -47,7 +46,7 @@ final class EscaperExtension extends AbstractExtension
 
 	public function getNodeVisitors(): array
 	{
-		return [new EscaperNodeVisitor];
+		return [];
 	}
 
 
