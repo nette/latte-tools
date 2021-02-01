@@ -1,6 +1,6 @@
 Test: "const" test
 
-{constant("E_NOTICE") === 8 ? "ok" : "no"}
-{constant("Twig\\Tests\\TwigTestFoo::BAR_NAME") === "bar" ? "ok" : "no"}
-{constant("Twig\\Tests\\TwigTestFoo::BAR_NAME") === $value ? "ok" : "no"}
-{constant(get_class($object)."::"."ARRAY_AS_PROPS") === 2 ? "ok" : "no"}
+{constant(E_NOTICE) === 8 ? ok : no}
+{constant('Twig\Tests\TwigTestFoo::BAR_NAME') === bar ? ok : no}
+{constant('Twig\Tests\TwigTestFoo::BAR_NAME') === $value ? ok : no}
+{constant(get_class($object)."::".ARRAY_AS_PROPS) === 2 ? ok : no}

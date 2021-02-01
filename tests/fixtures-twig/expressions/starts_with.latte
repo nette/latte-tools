@@ -1,12 +1,12 @@
 Test: Twig supports the "starts with" operator
 
-{str_starts_with("foo", "f") ? "OK" : "KO"}
-{=!str_starts_with("foo", "oo") ? "OK" : "KO"}
-{=!str_starts_with("foo", "foowaytoolong") ? "OK" : "KO"}
-{str_starts_with("foo", "f") ? "OK" : "KO"}
-{str_starts_with("foo", "f") ? "OK" : "KO"}
-{str_starts_with("foo", "") ? "OK" : "KO"}
-{str_starts_with("1", true) ? "OK" : "KO"}
-{str_starts_with("", false) ? "OK" : "KO"}
-{str_starts_with("a", false) ? "OK" : "KO"}
-{str_starts_with(false, "") ? "OK" : "KO"}
+{str_starts_with(foo, f) ? OK : KO}
+{=!str_starts_with(foo, oo) ? OK : KO}
+{=!str_starts_with(foo, foowaytoolong) ? OK : KO}
+{str_starts_with(foo, f) ? OK : KO}
+{str_starts_with(foo, f) ? OK : KO}
+{str_starts_with(foo, '') ? OK : KO}
+{str_starts_with(1, true) ? OK : KO}
+{str_starts_with('', false) ? OK : KO}
+{str_starts_with(a, false) ? OK : KO}
+{str_starts_with(false, '') ? OK : KO}

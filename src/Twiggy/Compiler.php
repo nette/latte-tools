@@ -112,8 +112,13 @@ class Compiler
 	 */
 	public function string(string $value)
 	{
-		$this->source .= sprintf('"%s"', addcslashes($value, "\0\t\"\$\\"));
-
+		if (!$this->isSymbol($value)) {
+			$escaped = addcslashes($value, "\x00..\x1F");
+			$value = $value === $escaped
+				? "'" . $value . "'"
+				: '"' . $escaped . '"';
+		}
+		$this->source .= $value;
 		return $this;
 	}
 
@@ -175,5 +180,11 @@ class Compiler
 	public function getVarName(): string
 	{
 		return sprintf('__internal_%s', hash('sha256', __METHOD__ . $this->varNameSalt++));
+	}
+
+
+	public function isSymbol(string $value): bool
+	{
+		return (bool) preg_match('~^\w+(?:-+\w+)*\z~', $value);
 	}
 }

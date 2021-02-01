@@ -1,9 +1,9 @@
 Test: "macro" tag
 
-{include "hello", "Fabien"}
+{include hello, Fabien}
 
 {define hello, $name}
-    Hello {include "up", $name}
+    Hello {include up, $name}
 {/define}
 
 {define up, $name}

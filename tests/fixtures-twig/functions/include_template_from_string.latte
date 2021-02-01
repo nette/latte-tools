@@ -1,4 +1,4 @@
 Test: "template_from_string" function works in an "include"
 
-{var $embed = "{% embed \"embed.twig\" %}{% endembed %}"}
+{var $embed = '{% embed "embed.twig" %}{% endembed %}'}
 {include template_from_string($embed)}

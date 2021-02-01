@@ -6,11 +6,11 @@ Test: "filter" filter
     {$k} = {$v}
 {/foreach}
 
-{foreach (["a" => 1, "b" => 2, "c" => 5, "d" => 8]|filter:fn($v) => ($v > $offset)) as $k => $v}
+{foreach ([a => 1, b => 2, c => 5, d => 8]|filter:fn($v) => ($v > $offset)) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
-{foreach (["a" => 1, "b" => 2, "c" => 5, "d" => 8]|filter:fn($v, $k) => (($v > $offset) && ($k != "d"))) as $k => $v}
+{foreach ([a => 1, b => 2, c => 5, d => 8]|filter:fn($v, $k) => (($v > $offset) && ($k != d))) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
@@ -35,7 +35,7 @@ Test: "filter" filter
 {$k}/{$v}
 {/foreach}
 
-{var $coll = (["a", "b"]|filter:fn($v) => $v === "a")}
+{var $coll = ([a, b]|filter:fn($v) => $v === a)}
 {if (($coll|length) > 0)}
-    {$coll|join:", "}
+    {$coll|join:', '}
 {/if}

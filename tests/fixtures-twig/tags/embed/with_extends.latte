@@ -1,6 +1,6 @@
 Test: "embed" tag
 
-{extends "base.twig"}
+{extends 'base.twig'}
 
 {block c1}
     {include parent}
@@ -10,7 +10,7 @@ Test: "embed" tag
 {block c2}
     {include parent}
 
-    {embed "foo.twig"}
+    {embed 'foo.twig'}
 {block c1}
             {include parent}
             block1extended

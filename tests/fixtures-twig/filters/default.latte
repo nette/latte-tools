@@ -1,42 +1,42 @@
 Test: "default" filter
 
 Variable:
-{isset($definedVar) ? ($definedVar|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($zeroVar) ? ($zeroVar|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($emptyVar) ? ($emptyVar|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($nullVar) ? ($nullVar|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($undefinedVar) ? ($undefinedVar|default:"default") : "default" === "default" ? "ok" : "ko"}
+{isset($definedVar) ? ($definedVar|default:default) : default === default ? ko : ok}
+{isset($zeroVar) ? ($zeroVar|default:default) : default === default ? ko : ok}
+{isset($emptyVar) ? ($emptyVar|default:default) : default === default ? ok : ko}
+{isset($nullVar) ? ($nullVar|default:default) : default === default ? ok : ko}
+{isset($undefinedVar) ? ($undefinedVar|default:default) : default === default ? ok : ko}
 Array access:
-{isset($nested->definedVar) ? ($nested->definedVar|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($nested->definedVar) ? ($nested->definedVar|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($nested->zeroVar) ? ($nested->zeroVar|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($nested->emptyVar) ? ($nested->emptyVar|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($nested->nullVar) ? ($nested->nullVar|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($nested->undefinedVar) ? ($nested->undefinedVar|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($nested->undefinedVar) ? ($nested->undefinedVar|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($undefined->undefined) ? ($undefined->undefined|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($undefinedVar->foo) ? ($undefinedVar->foo|default:"default") : "default" === "default" ? "ok" : "ko"}
+{isset($nested->definedVar) ? ($nested->definedVar|default:default) : default === default ? ko : ok}
+{isset($nested->definedVar) ? ($nested->definedVar|default:default) : default === default ? ko : ok}
+{isset($nested->zeroVar) ? ($nested->zeroVar|default:default) : default === default ? ko : ok}
+{isset($nested->emptyVar) ? ($nested->emptyVar|default:default) : default === default ? ok : ko}
+{isset($nested->nullVar) ? ($nested->nullVar|default:default) : default === default ? ok : ko}
+{isset($nested->undefinedVar) ? ($nested->undefinedVar|default:default) : default === default ? ok : ko}
+{isset($nested->undefinedVar) ? ($nested->undefinedVar|default:default) : default === default ? ok : ko}
+{isset($undefined->undefined) ? ($undefined->undefined|default:default) : default === default ? ok : ko}
+{isset($undefinedVar->foo) ? ($undefinedVar->foo|default:default) : default === default ? ok : ko}
 Plain values:
-{=("defined"|default:"default") === "default" ? "ko" : "ok"}
-{=(0|default:"default") === "default" ? "ko" : "ok"}
-{=(""|default:"default") === "default" ? "ok" : "ko"}
-{=(null|default:"default") === "default" ? "ok" : "ko"}
+{=(defined|default:default) === default ? ko : ok}
+{=(0|default:default) === default ? ko : ok}
+{=(''|default:default) === default ? ok : ko}
+{=(null|default:default) === default ? ok : ko}
 Precedence:
-{="o" . isset($nullVar) ? ($nullVar|default:"k") : "k"}
-{="o" . isset($nested->nullVar) ? ($nested->nullVar|default:"k") : "k"}
+{=o . isset($nullVar) ? ($nullVar|default:k) : k}
+{=o . isset($nested->nullVar) ? ($nested->nullVar|default:k) : k}
 Object methods:
-{isset($object->foo) ? ($object->foo|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($object->undefinedMethod) ? ($object->undefinedMethod|default:"default") : "default" === "default" ? "ok" : "ko"}
-{=true ? ($object->getFoo()|default:"default") : "default" === "default" ? "ko" : "ok"}
-{=true ? ($object->getFoo("a")|default:"default") : "default" === "default" ? "ko" : "ok"}
-{=true ? ($object->undefinedMethod()|default:"default") : "default" === "default" ? "ok" : "ko"}
-{=true ? ($object->undefinedMethod("a")|default:"default") : "default" === "default" ? "ok" : "ko"}
+{isset($object->foo) ? ($object->foo|default:default) : default === default ? ko : ok}
+{isset($object->undefinedMethod) ? ($object->undefinedMethod|default:default) : default === default ? ok : ko}
+{=true ? ($object->getFoo()|default:default) : default === default ? ko : ok}
+{=true ? ($object->getFoo(a)|default:default) : default === default ? ko : ok}
+{=true ? ($object->undefinedMethod()|default:default) : default === default ? ok : ko}
+{=true ? ($object->undefinedMethod(a)|default:default) : default === default ? ok : ko}
 Deep nested:
-{isset($nested->undefinedVar->foo->bar) ? ($nested->undefinedVar->foo->bar|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($nested->definedArray[0]) ? ($nested->definedArray[0]|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($nested->definedArray[0]) ? ($nested->definedArray[0]|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($nested->undefinedVar[0]) ? ($nested->undefinedVar[0]|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($undefined->undefined[0]) ? ($undefined->undefined[0]|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($object->self->foo) ? ($object->self->foo|default:"default") : "default" === "default" ? "ko" : "ok"}
-{isset($object->self->undefinedMethod) ? ($object->self->undefinedMethod|default:"default") : "default" === "default" ? "ok" : "ko"}
-{isset($object->undefinedMethod->self) ? ($object->undefinedMethod->self|default:"default") : "default" === "default" ? "ok" : "ko"}
+{isset($nested->undefinedVar->foo->bar) ? ($nested->undefinedVar->foo->bar|default:default) : default === default ? ok : ko}
+{isset($nested->definedArray[0]) ? ($nested->definedArray[0]|default:default) : default === default ? ko : ok}
+{isset($nested->definedArray[0]) ? ($nested->definedArray[0]|default:default) : default === default ? ko : ok}
+{isset($nested->undefinedVar[0]) ? ($nested->undefinedVar[0]|default:default) : default === default ? ok : ko}
+{isset($undefined->undefined[0]) ? ($undefined->undefined[0]|default:default) : default === default ? ok : ko}
+{isset($object->self->foo) ? ($object->self->foo|default:default) : default === default ? ko : ok}
+{isset($object->self->undefinedMethod) ? ($object->self->undefinedMethod|default:default) : default === default ? ok : ko}
+{isset($object->undefinedMethod->self) ? ($object->undefinedMethod->self|default:default) : default === default ? ok : ko}

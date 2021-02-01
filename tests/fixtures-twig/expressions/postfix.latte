@@ -4,9 +4,9 @@ Test: Twig parses postfix expressions
 
 {define foo}foo{/define}
 
-{="a"}
-{="a"|upper}
-{="a"|upper}
+{=a}
+{=a|upper}
+{=a|upper}
 {= -(1|upper)}
-{include "foo"}
-{include "foo"}
+{include foo}
+{include foo}

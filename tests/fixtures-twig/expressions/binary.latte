@@ -15,8 +15,8 @@ Test: Twig supports binary operations (+, -, *, /, ~, %, and, or)
 {0 || 0}
 {0 || (1 && 0)}
 {1 || (0 && 1)}
-{="foo" . "bar"}
-{$foo . "bar"}
-{="foo" . $bar}
+{=foo . bar}
+{$foo . bar}
+{=foo . $bar}
 {$foo . $bar}
 {=(int) floor(20 / 7)}

@@ -1,63 +1,63 @@
 Test: Twig supports the in operator
 
-{in_array($bar, $foo, true) ? "OK" : "KO"}
-{=!in_array($bar, $foo, true) ? "KO" : "OK"}
-{=!in_array($bar, $foo, true) ? "KO" : "OK"}
-{in_array("a", $bar, true) ? "OK" : "KO"}
-{=!in_array("c", $bar, true) ? "OK" : "KO"}
-{in_array("", $bar, true) ? "OK" : "KO"}
-{in_array("", "", true) ? "OK" : "KO"}
-{=!in_array("0", "", true) ? "OK" : "KO"}
-{=!in_array("a", "0", true) ? "OK" : "KO"}
-{in_array("0", "0", true) ? "OK" : "KO"}
+{in_array($bar, $foo, true) ? OK : KO}
+{=!in_array($bar, $foo, true) ? KO : OK}
+{=!in_array($bar, $foo, true) ? KO : OK}
+{in_array(a, $bar, true) ? OK : KO}
+{=!in_array(c, $bar, true) ? OK : KO}
+{in_array('', $bar, true) ? OK : KO}
+{in_array('', '', true) ? OK : KO}
+{=!in_array(0, '', true) ? OK : KO}
+{=!in_array(a, 0, true) ? OK : KO}
+{in_array(0, 0, true) ? OK : KO}
 
-{in_array(false, [0, 1], true) ? "OK" : "KO"}
-{in_array(true, [0, 1], true) ? "OK" : "KO"}
-{in_array("0", [0, 1], true) ? "OK" : "KO"}
-{in_array("0", [1, 0], true) ? "OK" : "KO"}
-{in_array("", [0, 1], true) ? "KO" : "OK"}
-{in_array("", [1, 0], true) ? "KO" : "OK"}
-{in_array(0, ["", 1], true) ? "KO" : "OK"}
-{in_array(0, [1, ""], true) ? "KO" : "OK"}
+{in_array(false, [0, 1], true) ? OK : KO}
+{in_array(true, [0, 1], true) ? OK : KO}
+{in_array(0, [0, 1], true) ? OK : KO}
+{in_array(0, [1, 0], true) ? OK : KO}
+{in_array('', [0, 1], true) ? KO : OK}
+{in_array('', [1, 0], true) ? KO : OK}
+{in_array(0, ['', 1], true) ? KO : OK}
+{in_array(0, [1, ''], true) ? KO : OK}
 
-{in_array("", "foo", true) ? "OK" : "KO"}
-{in_array(0, "foo", true) ? "KO" : "OK"}
-{in_array(false, "foo", true) ? "KO" : "OK"}
-{in_array(false, "100", true) ? "KO" : "OK"}
-{in_array(true, "100", true) ? "KO" : "OK"}
+{in_array('', foo, true) ? OK : KO}
+{in_array(0, foo, true) ? KO : OK}
+{in_array(false, foo, true) ? KO : OK}
+{in_array(false, 100, true) ? KO : OK}
+{in_array(true, 100, true) ? KO : OK}
 
-{in_array([], [true, false], true) ? "OK" : "KO"}
-{in_array([], [true, ""], true) ? "KO" : "OK"}
-{in_array([], [true, []], true) ? "OK" : "KO"}
+{in_array([], [true, false], true) ? OK : KO}
+{in_array([], [true, ''], true) ? KO : OK}
+{in_array([], [true, []], true) ? OK : KO}
 
-{$resource ? "OK" : "KO"}
-{in_array($resource, ("foo" . $resource), true) ? "KO" : "OK"}
-{in_array($object, "stdClass", true) ? "KO" : "OK"}
-{in_array([], "Array", true) ? "KO" : "OK"}
-{in_array($dir_object, ("foo" . $dir_object), true) ? "KO" : "OK"}
+{$resource ? OK : KO}
+{in_array($resource, (foo . $resource), true) ? KO : OK}
+{in_array($object, stdClass, true) ? KO : OK}
+{in_array([], Array, true) ? KO : OK}
+{in_array($dir_object, (foo . $dir_object), true) ? KO : OK}
 
-{in_array(("" . $resource), $resource, true) ? "KO" : "OK"}
-{in_array("stdClass", $object, true) ? "KO" : "OK"}
-{in_array("Array", [], true) ? "KO" : "OK"}
-{in_array(("" . $dir_object), $dir_object, true) ? "KO" : "OK"}
+{in_array(('' . $resource), $resource, true) ? KO : OK}
+{in_array(stdClass, $object, true) ? KO : OK}
+{in_array(Array, [], true) ? KO : OK}
+{in_array(('' . $dir_object), $dir_object, true) ? KO : OK}
 
-{in_array($resource, [("" . $resource)], true) ? "KO" : "OK"}
-{in_array($dir_object, [("" . $dir_object)], true) ? "KO" : "OK"}
+{in_array($resource, [('' . $resource)], true) ? KO : OK}
+{in_array($dir_object, [('' . $dir_object)], true) ? KO : OK}
 
-{in_array(5, 125, true) ? "KO" : "OK"}
-{in_array(5, "125", true) ? "OK" : "KO"}
-{in_array("5", 125, true) ? "KO" : "OK"}
-{in_array("5", "125", true) ? "OK" : "KO"}
+{in_array(5, 125, true) ? KO : OK}
+{in_array(5, 125, true) ? OK : KO}
+{in_array(5, 125, true) ? KO : OK}
+{in_array(5, 125, true) ? OK : KO}
 
-{in_array(5.5, 125.5, true) ? "KO" : "OK"}
-{in_array(5.5, "125.5", true) ? "OK" : "KO"}
-{in_array("5.5", 125.5, true) ? "KO" : "OK"}
+{in_array(5.5, 125.5, true) ? KO : OK}
+{in_array(5.5, '125.5', true) ? OK : KO}
+{in_array('5.5', 125.5, true) ? KO : OK}
 
-{in_array($safe, ["foo", "bar"], true) ? "OK" : "KO"}
-{in_array("fo", $safe, true) ? "OK" : "KO"}
+{in_array($safe, [foo, bar], true) ? OK : KO}
+{in_array(fo, $safe, true) ? OK : KO}
 
-{in_array($foo->not, ["not"], true) ? "OK" : "KO"}
-{in_array(("value"|not), ["not value"], true) ? "OK" : "KO"}
-{=!in_array($foo->not, ["not"], true) ? "KO" : "OK"}
-{=!in_array(("value"|not), ["not value"], true) ? "KO" : "OK"}
-{=!in_array("value", ["not value"], true) ? "OK" : "KO"}
+{in_array($foo->not, [not], true) ? OK : KO}
+{in_array((value|not), ['not value'], true) ? OK : KO}
+{=!in_array($foo->not, [not], true) ? KO : OK}
+{=!in_array((value|not), ['not value'], true) ? KO : OK}
+{=!in_array(value, ['not value'], true) ? OK : KO}

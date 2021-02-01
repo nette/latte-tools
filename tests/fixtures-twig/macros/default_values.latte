@@ -2,9 +2,9 @@ Test: macro
 
 {import $_self}
 
-{define test, $a, $b = "bar"}
+{define test, $a, $b = bar}
 {$a}{$b}
 {/define}
 
-{include "test", "foo"}
-{include "test", "bar", "foo"}
+{include test, foo}
+{include test, bar, foo}

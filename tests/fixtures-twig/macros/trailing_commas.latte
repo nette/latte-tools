@@ -3,15 +3,15 @@ Test: macros allow trailing commas in their argument and parameter list
 {import $_self}
 
 {define test, $a, $b}
-    {isset($a) ? ($a|default:"a") : "a"}<br />
-    {isset($b) ? ($b|default:"b") : "b"}<br />
+    {isset($a) ? ($a|default:a) : a}<br />
+    {isset($b) ? ($b|default:b) : b}<br />
 {/define}
 {define test2, $a, $b}
-    {isset($a) ? ($a|default:"a") : "a"}<br />
-    {isset($b) ? ($b|default:"b") : "b"}<br />
+    {isset($a) ? ($a|default:a) : a}<br />
+    {isset($b) ? ($b|default:b) : b}<br />
 {/define}
 
-{include "test", 1, 2}
-{include "test", 3, 4}
-{include "test2", 5, 6}
-{include "test2", 7, 8}
+{include test, 1, 2}
+{include test, 3, 4}
+{include test2, 5, 6}
+{include test2, 7, 8}

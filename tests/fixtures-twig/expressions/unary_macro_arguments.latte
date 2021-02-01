@@ -1,11 +1,11 @@
 Test: Twig manages negative numbers as default parameters
 
 {import $_self}
-{include "negative_number1"}
-{include "negative_number2"}
-{include "negative_number3"}
-{include "positive_number1"}
-{include "positive_number2"}
+{include negative_number1}
+{include negative_number2}
+{include negative_number3}
+{include positive_number1}
+{include positive_number2}
 {define negative_number1, $nb =  -1}{$nb}{/define}
 {define negative_number2, $nb =  - -1}{$nb}{/define}
 {define negative_number3, $nb =  -1}{$nb}{/define}

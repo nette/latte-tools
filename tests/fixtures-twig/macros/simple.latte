@@ -4,11 +4,11 @@ Test: macro
 {import $_self}
 
 {define test, $a, $b}
-    {isset($a) ? ($a|default:"a") : "a"}<br />
-    {isset($b) ? ($b|default:"b") : "b"}<br />
+    {isset($a) ? ($a|default:a) : a}<br />
+    {isset($b) ? ($b|default:b) : b}<br />
 {/define}
 
-{include "test"}
-{include "test"}
-{include "test", 1, "c"}
-{include "test", 1, "c"}
+{include test}
+{include test}
+{include test, 1, c}
+{include test, 1, c}

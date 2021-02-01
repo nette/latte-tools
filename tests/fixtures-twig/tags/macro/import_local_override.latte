@@ -3,12 +3,12 @@ Test: "macro" tag
 {import $_self}
 
 {block foo}
-    {import "macros"}
-    {include "input", "username"}
+    {import macros}
+    {include input, username}
 {/block}
 
 {block bar}
-    {include "input", "username"}
+    {include input, username}
 {/block}
 
 {define input, $name}

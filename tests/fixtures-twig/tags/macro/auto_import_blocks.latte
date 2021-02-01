@@ -1,11 +1,11 @@
 Test: "macro" tag
 
 {block content}
-    {include "hello", "Fabien"}
+    {include hello, Fabien}
 {/block}
 
 {define hello, $name}
-    Hello {include "up", $name}
+    Hello {include up, $name}
 {/define}
 
 {define up, $name}

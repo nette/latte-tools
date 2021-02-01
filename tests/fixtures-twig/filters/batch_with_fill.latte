@@ -1,7 +1,7 @@
 Test: "batch" filter
 
 <table>
-{foreach ($items|batch:3, "fill") as $row}
+{foreach ($items|batch:3, fill) as $row}
   <tr>
   {foreach $row as $column}
     <td>{$column}</td>

@@ -1,6 +1,6 @@
 Test: "defined" support for attribute
 
-{isset($nested->definedVar) ? "ok" : "ko"}
-{=!isset($nested->undefinedVar) ? "ok" : "ko"}
-{isset($nested->{$definedVarName}) ? "ok" : "ko"}
-{=!isset($nested->{$undefinedVarName}) ? "ok" : "ko"}
+{isset($nested->definedVar) ? ok : ko}
+{=!isset($nested->undefinedVar) ? ok : ko}
+{isset($nested->{$definedVarName}) ? ok : ko}
+{=!isset($nested->{$undefinedVarName}) ? ok : ko}

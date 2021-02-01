@@ -1,6 +1,6 @@
 Test: "import" tag
 
-{extends "parent"}
+{extends parent}
 
 {define anotherThing}
     Do it too
@@ -9,5 +9,5 @@ Test: "import" tag
 {import $_self}
 {block content}
     {include parent}
-    {include "anotherThing"}
+    {include anotherThing}
 {/block}

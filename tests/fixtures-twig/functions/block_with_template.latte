@@ -1,8 +1,8 @@
 Test: "block" function with a template argument
 
-{include foo from "included.twig"}
+{include foo from 'included.twig'}
 {include foo from $included_loaded}
 {include foo from $included_loaded_internal}
-{var $output = {include foo from "included.twig"}}
+{var $output = {include foo from 'included.twig'}}
 {$output}
 {block foo}NOT FOO{/block}

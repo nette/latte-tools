@@ -1,9 +1,9 @@
 Test: "apply" tag does not create a new scope
 
-{var $foo = "baz"}
+{var $foo = baz}
 {block|spaceless}
-    {var $foo = "foo"}
-    {var $bar = "bar"}
+    {var $foo = foo}
+    {var $bar = bar}
 {/block}
-{=("foo" == $foo) ? ("OK " . $foo) : "KO"}
-{=("bar" == $bar) ? ("OK " . $bar) : "KO"}
+{=(foo == $foo) ? ('OK ' . $foo) : KO}
+{=(bar == $bar) ? ('OK ' . $bar) : KO}

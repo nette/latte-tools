@@ -6,11 +6,11 @@ Test: "map" filter
     {$k} = {$v}
 {/foreach}
 
-{foreach (["a" => 1, "b" => 2]|map:fn($item) => ($item . "*")) as $k => $v}
+{foreach ([a => 1, b => 2]|map:fn($item) => ($item . '*')) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
-{foreach (["a" => 1, "b" => 2]|map:fn($item, $k) => (($item . "*") . $k)) as $k => $v}
+{foreach ([a => 1, b => 2]|map:fn($item, $k) => (($item . '*') . $k)) as $k => $v}
     {$k} = {$v}
 {/foreach}
 
@@ -25,7 +25,7 @@ Test: "map" filter
 {define local_lower, $string}
     {$string|lower}
 {/define}
-{=["A"]|map:fn($val) => {include "local_lower", $val}|join}
+{=[A]|map:fn($val) => {include local_lower, $val}|join}
 
 {import $_self}
-{=["A"]|map:fn($val) => {include "local_lower", $val}|join}
+{=[A]|map:fn($val) => {include local_lower, $val}|join}

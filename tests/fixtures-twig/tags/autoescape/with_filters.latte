@@ -39,23 +39,23 @@ Test: "autoescape" tag applies escaping after calling filters
 7. Escape if last filter is not an escaper
 ( the output of |format is "<b>" ~ var ~ "</b>",
   the output is auto-escaped )
-{="<b>%s</b>"|format:$var}
+{='<b>%s</b>'|format:$var}
 
 8. Escape if last filter is not an escaper
 ( the output of |format is "<b>" ~ var ~ "</b>",
   |raw is redundant,
   the output is auto-escaped )
-{="<b>%s</b>"|format:$var}
+{='<b>%s</b>'|format:$var}
 
 9. Don't escape escaper filter output
 ( the output of |format is "<b>" ~ var ~ "</b>",
   the output is not escaped due to |raw filter at the end )
-{="<b>%s</b>"|format:$var}
+{='<b>%s</b>'|format:$var}
 
 10. Don't escape escaper filter output
 ( the output of |format is "<b>" ~ var ~ "</b>",
   the output is not escaped due to |raw filter at the end,
   the |raw filter on var is redundant )
-{="<b>%s</b>"|format:$var}
+{='<b>%s</b>'|format:$var}
 
 

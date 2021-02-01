@@ -1,6 +1,6 @@
 Test: "batch" filter
 
-{foreach ($items|batch:3, "fill") as $row}
+{foreach ($items|batch:3, fill) as $row}
   <div class=row>
   {foreach $row as $column}
     <div class=item>{$column}</div>
