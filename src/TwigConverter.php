@@ -30,6 +30,14 @@ class TwigConverter
 		$loader = $this->twiggy->getLoader();
 		$loader->setTemplate('main', $code);
 		$code = $this->twiggy->compileSource($loader->getSourceContext('main'));
+		$code = $this->postProcess($code);
+		return $code;
+	}
+
+
+	private function postProcess(string $code): string
+	{
+		$code = preg_replace('~\bclass=(["\']){html_classes\((.*)\)}~i', 'n:class=$1$2', $code);
 		return $code;
 	}
 }

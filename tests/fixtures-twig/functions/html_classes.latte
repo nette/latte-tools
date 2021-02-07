@@ -1,1 +1,1 @@
-<p class="{html_classes(a-class, another-class, [errored => $object->errored, finished => $object->finished, pending => $object->pending])}">How are you doing?</p>
+<p n:class="a-class, another-class, $object->errored ? errored, $object->finished ? finished, $object->pending ? pending">How are you doing?</p>

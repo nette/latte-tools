@@ -154,6 +154,12 @@ class Node implements \Countable, \IteratorAggregate
 	}
 
 
+	public function setNodes(array $nodes): void
+	{
+		$this->nodes = $nodes;
+	}
+
+
 	public function removeNode(int|string $name): void
 	{
 		unset($this->nodes[$name]);
