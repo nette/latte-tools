@@ -32,9 +32,12 @@ class ConditionalExpression extends AbstractExpression
 		$compiler
 			->subcompile($this->getNode('expr1'))
 			->raw(' ? ')
-			->subcompile($this->getNode('expr2'))
-			->raw(' : ')
-			->subcompile($this->getNode('expr3'))
-		;
+			->subcompile($this->getNode('expr2'));
+
+		$expr3 = $this->getNode('expr3');
+		if (!$expr3 instanceof ConstantExpression || $expr3->getAttribute('value') !== null) {
+			$compiler->raw(' : ')
+				->subcompile($this->getNode('expr3'));
+		}
 	}
 }
