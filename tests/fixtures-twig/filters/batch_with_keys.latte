@@ -1,4 +1,4 @@
 Test: "batch" filter preserves array keys
 
-{array_keys((([foo => bar, key => value]|batch:4)|first))|implode:','}
-{array_keys((([foo => bar, key => value]|batch:4, fill)|first))|implode:','}
+{array_keys((([foo => bar, key => value]|batch:4)|first))|join:','}
+{array_keys((([foo => bar, key => value]|batch:4, fill)|first))|join:','}

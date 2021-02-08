@@ -25,7 +25,7 @@ Test: "map" filter
 {define local_lower, $string}
     {$string|lower}
 {/define}
-{array_map(fn($val) => {include local_lower, $val}, [A])|implode}
+{array_map(fn($val) => {include local_lower, $val}, [A])|join}
 
 {import $_self}
-{array_map(fn($val) => {include local_lower, $val}, [A])|implode}
+{array_map(fn($val) => {include local_lower, $val}, [A])|join}

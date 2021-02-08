@@ -1,8 +1,8 @@
 Test: "reverse" filter
 
-{=[1, 2, 3, 4]|reverse|implode:''}
+{=[1, 2, 3, 4]|reverse|join:''}
 {='1234évènement'|reverse}
-{$arr|reverse|implode:''}
-{=[a => c, b => a]|reverse|implode:','}
-{=[a => c, b => a]|reverse:preserveKeys: true|implode:glue: ','}
-{=[a => c, b => a]|reverse:preserve_keys: true|implode:glue: ','}
+{$arr|reverse|join:''}
+{=[a => c, b => a]|reverse|join:','}
+{=[a => c, b => a]|reverse:preserveKeys: true|join:glue: ','}
+{=[a => c, b => a]|reverse:preserve_keys: true|join:glue: ','}

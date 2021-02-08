@@ -71,7 +71,6 @@ class Environment
 	];
 
 	private $latteFilters = [
-		'join' => 'implode',
 		'striptags' => 'stripHtml',
 		'raw' => 'noescape',
 		'title' => 'capitalize',

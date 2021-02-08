@@ -37,5 +37,5 @@ Test: "filter" filter
 
 {var $coll = array_filter([a, b], fn($v) => $v === a)}
 {if (($coll|length) > 0)}
-    {$coll|implode:', '}
+    {$coll|join:', '}
 {/if}

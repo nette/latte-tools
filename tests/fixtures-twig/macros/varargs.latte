@@ -3,11 +3,11 @@ Test: macro with arbitrary arguments
 {import $_self}
 
 {define test1, $var}
-    {$var}: {$varargs|implode:', '}
+    {$var}: {$varargs|join:', '}
 {/define}
 
 {define test2}
-    {$varargs|implode:', '}
+    {$varargs|join:', '}
 {/define}
 
 {include test1, foo, bar, foobar}

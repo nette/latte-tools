@@ -1,18 +1,18 @@
 Test: "join" filter
 
-{=[foo, bar]|implode:', '}
-{$foo|implode:', '}
-{$bar|implode:', '}
+{=[foo, bar]|join:', '}
+{$foo|join:', '}
+{$bar|join:', '}
 
-{=[foo, bar]|implode:', ', ' and '}
-{$foo|implode:', ', ' and '}
-{$bar|implode:', ', ' and '}
-{=[one, two, three]|implode:', ', ' and '}
-{=[a, b, c]|implode:'', '-'}
-{=[a, b, c]|implode:'-', '-'}
-{=[a, b, c]|implode:'-', ''}
-{=[hello]|implode:'|', '-'}
+{=[foo, bar]|join:', ', ' and '}
+{$foo|join:', ', ' and '}
+{$bar|join:', ', ' and '}
+{=[one, two, three]|join:', ', ' and '}
+{=[a, b, c]|join:'', '-'}
+{=[a, b, c]|join:'-', '-'}
+{=[a, b, c]|join:'-', ''}
+{=[hello]|join:'|', '-'}
 
-{=[a => w, b => x, c => y, d => z]|implode}
-{=[a => w, b => x, c => y, d => z]|implode:','}
-{=[a => w, b => x, c => y, d => z]|implode:',', '-'}
+{=[a => w, b => x, c => y, d => z]|join}
+{=[a => w, b => x, c => y, d => z]|join:','}
+{=[a => w, b => x, c => y, d => z]|join:',', '-'}
