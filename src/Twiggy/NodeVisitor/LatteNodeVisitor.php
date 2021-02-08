@@ -40,6 +40,11 @@ final class LatteNodeVisitor implements NodeVisitorInterface
 				return $node->getNode('node');
 			}
 
+			// round
+			if ($name === 'round') {
+				return $this->filterRound($node);
+			}
+
 			// removed |filter with function()
 			return $this->filterToFunction($node);
 		}
@@ -74,6 +79,17 @@ final class LatteNodeVisitor implements NodeVisitorInterface
 	public function getPriority(): int
 	{
 		return 255;
+	}
+
+
+	private function filterRound(FilterExpression $node): FilterExpression
+	{
+		$arguments = $node->getNode('arguments');
+		if ($arguments->hasNode(1)) {
+			$node->getNode('filter')->setAttribute('value', $arguments->getNode(1)->getAttribute('value'));
+			$arguments->setNodes([$arguments->getNode(0)]);
+		}
+		return $node;
 	}
 
 
