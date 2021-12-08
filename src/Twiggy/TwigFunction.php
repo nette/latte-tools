@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Node\Node;
 
 /**
  * Represents a template function.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @see https://twig.symfony.com/doc/templates.html#functions
  */

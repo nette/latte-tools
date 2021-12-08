@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -24,8 +23,6 @@ use LatteTools\Twiggy\Source;
  * control, you need to take care of clearing the old cache file by yourself.
  *
  * This loader should only be used for unit testing.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class ArrayLoader implements LoaderInterface
 {

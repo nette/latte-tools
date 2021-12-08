@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -18,8 +17,6 @@ use LatteTools\Twiggy\Source;
 
 /**
  * Represents a node in the AST.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Node implements \Countable, \IteratorAggregate
 {
@@ -42,9 +39,10 @@ class Node implements \Countable, \IteratorAggregate
 	{
 		foreach ($nodes as $name => $node) {
 			if (!$node instanceof self) {
-				throw new \InvalidArgumentException(sprintf('Using "%s" for the value of node "%s" of "%s" is not supported. You must pass a \LatteTools\Twiggy\Node\Node instance.', \is_object($node) ? \get_class($node) : ($node === null ? 'null' : \gettype($node)), $name, static::class));
+				throw new \InvalidArgumentException(sprintf('Using "%s" for the value of node "%s" of "%s" is not supported. You must pass a \LatteTools\Twiggy\Node\Node instance.', \is_object($node) ? $node::class : ($node === null ? 'null' : \gettype($node)), $name, static::class));
 			}
 		}
+
 		$this->nodes = $nodes;
 		$this->attributes = $attributes;
 		$this->lineno = $lineno;

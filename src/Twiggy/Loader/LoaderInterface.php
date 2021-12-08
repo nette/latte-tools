@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Source;
 
 /**
  * Interface all loaders must implement.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface LoaderInterface
 {

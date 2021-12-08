@@ -1,19 +1,12 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace LatteTools;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\AssignOp;
-use PhpParser\Node\Expr\BinaryOp;
-use PhpParser\Node\Expr\Cast;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar;
+use PhpParser\{Node, PrettyPrinterAbstract};
+use PhpParser\Node\{Expr, Name, Scalar, Stmt};
+use PhpParser\Node\Expr\{AssignOp, BinaryOp, Cast};
 use PhpParser\Node\Scalar\MagicConst;
-use PhpParser\Node\Stmt;
-use PhpParser\PrettyPrinterAbstract;
+use function count;
 
 
 class LattePrinter extends PrettyPrinterAbstract
@@ -189,11 +182,12 @@ class LattePrinter extends PrettyPrinterAbstract
 					return "<<<$label\n" . $escaped . "\n$label"
 						. $this->docStringEndToken;
 				}
-			/* break missing intentionally */
-			// break omitted
+				/* break missing intentionally */
+				// break omitted
 			case Scalar\String_::KIND_DOUBLE_QUOTED:
 				return '"' . $this->escapeString($node->value, '"') . '"';
 		}
+
 		throw new \Exception('Invalid string kind');
 	}
 
@@ -220,7 +214,7 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	protected function pScalar_LNumber(Scalar\LNumber $node)
 	{
-		if ($node->value === -\PHP_INT_MAX-1) {
+		if ($node->value === -\PHP_INT_MAX - 1) {
 			// PHP_INT_MIN cannot be represented as a literal,
 			// because the sign is not part of the literal
 			return '(-' . \PHP_INT_MAX . '-1)';
@@ -246,6 +240,7 @@ class LattePrinter extends PrettyPrinterAbstract
 			case Scalar\LNumber::KIND_HEX:
 				return $sign . '0x' . base_convert($str, 10, 16);
 		}
+
 		throw new \Exception('Invalid number kind');
 	}
 
@@ -734,7 +729,7 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	protected function pExpr_Include(Expr\Include_ $node)
 	{
-		return 'include ' . $this->p($node->expr) . '';
+		return 'include ' . $this->p($node->expr);
 	}
 
 
@@ -963,7 +958,8 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	protected function pUseType($type)
 	{
-		return $type === Stmt\Use_::TYPE_FUNCTION ? 'function '
+		return $type === Stmt\Use_::TYPE_FUNCTION
+			? 'function '
 			: ($type === Stmt\Use_::TYPE_CONSTANT ? 'const ' : '');
 	}
 
@@ -1285,7 +1281,10 @@ class LattePrinter extends PrettyPrinterAbstract
 	protected function pSingleQuotedString(string $string)
 	{
 		if (preg_match('#^\w+(?:-+\w+)*\z#', $string)
-			&& !preg_match('#^(true|false|null|TRUE|FALSE|NULL|INF|NAN|and|or|xor|AND|OR|XOR|clone|new|instanceof|return|continue|break|\d+)\z#', $string)
+			&& !preg_match(
+				'#^(true|false|null|TRUE|FALSE|NULL|INF|NAN|and|or|xor|AND|OR|XOR|clone|new|instanceof|return|continue|break|\d+)\z#',
+				$string,
+			)
 		) {
 			return $string;
 		}
@@ -1307,7 +1306,7 @@ class LattePrinter extends PrettyPrinterAbstract
 			$oct = decoct(ord($matches[1]));
 			if ($matches[2] !== '') {
 				// If there is a trailing digit, use the full three character form
-				return '\\' . str_pad($oct, 3, '0', \STR_PAD_LEFT);
+				return '\\' . str_pad($oct, 3, '0', STR_PAD_LEFT);
 			}
 			return '\\' . $oct;
 		}, $escaped);
@@ -1318,7 +1317,7 @@ class LattePrinter extends PrettyPrinterAbstract
 	{
 		$start = $atStart ? '(?:^|[\r\n])' : '[\r\n]';
 		$end = $atEnd ? '(?:$|[;\r\n])' : '[;\r\n]';
-		return strpos($string, $label) !== false
+		return str_contains($string, $label)
 			&& preg_match('/' . $start . $label . $end . '/', $string);
 	}
 
@@ -1334,6 +1333,7 @@ class LattePrinter extends PrettyPrinterAbstract
 				return true;
 			}
 		}
+
 		return false;
 	}
 
@@ -1376,6 +1376,7 @@ class LattePrinter extends PrettyPrinterAbstract
 				return true;
 			}
 		}
+
 		return false;
 	}
 

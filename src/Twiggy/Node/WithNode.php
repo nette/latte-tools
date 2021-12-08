@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Node\Expression\ArrayExpression;
 
 /**
  * Represents a nested "with" scope.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class WithNode extends Node
 {
@@ -53,14 +50,14 @@ class WithNode extends Node
 							->raw(' = ')
 							->subcompile($pair['value']);
 					}
+
 					$compiler->raw('}');
 				}
 			} else {
 				$compiler
 					->raw("\n{var ")
 					->subcompile($vars)
-					->raw('}')
-				;
+					->raw('}');
 			}
 
 			if ($this->getAttribute('only')) {
@@ -70,7 +67,6 @@ class WithNode extends Node
 
 		$compiler
 			->subcompile($this->getNode('body'))
-			->raw('{/block}')
-		;
+			->raw('{/block}');
 	}
 }

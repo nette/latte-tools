@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -30,14 +29,12 @@ abstract class AbstractBinary extends AbstractExpression
 		$compiler
 			->raw($this->hasAttribute('is_topmost') ? '' : '(')
 			->subcompile($this->getNode('left'))
-			->raw(' ')
-		;
+			->raw(' ');
 		$this->operator($compiler);
 		$compiler
 			->raw(' ')
 			->subcompile($this->getNode('right'))
-			->raw($this->hasAttribute('is_topmost') ? '' : ')')
-		;
+			->raw($this->hasAttribute('is_topmost') ? '' : ')');
 	}
 
 

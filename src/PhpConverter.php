@@ -1,13 +1,9 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace LatteTools;
 
-use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitorAbstract;
-use PhpParser\ParserFactory;
+use PhpParser\{Node, NodeTraverser, NodeVisitorAbstract, ParserFactory};
+use function count;
 
 
 class PhpConverter
@@ -48,6 +44,7 @@ class PhpConverter
 						foreach ($node->exprs as $expr) {
 							$res[] = new Node\Stmt\Echo_([$expr]);
 						}
+
 						return $res;
 					}
 				}
@@ -73,6 +70,7 @@ class PhpConverter
 						foreach ($node->exprs[0]->args as $expr) {
 							$res[] = new Node\Stmt\Echo_([$expr->value]);
 						}
+
 						return $res;
 					}
 				}

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -14,8 +13,6 @@ namespace LatteTools\Twiggy\Sandbox;
 
 /**
  * Interface that all security policy classes must implements.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface SecurityPolicyInterface
 {

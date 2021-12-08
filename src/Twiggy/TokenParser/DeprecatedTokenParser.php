@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -21,8 +20,6 @@ use LatteTools\Twiggy\Token;
  *
  *    {% deprecated 'The "base.twig" template is deprecated, use "layout.twig" instead.' %}
  *    {% extends 'layout.html.twig' %}
- *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
  *
  * @internal
  */

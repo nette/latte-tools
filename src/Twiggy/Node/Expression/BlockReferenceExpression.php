@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -18,8 +17,6 @@ use LatteTools\Twiggy\Node\Node;
 
 /**
  * Represents a block call node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class BlockReferenceExpression extends AbstractExpression
 {
@@ -45,6 +42,7 @@ class BlockReferenceExpression extends AbstractExpression
 				foreach ($this as $node) {
 					$compiler->subcompile($node)->raw(' ');
 				}
+
 				$compiler->raw(' */');
 			}
 			if ($name instanceof ConstantExpression) {

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a block node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class BlockNode extends Node
 {
@@ -46,7 +43,6 @@ class BlockNode extends Node
 		$compiler
 			->raw('}')
 			->subcompile($this->getNode('body'))
-			->raw('{/block}')
-		;
+			->raw('{/block}');
 	}
 }

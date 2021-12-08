@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents an if node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class IfNode extends Node
 {
@@ -38,26 +35,22 @@ class IfNode extends Node
 		for ($i = 0, $count = \count($this->getNode('tests')); $i < $count; $i += 2) {
 			if ($i > 0) {
 				$compiler
-					->raw('{elseif ')
-				;
+					->raw('{elseif ');
 			} else {
 				$compiler
-					->raw('{if ')
-				;
+					->raw('{if ');
 			}
 
 			$compiler
 				->subcompile($this->getNode('tests')->getNode($i))
 				->raw('}')
-				->subcompile($this->getNode('tests')->getNode($i + 1))
-			;
+				->subcompile($this->getNode('tests')->getNode($i + 1));
 		}
 
 		if ($this->hasNode('else')) {
 			$compiler
 				->raw('{else}')
-				->subcompile($this->getNode('else'))
-			;
+				->subcompile($this->getNode('else'));
 		}
 
 		$compiler

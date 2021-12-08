@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -14,8 +13,6 @@ namespace LatteTools\Twiggy;
 
 /**
  * Holds information about a non-compiled Twig template.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class Source
 {

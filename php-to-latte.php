@@ -1,15 +1,13 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 require __DIR__ . '/vendor/autoload.php';
 
 if (!isset($_SERVER['argv'][1])) {
 	echo <<<'XX'
-	Converts PHP to Latte.
-	Usage: php-to-latte.php input.php [output.latte]
+		Converts PHP to Latte.
+		Usage: php-to-latte.php input.php [output.latte]
 
-	XX;
+		XX;
 	exit(1);
 }
 

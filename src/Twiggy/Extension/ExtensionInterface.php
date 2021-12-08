@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -20,8 +19,6 @@ use LatteTools\Twiggy\TwigTest;
 
 /**
  * Interface implemented by extension classes.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface ExtensionInterface
 {

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -22,8 +21,6 @@ use LatteTools\Twiggy\Compiler;
  * The true value is equivalent to html.
  *
  * If autoescaping is disabled, then the value is false.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class AutoEscapeNode extends Node
 {

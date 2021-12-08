@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -20,7 +19,6 @@ class AssignNameExpression extends NameExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('$' . $this->getAttribute('name'))
-		;
+			->raw('$' . $this->getAttribute('name'));
 	}
 }

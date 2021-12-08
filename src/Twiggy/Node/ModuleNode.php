@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -23,8 +22,6 @@ use LatteTools\Twiggy\Source;
  * Consider this class as being final. If you need to customize the behavior of
  * the generated class, consider adding nodes to the following nodes: display_start,
  * display_end, constructor_start, constructor_end, and class_end.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class ModuleNode extends Node
 {
@@ -35,7 +32,7 @@ final class ModuleNode extends Node
 		Node $macros,
 		Node $traits,
 		$embeddedTemplates,
-		Source $source
+		Source $source,
 	) {
 		$nodes = [
 			'body' => $body,

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -19,8 +18,6 @@ use LatteTools\Twiggy\Node\Expression\TestExpression;
  * Checks that a variable is null.
  *
  *  {{ var is none }}
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class NullTest extends TestExpression
 {
@@ -28,7 +25,6 @@ class NullTest extends TestExpression
 	{
 		$compiler
 			->subcompile($this->getNode('node'))
-			->raw(' === null')
-		;
+			->raw(' === null');
 	}
 }

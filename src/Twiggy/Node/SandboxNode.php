@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -16,8 +15,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a sandbox node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class SandboxNode extends Node
 {
@@ -30,7 +27,6 @@ class SandboxNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->subcompile($this->getNode('body'))
-		;
+			->subcompile($this->getNode('body'));
 	}
 }

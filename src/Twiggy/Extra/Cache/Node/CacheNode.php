@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -24,7 +23,7 @@ class CacheNode extends Node
 		?AbstractExpression $tags,
 		Node $body,
 		int $lineno,
-		string $tag
+		string $tag,
 	) {
 		$nodes = ['key' => $key, 'body' => $body];
 		if ($ttl !== null) {
@@ -42,28 +41,24 @@ class CacheNode extends Node
 	{
 		$compiler
 			->write('{cache ')
-			->subcompile($this->getNode('key'))
-		;
+			->subcompile($this->getNode('key'));
 
 		if ($this->hasNode('tags')) {
 			$compiler
 				->write(', tags => [')
 				->subcompile($this->getNode('tags'))
-				->raw(']')
-			;
+				->raw(']');
 		}
 
 		if ($this->hasNode('ttl')) {
 			$compiler
 				->write(', expiration => ')
-				->subcompile($this->getNode('ttl'))
-			;
+				->subcompile($this->getNode('ttl'));
 		}
 
 		$compiler
 			->write('}')
 			->subcompile($this->getNode('body'))
-			->write('{/cache}')
-		;
+			->write('{/cache}');
 	}
 }

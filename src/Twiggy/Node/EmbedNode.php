@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -18,8 +17,6 @@ use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 
 /**
  * Represents an embed node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class EmbedNode extends IncludeNode
 {
@@ -32,7 +29,7 @@ class EmbedNode extends IncludeNode
 		int $lineno,
 		string $tag = null,
 		Node $body,
-		Node $parent
+		Node $parent,
 	) {
 		parent::__construct(new ConstantExpression('not_used', $lineno), $variables, $only, $ignoreMissing, $lineno, $tag);
 
@@ -54,7 +51,6 @@ class EmbedNode extends IncludeNode
 		$compiler
 			->raw("}\n")
 			->subcompile($this->getAttribute('body'))
-			->raw('{/embed}')
-		;
+			->raw('{/embed}');
 	}
 }

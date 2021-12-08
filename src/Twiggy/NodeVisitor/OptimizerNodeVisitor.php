@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -33,8 +32,6 @@ use LatteTools\Twiggy\Node\PrintNode;
  *
  * You can configure which optimizations you want to activate via the
  * optimizer mode.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a text node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class TextNode extends Node implements NodeOutputInterface
 {

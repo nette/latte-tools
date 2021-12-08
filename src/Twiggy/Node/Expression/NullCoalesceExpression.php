@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -30,7 +29,6 @@ class NullCoalesceExpression extends AbstractExpression
 		$compiler
 			->subcompile($this->getNode('left'))
 			->raw(' ?? ')
-			->subcompile($this->getNode('right'))
-		;
+			->subcompile($this->getNode('right'));
 	}
 }

@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -24,8 +23,7 @@ final class DebugExtension extends AbstractExtension
 			// false means that it was not set (and the default is on) or it explicitly enabled
 			// xdebug.overload_var_dump produces HTML only when html_errors is also enabled
 			&& (ini_get('html_errors') === false || ini_get('html_errors'))
-			|| \PHP_SAPI === 'cli'
-		;
+			|| \PHP_SAPI === 'cli';
 
 		return [
 			new TwigFunction('dump', 'twig_var_dump', ['is_safe' => $isDumpOutputHtmlSafe ? ['html'] : [], 'needs_context' => true, 'needs_environment' => true, 'is_variadic' => true]),

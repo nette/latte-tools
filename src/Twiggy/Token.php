@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -13,9 +12,6 @@ declare(strict_types=1);
 
 namespace LatteTools\Twiggy;
 
-/**
- * @author Fabien Potencier <fabien@symfony.com>
- */
 final class Token
 {
 	public const EOF_TYPE = -1;

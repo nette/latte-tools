@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -15,9 +14,6 @@ namespace LatteTools\Twiggy;
 
 use LatteTools\Twiggy\Node\Node;
 
-/**
- * @author Fabien Potencier <fabien@symfony.com>
- */
 class Compiler
 {
 	private $lastLine;
@@ -174,6 +170,7 @@ class Compiler
 				}
 				$this->repr($v);
 			}
+
 			$this->raw(']');
 		} else {
 			$this->string($value);

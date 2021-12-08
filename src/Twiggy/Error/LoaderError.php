@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -14,8 +13,6 @@ namespace LatteTools\Twiggy\Error;
 
 /**
  * Exception thrown when an error occurs during template loading.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class LoaderError extends Error
 {

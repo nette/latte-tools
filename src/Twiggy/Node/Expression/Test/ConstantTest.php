@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -21,29 +20,24 @@ use LatteTools\Twiggy\Node\Expression\TestExpression;
  *    {% if post.status is constant('Post::PUBLISHED') %}
  *      the status attribute is exactly the same as Post::PUBLISHED
  *    {% endif %}
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class ConstantTest extends TestExpression
 {
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('constant(')
-		;
+			->raw('constant(');
 
 		if ($this->getNode('arguments')->hasNode(1)) {
 			$compiler
 				->raw('get_class(')
 				->subcompile($this->getNode('arguments')->getNode(1))
-				->raw(')."::".')
-			;
+				->raw(')."::".');
 		}
 
 		$compiler
 			->subcompile($this->getNode('arguments')->getNode(0))
 			->raw(') === ')
-			->subcompile($this->getNode('node'))
-		;
+			->subcompile($this->getNode('node'));
 	}
 }

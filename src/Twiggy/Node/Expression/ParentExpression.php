@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a parent node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class ParentExpression extends AbstractExpression
 {
@@ -31,7 +28,6 @@ class ParentExpression extends AbstractExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('{include parent}')
-		;
+			->raw('{include parent}');
 	}
 }

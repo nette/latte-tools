@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -24,8 +23,6 @@ use LatteTools\Twiggy\Node\Node;
  * Returns the value or the default value when it is undefined or empty.
  *
  *  {{ var.foo|default('foo item on var is not defined') }}
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class DefaultFilter extends FilterExpression
 {
@@ -34,7 +31,7 @@ class DefaultFilter extends FilterExpression
 		ConstantExpression $filterName,
 		Node $arguments,
 		int $lineno,
-		string $tag = null
+		string $tag = null,
 	) {
 		$default = new FilterExpression($node, new ConstantExpression('default', $node->getTemplateLine()), $arguments, $node->getTemplateLine());
 
@@ -63,7 +60,6 @@ class DefaultFilter extends FilterExpression
 		$compiler
 			->raw($this->hasAttribute('is_topmost') ? '' : '(')
 			->subcompile($this->getNode('node'))
-			->raw($this->hasAttribute('is_topmost') ? '' : ')')
-		;
+			->raw($this->hasAttribute('is_topmost') ? '' : ')');
 	}
 }

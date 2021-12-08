@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -129,13 +128,14 @@ final class LatteNodeVisitor implements NodeVisitorInterface
 						$value,
 						$key,
 						new ConstantExpression(null, $argument->getTemplateLine()),
-						$argument->getTemplateLine()
+						$argument->getTemplateLine(),
 					);
 				}
 			} else {
 				$res[] = $argument;
 			}
 		}
+
 		$arguments->setNodes($res);
 		return $node;
 	}

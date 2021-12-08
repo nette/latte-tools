@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Template;
 
 /**
  * Represents a security policy which need to be enforced when sandbox mode is enabled.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class SecurityPolicy implements SecurityPolicyInterface
 {
@@ -34,7 +31,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
 		array $allowedFilters = [],
 		array $allowedMethods = [],
 		array $allowedProperties = [],
-		array $allowedFunctions = []
+		array $allowedFunctions = [],
 	) {
 		$this->allowedTags = $allowedTags;
 		$this->allowedFilters = $allowedFilters;
@@ -60,7 +57,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
 	{
 		$this->allowedMethods = [];
 		foreach ($methods as $class => $m) {
-			$this->allowedMethods[$class] = array_map(fn ($value) => strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), \is_array($m) ? $m : [$m]);
+			$this->allowedMethods[$class] = array_map(fn($value) => strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), \is_array($m) ? $m : [$m]);
 		}
 	}
 
@@ -116,7 +113,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
 		}
 
 		if (!$allowed) {
-			$class = \get_class($obj);
+			$class = $obj::class;
 			throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
 		}
 	}
@@ -134,7 +131,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
 		}
 
 		if (!$allowed) {
-			$class = \get_class($obj);
+			$class = $obj::class;
 			throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);
 		}
 	}

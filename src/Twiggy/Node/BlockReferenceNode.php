@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /*
  * This file is part of Twig.
@@ -17,8 +16,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a block call node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class BlockReferenceNode extends Node implements NodeOutputInterface
 {
@@ -34,7 +31,6 @@ class BlockReferenceNode extends Node implements NodeOutputInterface
 		$compiler
 			->raw("{block $name}")
 			->subcompile($this->getAttribute('body'))
-			->raw('{/block}')
-		;
+			->raw('{/block}');
 	}
 }

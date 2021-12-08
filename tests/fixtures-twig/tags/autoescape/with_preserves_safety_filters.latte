@@ -19,5 +19,3 @@ Test: "autoescape" tag handles filters preserving the safety
 4. Still escape when using filters not declared safe
 ( var|escape|preserves_safety|replace({'FABIEN': 'FABPOT'})|escape )
 {$var|preserves_safety|replace:[FABIEN => FABPOT]}
-
-
