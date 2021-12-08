@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,8 +20,6 @@ use LatteTools\Twiggy\Node\Expression\TestExpression;
  * Checks if a number is even.
  *
  *  {{ var is even }}
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class EvenTest extends TestExpression
 {
@@ -29,7 +28,6 @@ class EvenTest extends TestExpression
 		$compiler
 			->raw('even(')
 			->subcompile($this->getNode('node'))
-			->raw(')')
-		;
+			->raw(')');
 	}
 }

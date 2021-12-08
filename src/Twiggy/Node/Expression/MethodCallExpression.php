@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -34,20 +35,19 @@ class MethodCallExpression extends AbstractExpression
 				->repr($this->getNode('node')->getAttribute('name'))
 				->raw('], ')
 				->repr($this->getAttribute('method'))
-				->raw(')')
-			;
+				->raw(')');
 
 			return;
 		}
 
 		$compiler
 			->raw('{include ')
-			->repr($this->getAttribute('method'))
-		;
+			->repr($this->getAttribute('method'));
 		foreach ($this->getNode('arguments')->getKeyValuePairs() as $pair) {
 			$compiler->raw(', ');
 			$compiler->subcompile($pair['value']);
 		}
+
 		$compiler
 			->raw('}');
 	}

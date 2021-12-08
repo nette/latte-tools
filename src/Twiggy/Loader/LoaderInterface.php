@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Source;
 
 /**
  * Interface all loaders must implement.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface LoaderInterface
 {

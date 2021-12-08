@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -13,9 +14,6 @@ declare(strict_types=1);
 
 namespace LatteTools\Twiggy;
 
-/**
- * @author Fabien Potencier <fabien@symfony.com>
- */
 final class Token
 {
 	public const EOF_TYPE = -1;

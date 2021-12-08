@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 
 /**
  * Represents a deprecated node.
- *
- * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
 class DeprecatedNode extends Node
 {
@@ -36,7 +35,6 @@ class DeprecatedNode extends Node
 			->subcompile($expr)
 			->raw(' . ')
 			->string(sprintf(' ("%s" at line %d).', $this->getTemplateName(), $this->getTemplateLine()))
-			->raw(', E_USER_DEPRECATED) }')
-		;
+			->raw(', E_USER_DEPRECATED) }');
 	}
 }

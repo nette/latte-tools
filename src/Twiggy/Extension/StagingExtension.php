@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -20,8 +21,6 @@ use LatteTools\Twiggy\TwigTest;
 
 /**
  * Used by \LatteTools\Twiggy\Environment as a staging area.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */

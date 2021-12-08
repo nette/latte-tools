@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Node\Node;
 
 /**
  * Represents a template function.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @see https://twig.symfony.com/doc/templates.html#functions
  */

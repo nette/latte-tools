@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -16,8 +17,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Internal node used by the for node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class ForLoopNode extends Node
 {

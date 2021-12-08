@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -16,8 +17,6 @@ use LatteTools\Twiggy\Parser;
 
 /**
  * Base class for all token parsers.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 abstract class AbstractTokenParser implements TokenParserInterface
 {

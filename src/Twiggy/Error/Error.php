@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -34,8 +35,6 @@ use LatteTools\Twiggy\Template;
  * and/or the name is set to null). As this is a costly operation, this
  * can be disabled by passing false for both the name and the line number
  * when creating a new instance of this class.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Error extends \Exception
 {
@@ -47,15 +46,13 @@ class Error extends \Exception
 
 
 	/**
-	 * Constructor.
-	 *
 	 * By default, automatic guessing is enabled.
 	 *
 	 * @param string      $message The error message
 	 * @param int         $lineno  The template line where the error occurred
 	 * @param Source|null $source  The source context where the error occurred
 	 */
-	public function __construct(string $message, int $lineno = -1, Source $source = null, \Exception $previous = null)
+	public function __construct(string $message, int $lineno = -1, Source $source = null, \Throwable $previous = null)
 	{
 		parent::__construct('', 0, $previous);
 
@@ -185,7 +182,7 @@ class Error extends \Exception
 		foreach ($backtrace as $trace) {
 			if (isset($trace['object']) && $trace['object'] instanceof Template) {
 				$currentClass = \get_class($trace['object']);
-				$isEmbedContainer = strpos($templateClass, $currentClass) === 0;
+				$isEmbedContainer = str_starts_with($templateClass, $currentClass);
 				if (
 					$this->name === null
 					|| (

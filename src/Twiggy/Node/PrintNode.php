@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -18,8 +19,6 @@ use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 
 /**
  * Represents a node that outputs an expression.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class PrintNode extends Node implements NodeOutputInterface
 {
@@ -39,7 +38,6 @@ class PrintNode extends Node implements NodeOutputInterface
 			->raw('{')
 			->raw(preg_match('~\$|\w+::|\w+\(|\d+~A', $code) ? '' : '=')
 			->raw($code)
-			->raw('}')
-		;
+			->raw('}');
 	}
 }

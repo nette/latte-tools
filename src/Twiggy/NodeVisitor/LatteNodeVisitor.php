@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -129,13 +130,14 @@ final class LatteNodeVisitor implements NodeVisitorInterface
 						$value,
 						$key,
 						new ConstantExpression(null, $argument->getTemplateLine()),
-						$argument->getTemplateLine()
+						$argument->getTemplateLine(),
 					);
 				}
 			} else {
 				$res[] = $argument;
 			}
 		}
+
 		$arguments->setNodes($res);
 		return $node;
 	}

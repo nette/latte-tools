@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -20,8 +21,6 @@ use LatteTools\Twiggy\TwigTest;
 
 /**
  * Interface implemented by extension classes.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface ExtensionInterface
 {

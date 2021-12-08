@@ -18,8 +18,8 @@ class TwigConverter
 		$twiggy->addExtension(new Twiggy\Extra\Html\HtmlExtension);
 		$twiggy->addExtension(new Twiggy\Extension\DebugExtension);
 		$twiggy->addExtension(new Twiggy\Extension\SandboxExtension(new Twiggy\Sandbox\SecurityPolicy));
-		$twiggy->registerUndefinedFilterCallback(fn ($name) => new Twiggy\TwigFilter($name, function () {}));
-		$twiggy->registerUndefinedFunctionCallback(fn ($name) => new Twiggy\TwigFunction($name, function () {}));
+		$twiggy->registerUndefinedFilterCallback(fn($name) => new Twiggy\TwigFilter($name, function () {}));
+		$twiggy->registerUndefinedFunctionCallback(fn($name) => new Twiggy\TwigFunction($name, function () {}));
 		$twiggy->addNodeVisitor(new Twiggy\NodeVisitor\LatteNodeVisitor);
 		$this->twiggy = $twiggy;
 	}

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -39,8 +40,6 @@ use LatteTools\Twiggy\Node\Node;
  *
  * @see https://www.engr.mun.ca/~theo/Misc/exp_parsing.htm
  * @see https://en.wikipedia.org/wiki/Operator-precedence_parser
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */
@@ -130,6 +129,7 @@ class ExpressionParser
 			}
 			++$i;
 		}
+
 		if (!$stream->look($i)->test(Token::PUNCTUATION_TYPE, ')')) {
 			return null;
 		}
@@ -151,6 +151,7 @@ class ExpressionParser
 				break;
 			}
 		}
+
 		$stream->expect(Token::PUNCTUATION_TYPE, ')');
 		$stream->expect(Token::ARROW_TYPE);
 
@@ -246,6 +247,7 @@ class ExpressionParser
 							$node = new NameExpression($token->getValue(), $token->getLine());
 						}
 				}
+
 				break;
 
 			case Token::NUMBER_TYPE:
@@ -350,6 +352,7 @@ class ExpressionParser
 
 			$node->addElement($this->parseExpression());
 		}
+
 		$stream->expect(Token::PUNCTUATION_TYPE, ']', 'An opened array is not properly closed');
 
 		return $node;
@@ -407,6 +410,7 @@ class ExpressionParser
 
 			$node->addElement($value, $key);
 		}
+
 		$stream->expect(Token::PUNCTUATION_TYPE, '}', 'An opened hash is not properly closed');
 
 		return $node;
@@ -632,7 +636,7 @@ class ExpressionParser
 			$name = null;
 			if ($namedArguments && $token = $stream->nextIf(Token::OPERATOR_TYPE, '=')) {
 				if (!$value instanceof NameExpression) {
-					throw new SyntaxError(sprintf('A parameter name must be a string, "%s" given.', \get_class($value)), $token->getLine(), $stream->getSourceContext());
+					throw new SyntaxError(sprintf('A parameter name must be a string, "%s" given.', $value::class), $token->getLine(), $stream->getSourceContext());
 				}
 				$name = $value->getAttribute('name');
 
@@ -661,6 +665,7 @@ class ExpressionParser
 				}
 			}
 		}
+
 		$stream->expect(Token::PUNCTUATION_TYPE, ')', 'A list of arguments must be closed by a parenthesis');
 
 		return new Node($args);
@@ -751,7 +756,7 @@ class ExpressionParser
 
 		if ($stream->test(Token::NAME_TYPE)) {
 			// try 2-words tests
-			$name .=' ' . $this->parser->getCurrentToken()->getValue();
+			$name .= ' ' . $this->parser->getCurrentToken()->getValue();
 
 			if ($test = $this->env->getTest($name)) {
 				$stream->next();

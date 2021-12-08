@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,8 +20,6 @@ use LatteTools\Twiggy\Node\Expression\ArrayExpression;
 
 /**
  * Represents an include node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class IncludeNode extends Node implements NodeOutputInterface
 {
@@ -30,7 +29,7 @@ class IncludeNode extends Node implements NodeOutputInterface
 		bool $only,
 		bool $ignoreMissing,
 		int $lineno,
-		string $tag = null
+		string $tag = null,
 	) {
 		$nodes = ['expr' => $expr];
 		if ($variables !== null) {
@@ -61,8 +60,7 @@ class IncludeNode extends Node implements NodeOutputInterface
 			->filename($this->getNode('expr'));
 		$this->addTemplateArguments($compiler);
 		$compiler
-			->raw('}')
-		;
+			->raw('}');
 	}
 
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -98,6 +99,7 @@ class ArrayExpression extends AbstractExpression
 
 			$compiler->subcompile($pair['value']);
 		}
+
 		$compiler->raw(']');
 	}
 

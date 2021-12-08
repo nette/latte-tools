@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -18,8 +19,6 @@ use LatteTools\Twiggy\Node\Expression\ConstantExpression;
 
 /**
  * Represents a macro node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class MacroNode extends Node
 {

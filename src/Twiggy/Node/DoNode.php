@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 
 /**
  * Represents a do node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class DoNode extends Node
 {
@@ -33,7 +32,6 @@ class DoNode extends Node
 		$compiler
 			->raw('{do ')
 			->subcompile($this->getNode('expr'))
-			->raw('}')
-		;
+			->raw('}');
 	}
 }

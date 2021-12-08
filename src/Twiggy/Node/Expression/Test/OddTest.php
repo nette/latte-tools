@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,8 +20,6 @@ use LatteTools\Twiggy\Node\Expression\TestExpression;
  * Checks if a number is odd.
  *
  *  {{ var is odd }}
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class OddTest extends TestExpression
 {
@@ -29,7 +28,6 @@ class OddTest extends TestExpression
 		$compiler
 			->raw('odd(')
 			->subcompile($this->getNode('node'))
-			->raw(')')
-		;
+			->raw(')');
 	}
 }

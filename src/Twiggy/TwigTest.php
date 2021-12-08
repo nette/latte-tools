@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -16,8 +17,6 @@ use LatteTools\Twiggy\Node\Expression\TestExpression;
 
 /**
  * Represents a template test.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @see https://twig.symfony.com/doc/templates.html#test-operator
  */

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -23,8 +24,6 @@ use LatteTools\Twiggy\Error\RuntimeError;
  * This class is an implementation detail of how template compilation currently
  * works, which might change. It should never be used directly. Use $twig->load()
  * instead, which returns an instance of \LatteTools\Twiggy\TemplateWrapper.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */
@@ -163,7 +162,7 @@ abstract class Template
 		array $context,
 		array $blocks = [],
 		$useBlocks = true,
-		self $templateContext = null
+		self $templateContext = null,
 	) {
 		if ($useBlocks && isset($blocks[$name])) {
 			$template = $blocks[$name][0];
@@ -196,7 +195,7 @@ abstract class Template
 				}
 
 				throw $e;
-			} catch (\Exception $e) {
+			} catch (\Throwable $e) {
 				$e = new RuntimeError(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $template->getSourceContext(), $e);
 				$e->guess();
 
@@ -229,7 +228,7 @@ abstract class Template
 		if ($this->env->isDebug()) {
 			ob_start();
 		} else {
-			ob_start(fn () => '');
+			ob_start(fn() => '');
 		}
 		$this->displayParentBlock($name, $context, $blocks);
 
@@ -255,7 +254,7 @@ abstract class Template
 		if ($this->env->isDebug()) {
 			ob_start();
 		} else {
-			ob_start(fn () => '');
+			ob_start(fn() => '');
 		}
 		$this->displayBlock($name, $context, $blocks, $useBlocks);
 
@@ -397,7 +396,7 @@ abstract class Template
 		if ($this->env->isDebug()) {
 			ob_start();
 		} else {
-			ob_start(fn () => '');
+			ob_start(fn() => '');
 		}
 		try {
 			$this->display($context);
@@ -429,7 +428,7 @@ abstract class Template
 			}
 
 			throw $e;
-		} catch (\Exception $e) {
+		} catch (\Throwable $e) {
 			$e = new RuntimeError(sprintf('An exception has been thrown during the rendering of a template ("%s").', $e->getMessage()), -1, $this->getSourceContext(), $e);
 			$e->guess();
 

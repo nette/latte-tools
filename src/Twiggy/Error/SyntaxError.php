@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -15,8 +16,6 @@ namespace LatteTools\Twiggy\Error;
 
 /**
  * \Exception thrown when a syntax error occurs during lexing or parsing of a template.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class SyntaxError extends Error
 {
@@ -31,7 +30,7 @@ class SyntaxError extends Error
 		$alternatives = [];
 		foreach ($items as $item) {
 			$lev = levenshtein($name, $item);
-			if ($lev <= \strlen($name) / 3 || strpos($item, $name) !== false) {
+			if ($lev <= \strlen($name) / 3 || str_contains($item, $name)) {
 				$alternatives[$item] = $lev;
 			}
 		}

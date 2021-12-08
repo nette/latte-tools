@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,7 +18,6 @@ use LatteTools\Twiggy\TwigFilter;
 
 final class EscaperExtension extends AbstractExtension
 {
-
 	/** @internal */
 	public $safeClasses = [];
 
@@ -183,7 +183,7 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
 	if (!\is_string($string)) {
 		if (\is_object($string) && method_exists($string, '__toString')) {
 			if ($autoescape) {
-				$c = \get_class($string);
+				$c = $string::class;
 				$ext = $env->getExtension(EscaperExtension::class);
 				if (!isset($ext->safeClasses[$c])) {
 					$ext->safeClasses[$c] = [];
@@ -341,9 +341,6 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
 			$string = preg_replace_callback('#[^a-zA-Z0-9,\.\-_]#Su', function ($matches) {
 				/**
 				 * This function is adapted from code coming from Zend Framework.
-				 *
-				 * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (https://www.zend.com)
-				 * @license   https://framework.zend.com/license/new-bsd New BSD License
 				 */
 				$chr = $matches[0];
 				$ord = \ord($chr);

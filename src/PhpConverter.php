@@ -48,6 +48,7 @@ class PhpConverter
 						foreach ($node->exprs as $expr) {
 							$res[] = new Node\Stmt\Echo_([$expr]);
 						}
+
 						return $res;
 					}
 				}
@@ -73,6 +74,7 @@ class PhpConverter
 						foreach ($node->exprs[0]->args as $expr) {
 							$res[] = new Node\Stmt\Echo_([$expr->value]);
 						}
+
 						return $res;
 					}
 				}

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -14,8 +15,6 @@ namespace LatteTools\Twiggy\Node;
 
 /**
  * Represents a body node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class BodyNode extends Node
 {

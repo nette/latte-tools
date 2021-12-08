@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -15,9 +16,6 @@ namespace LatteTools\Twiggy;
 
 use LatteTools\Twiggy\Error\SyntaxError;
 
-/**
- * @author Fabien Potencier <fabien@symfony.com>
- */
 class Lexer
 {
 	public const STATE_DATA = 0;
@@ -302,13 +300,13 @@ class Lexer
 			$this->moveCursor($match[0]);
 		}
 		// punctuation
-		elseif (strpos(self::PUNCTUATION, $this->code[$this->cursor]) !== false) {
+		elseif (str_contains(self::PUNCTUATION, $this->code[$this->cursor])) {
 			// opening bracket
-			if (strpos('([{', $this->code[$this->cursor]) !== false) {
+			if (str_contains('([{', $this->code[$this->cursor])) {
 				$this->brackets[] = [$this->code[$this->cursor], $this->lineno];
 			}
 			// closing bracket
-			elseif (strpos(')]}', $this->code[$this->cursor]) !== false) {
+			elseif (str_contains(')]}', $this->code[$this->cursor])) {
 				if (empty($this->brackets)) {
 					throw new SyntaxError(sprintf('Unexpected "%s".', $this->code[$this->cursor]), $this->lineno, $this->source);
 				}

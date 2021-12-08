@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 
 /**
  * Represents an import node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class ImportNode extends Node
 {
@@ -27,7 +26,7 @@ class ImportNode extends Node
 		AbstractExpression $var,
 		int $lineno,
 		string $tag = null,
-		bool $global = true
+		bool $global = true,
 	) {
 		parent::__construct(['expr' => $expr, 'var' => $var], ['global' => $global], $lineno, $tag);
 	}

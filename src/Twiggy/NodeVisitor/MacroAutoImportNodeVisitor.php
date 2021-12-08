@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -23,8 +24,6 @@ use LatteTools\Twiggy\Node\ModuleNode;
 use LatteTools\Twiggy\Node\Node;
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
- *
  * @internal
  */
 final class MacroAutoImportNodeVisitor implements NodeVisitorInterface

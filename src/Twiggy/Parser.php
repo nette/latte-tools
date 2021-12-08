@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -28,9 +29,6 @@ use LatteTools\Twiggy\Node\PrintNode;
 use LatteTools\Twiggy\Node\TextNode;
 use LatteTools\Twiggy\TokenParser\TokenParserInterface;
 
-/**
- * @author Fabien Potencier <fabien@symfony.com>
- */
 class Parser
 {
 	private $stack = [];
@@ -206,7 +204,7 @@ class Parser
 
 	public function peekBlockStack()
 	{
-		return $this->blockStack[\count($this->blockStack)-1] ?? null;
+		return $this->blockStack[\count($this->blockStack) - 1] ?? null;
 	}
 
 
@@ -276,7 +274,7 @@ class Parser
 		string $type,
 		string $alias,
 		string $name = null,
-		AbstractExpression $node = null
+		AbstractExpression $node = null,
 	): void {
 		$this->importedSymbols[0][$type][$alias] = ['name' => $name, 'node' => $node];
 	}
@@ -345,7 +343,7 @@ class Parser
 			||
 			(!$node instanceof TextNode && !$node instanceof BlockReferenceNode && $node instanceof NodeOutputInterface)
 		) {
-			if (strpos((string) $node, \chr(0xEF) . \chr(0xBB) . \chr(0xBF)) !== false) {
+			if (str_contains((string) $node, \chr(0xEF) . \chr(0xBB) . \chr(0xBF))) {
 				$t = substr($node->getAttribute('data'), 3);
 				if ($t === '' || ctype_space($t)) {
 					// bypass empty nodes starting with a BOM
@@ -375,7 +373,7 @@ class Parser
 
 		// here, $nested means "being at the root level of a child template"
 		// we need to discard the wrapping "Node" for the "body" node
-		$nested = $nested || \get_class($node) !== Node::class;
+		$nested = $nested || $node::class !== Node::class;
 		foreach ($node as $k => $n) {
 			if ($n !== null && $this->filterBodyNodes($n, $nested) === null) {
 				$node->removeNode($k);

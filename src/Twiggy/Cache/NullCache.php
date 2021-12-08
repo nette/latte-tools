@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -14,8 +15,6 @@ namespace LatteTools\Twiggy\Cache;
 
 /**
  * Implements a no-cache strategy.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class NullCache implements CacheInterface
 {

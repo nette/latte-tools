@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,8 +20,6 @@ use LatteTools\Twiggy\Node\Expression\AssignNameExpression;
 
 /**
  * Represents a for node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class ForNode extends Node
 {
@@ -35,7 +34,7 @@ class ForNode extends Node
 		Node $body,
 		?Node $else,
 		int $lineno,
-		string $tag = null
+		string $tag = null,
 	) {
 		$body = new Node([$body, $this->loop = new ForLoopNode($lineno, $tag)]);
 
@@ -56,14 +55,12 @@ class ForNode extends Node
 		$compiler
 			->raw('{foreach ')
 			->subcompile($this->getNode('seq'))
-			->raw(' as ')
-		;
+			->raw(' as ');
 
 		if ($this->getNode('key_target')->getAttribute('name') !== '') {
 			$compiler
 				->subcompile($this->getNode('key_target'))
-				->raw(' => ')
-			;
+				->raw(' => ');
 		}
 
 		$compiler
@@ -75,8 +72,7 @@ class ForNode extends Node
 		if ($this->hasNode('else')) {
 			$compiler
 				->raw('{else}')
-				->subcompile($this->getNode('else'))
-			;
+				->subcompile($this->getNode('else'));
 		}
 
 		$compiler->raw('{/foreach}');

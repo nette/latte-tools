@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -28,7 +29,6 @@ class UseNode extends Node
 		$compiler
 			->raw('{import ')
 			->filename($this->getNode('expr'))
-			->raw('}')
-		;
+			->raw('}');
 	}
 }

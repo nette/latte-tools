@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Node\Node;
 
 /**
  * Abstract class for all nodes that represents an expression.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 abstract class AbstractExpression extends Node
 {

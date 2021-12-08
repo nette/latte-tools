@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -14,8 +15,6 @@ namespace LatteTools\Twiggy\Node;
 
 /**
  * Represents a displayable node in the AST.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface NodeOutputInterface
 {

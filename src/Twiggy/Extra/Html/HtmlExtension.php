@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -82,7 +83,7 @@ final class HtmlExtension extends AbstractExtension
 			$repr .= ';' . $key . '=' . rawurlencode($value);
 		}
 
-		if (strpos($mime, 'text/') === 0) {
+		if (str_starts_with($mime, 'text/')) {
 			$repr .= ',' . rawurlencode($data);
 
 		} else {
@@ -117,7 +118,6 @@ function twig_html_classes(...$args): string
 
 				$classes[] = $class;
 			}
-
 		} else {
 			throw new RuntimeError(sprintf('The html_classes function argument %d should be either a string or an array, got "%s".', $i, \gettype($arg)));
 		}

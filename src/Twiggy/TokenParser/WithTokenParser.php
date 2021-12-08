@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -18,8 +19,6 @@ use LatteTools\Twiggy\Token;
 
 /**
  * Creates a nested scope.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  *
  * @internal
  */

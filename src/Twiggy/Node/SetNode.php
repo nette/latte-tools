@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -16,8 +17,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a set node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class SetNode extends Node implements NodeCaptureInterface
 {
@@ -41,6 +40,7 @@ class SetNode extends Node implements NodeCaptureInterface
 					->raw(' = ')
 					->subcompile($values->getNode($id));
 			}
+
 			$compiler->raw('}');
 
 		} elseif ($this->getAttribute('capture')) {

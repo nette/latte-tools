@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -23,8 +24,7 @@ class StartsWithBinary extends AbstractBinary
 			->subcompile($this->getNode('left'))
 			->raw(', ')
 			->subcompile($this->getNode('right'))
-			->raw(')')
-		;
+			->raw(')');
 	}
 
 

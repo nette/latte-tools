@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -32,7 +33,6 @@ class CommentNode extends Node implements NodeOutputInterface
 		$compiler
 			->raw('{*')
 			->raw($text)
-			->raw('*}')
-		;
+			->raw('*}');
 	}
 }

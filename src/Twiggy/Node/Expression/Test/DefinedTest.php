@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -31,8 +32,6 @@ use LatteTools\Twiggy\Node\Node;
  *    {% if foo is defined %}
  *        {# ... #}
  *    {% endif %}
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class DefinedTest extends TestExpression
 {

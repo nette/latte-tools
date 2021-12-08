@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Error\SyntaxError;
 
 /**
  * Represents a token stream.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class TokenStream
 {

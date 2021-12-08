@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -28,7 +29,6 @@ class ExtendsNode extends Node
 		$compiler
 			->raw('{extends ')
 			->filename($this->getNode('expr'))
-			->raw('}')
-		;
+			->raw('}');
 	}
 }

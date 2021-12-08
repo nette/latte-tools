@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -42,16 +43,14 @@ class NameExpression extends AbstractExpression
 				$compiler
 					->raw('isset(')
 					->raw('$' . $name)
-					->raw(')')
-				;
+					->raw(')');
 			}
 		} elseif ($this->isSpecial()) {
 			$compiler->raw($this->specialVars[$name]);
 
 		} else {
 			$compiler
-				->raw('$' . $name)
-				;
+				->raw('$' . $name);
 		}
 	}
 

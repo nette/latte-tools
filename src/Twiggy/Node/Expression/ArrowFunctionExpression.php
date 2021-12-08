@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -17,8 +18,6 @@ use LatteTools\Twiggy\Node\Node;
 
 /**
  * Represents an arrow function.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class ArrowFunctionExpression extends AbstractExpression
 {
@@ -31,8 +30,7 @@ class ArrowFunctionExpression extends AbstractExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('fn(')
-		;
+			->raw('fn(');
 		foreach ($this->getNode('names') as $i => $name) {
 			if ($i) {
 				$compiler->raw(', ');
@@ -40,14 +38,12 @@ class ArrowFunctionExpression extends AbstractExpression
 
 			$compiler
 				->raw('$')
-				->raw($name->getAttribute('name'))
-			;
+				->raw($name->getAttribute('name'));
 		}
+
 		$compiler
-			->raw(') => ')
-		;
+			->raw(') => ');
 		$compiler
-			->subcompile($this->getNode('expr'))
-		;
+			->subcompile($this->getNode('expr'));
 	}
 }

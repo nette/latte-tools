@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -34,8 +35,6 @@ use LatteTools\Twiggy\TokenParser\TokenParserInterface;
 
 /**
  * Stores the Twig configuration and renders templates.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class Environment
 {
@@ -79,8 +78,6 @@ class Environment
 
 
 	/**
-	 * Constructor.
-	 *
 	 * Available options:
 	 *
 	 *  * debug: When set to true, it automatically set "auto_reload" to true as
@@ -562,7 +559,7 @@ class Environment
 		} catch (Error $e) {
 			$e->setSourceContext($source);
 			throw $e;
-		} catch (\Exception $e) {
+		} catch (\Throwable $e) {
 			throw new SyntaxError(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $source, $e);
 		}
 	}

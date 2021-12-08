@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -23,7 +24,7 @@ class FilterExpression extends CallExpression
 		ConstantExpression $filterName,
 		Node $arguments,
 		int $lineno,
-		string $tag = null
+		string $tag = null,
 	) {
 		parent::__construct(['node' => $node, 'filter' => $filterName, 'arguments' => $arguments], [], $lineno, $tag);
 	}

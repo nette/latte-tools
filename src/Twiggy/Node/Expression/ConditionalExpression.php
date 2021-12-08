@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -21,7 +22,7 @@ class ConditionalExpression extends AbstractExpression
 		AbstractExpression $expr1,
 		AbstractExpression $expr2,
 		AbstractExpression $expr3,
-		int $lineno
+		int $lineno,
 	) {
 		parent::__construct(['expr1' => $expr1, 'expr2' => $expr2, 'expr3' => $expr3], [], $lineno);
 	}

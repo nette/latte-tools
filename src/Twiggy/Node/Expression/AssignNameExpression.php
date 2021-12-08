@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -20,7 +21,6 @@ class AssignNameExpression extends NameExpression
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('$' . $this->getAttribute('name'))
-		;
+			->raw('$' . $this->getAttribute('name'));
 	}
 }

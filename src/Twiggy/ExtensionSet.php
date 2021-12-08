@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -20,8 +21,6 @@ use LatteTools\Twiggy\NodeVisitor\NodeVisitorInterface;
 use LatteTools\Twiggy\TokenParser\TokenParserInterface;
 
 /**
- * @author Fabien Potencier <fabien@symfony.com>
- *
  * @internal
  */
 final class ExtensionSet
@@ -125,7 +124,7 @@ final class ExtensionSet
 
 	public function addExtension(ExtensionInterface $extension): void
 	{
-		$class = \get_class($extension);
+		$class = $extension::class;
 
 		if ($this->initialized) {
 			throw new \LogicException(sprintf('Unable to register extension "%s" as extensions have already been initialized.', $class));
@@ -345,7 +344,7 @@ final class ExtensionSet
 
 			$extGlobals = $extension->getGlobals();
 			if (!\is_array($extGlobals)) {
-				throw new \UnexpectedValueException(sprintf('"%s::getGlobals()" must return an array of globals.', \get_class($extension)));
+				throw new \UnexpectedValueException(sprintf('"%s::getGlobals()" must return an array of globals.', $extension::class));
 			}
 
 			$globals = array_merge($globals, $extGlobals);
@@ -442,6 +441,7 @@ final class ExtensionSet
 		foreach ($this->extensions as $extension) {
 			$this->initExtension($extension);
 		}
+
 		$this->initExtension($this->staging);
 		// Done at the end only, so that an exception during initialization does not mark the environment as initialized when catching the exception
 		$this->initialized = true;
@@ -482,11 +482,11 @@ final class ExtensionSet
 		// operators
 		if ($operators = $extension->getOperators()) {
 			if (!\is_array($operators)) {
-				throw new \InvalidArgumentException(sprintf('"%s::getOperators()" must return an array with operators, got "%s".', \get_class($extension), \is_object($operators) ? \get_class($operators) : \gettype($operators) . (\is_resource($operators) ? '' : '#' . $operators)));
+				throw new \InvalidArgumentException(sprintf('"%s::getOperators()" must return an array with operators, got "%s".', $extension::class, \is_object($operators) ? $operators::class : \gettype($operators) . (\is_resource($operators) ? '' : '#' . $operators)));
 			}
 
 			if (\count($operators) !== 2) {
-				throw new \InvalidArgumentException(sprintf('"%s::getOperators()" must return an array of 2 elements, got %d.', \get_class($extension), \count($operators)));
+				throw new \InvalidArgumentException(sprintf('"%s::getOperators()" must return an array of 2 elements, got %d.', $extension::class, \count($operators)));
 			}
 
 			$this->unaryOperators = array_merge($this->unaryOperators, $operators[0]);

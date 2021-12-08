@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,8 +20,6 @@ use LatteTools\Twiggy\Token;
 
 /**
  * Interface implemented by token parsers.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 interface TokenParserInterface
 {

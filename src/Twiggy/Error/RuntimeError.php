@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -15,8 +16,6 @@ namespace LatteTools\Twiggy\Error;
 
 /**
  * Exception thrown when an error occurs at runtime.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class RuntimeError extends Error
 {

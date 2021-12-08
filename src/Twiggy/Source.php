@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -14,8 +15,6 @@ namespace LatteTools\Twiggy;
 
 /**
  * Holds information about a non-compiled Twig template.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class Source
 {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -22,7 +23,7 @@ class GetAttrExpression extends AbstractExpression
 		AbstractExpression $attribute,
 		?AbstractExpression $arguments,
 		string $type,
-		int $lineno
+		int $lineno,
 	) {
 		$nodes = ['node' => $node, 'attribute' => $attribute];
 		if ($arguments !== null) {
@@ -58,8 +59,7 @@ class GetAttrExpression extends AbstractExpression
 			$compiler
 				->raw('{')
 				->subcompile($this->getNode('attribute'))
-				->raw('}')
-			;
+				->raw('}');
 		}
 
 		if (!$property) {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -16,8 +17,6 @@ use LatteTools\Twiggy\Compiler;
 
 /**
  * Represents a flush node.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class FlushNode extends Node
 {
@@ -30,7 +29,6 @@ class FlushNode extends Node
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('{do flush()}')
-		;
+			->raw('{do flush()}');
 	}
 }

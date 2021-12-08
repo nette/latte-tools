@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,8 +20,6 @@ use LatteTools\Twiggy\Node\Expression\TestExpression;
  * Checks if a variable is divisible by a number.
  *
  *  {% if loop.index is divisible by(3) %}
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 class DivisiblebyTest extends TestExpression
 {
@@ -31,7 +30,6 @@ class DivisiblebyTest extends TestExpression
 			->subcompile($this->getNode('node'))
 			->raw(', ')
 			->subcompile($this->getNode('arguments')->getNode(0))
-			->raw(')')
-		;
+			->raw(')');
 	}
 }

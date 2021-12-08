@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /*
@@ -19,8 +20,6 @@ use LatteTools\Twiggy\NodeVisitor\NodeVisitorInterface;
  * A node traverser.
  *
  * It visits all nodes and their children and calls the given visitor for each.
- *
- * @author Fabien Potencier <fabien@symfony.com>
  */
 final class NodeTraverser
 {
