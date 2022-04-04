@@ -20,11 +20,9 @@ class InBinary extends AbstractBinary
 	public function compile(Compiler $compiler): void
 	{
 		$compiler
-			->raw('in_array(')
 			->subcompile($this->getNode('left'))
-			->raw(', ')
-			->subcompile($this->getNode('right'))
-			->raw(', true)');
+			->raw(' in ')
+			->subcompile($this->getNode('right'));
 	}
 
 
