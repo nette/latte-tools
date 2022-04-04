@@ -43,10 +43,10 @@ class WithNode extends Node
 			if ($vars instanceof ArrayExpression) {
 				$vars = $vars->getKeyValuePairs();
 				if ($vars) {
-					$compiler->raw("\n{var ");
+					$compiler->raw("\n{var $");
 					foreach ($vars as $id => $pair) {
 						if ($id) {
-							$compiler->raw(', ');
+							$compiler->raw(', $');
 						}
 						$compiler->subcompile($pair['key'])
 							->raw(' = ')
