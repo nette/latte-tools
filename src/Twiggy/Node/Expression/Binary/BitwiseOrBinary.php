@@ -18,6 +18,6 @@ class BitwiseOrBinary extends AbstractBinary
 {
 	public function operator(Compiler $compiler): Compiler
 	{
-		return $compiler->raw('|');
+		throw new SyntaxError('Bitwise OR is not allowed in Latte.', $lineno);
 	}
 }
