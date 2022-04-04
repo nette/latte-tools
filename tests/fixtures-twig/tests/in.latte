@@ -1,63 +1,63 @@
 Test: Twig supports the in operator
 
-{in_array($bar, $foo, true) ? OK : KO}
+{$bar in $foo ? OK : KO}
+{=!$bar in $foo ? KO : OK}
 {=!in_array($bar, $foo, true) ? KO : OK}
-{=!in_array($bar, $foo, true) ? KO : OK}
-{in_array(a, $bar, true) ? OK : KO}
+{=a in $bar ? OK : KO}
 {=!in_array(c, $bar, true) ? OK : KO}
-{in_array('', $bar, true) ? OK : KO}
-{in_array('', '', true) ? OK : KO}
+{='' in $bar ? OK : KO}
+{='' in '' ? OK : KO}
 {=!in_array(0, '', true) ? OK : KO}
 {=!in_array(a, 0, true) ? OK : KO}
-{in_array(0, 0, true) ? OK : KO}
+{0 in 0 ? OK : KO}
 
-{in_array(false, [0, 1], true) ? OK : KO}
-{in_array(true, [0, 1], true) ? OK : KO}
-{in_array(0, [0, 1], true) ? OK : KO}
-{in_array(0, [1, 0], true) ? OK : KO}
-{in_array('', [0, 1], true) ? KO : OK}
-{in_array('', [1, 0], true) ? KO : OK}
-{in_array(0, ['', 1], true) ? KO : OK}
-{in_array(0, [1, ''], true) ? KO : OK}
+{=false in [0, 1] ? OK : KO}
+{=true in [0, 1] ? OK : KO}
+{0 in [0, 1] ? OK : KO}
+{0 in [1, 0] ? OK : KO}
+{='' in [0, 1] ? KO : OK}
+{='' in [1, 0] ? KO : OK}
+{0 in ['', 1] ? KO : OK}
+{0 in [1, ''] ? KO : OK}
 
-{in_array('', foo, true) ? OK : KO}
-{in_array(0, foo, true) ? KO : OK}
-{in_array(false, foo, true) ? KO : OK}
-{in_array(false, 100, true) ? KO : OK}
-{in_array(true, 100, true) ? KO : OK}
+{='' in foo ? OK : KO}
+{0 in foo ? KO : OK}
+{=false in foo ? KO : OK}
+{=false in 100 ? KO : OK}
+{=true in 100 ? KO : OK}
 
-{in_array([], [true, false], true) ? OK : KO}
-{in_array([], [true, ''], true) ? KO : OK}
-{in_array([], [true, []], true) ? OK : KO}
+{=[] in [true, false] ? OK : KO}
+{=[] in [true, ''] ? KO : OK}
+{=[] in [true, []] ? OK : KO}
 
 {$resource ? OK : KO}
-{in_array($resource, (foo . $resource), true) ? KO : OK}
-{in_array($object, stdClass, true) ? KO : OK}
-{in_array([], 'Array', true) ? KO : OK}
-{in_array($dir_object, (foo . $dir_object), true) ? KO : OK}
+{$resource in (foo . $resource) ? KO : OK}
+{$object in stdClass ? KO : OK}
+{=[] in 'Array' ? KO : OK}
+{$dir_object in (foo . $dir_object) ? KO : OK}
 
-{in_array(('' . $resource), $resource, true) ? KO : OK}
-{in_array(stdClass, $object, true) ? KO : OK}
-{in_array('Array', [], true) ? KO : OK}
-{in_array(('' . $dir_object), $dir_object, true) ? KO : OK}
+{=('' . $resource) in $resource ? KO : OK}
+{=stdClass in $object ? KO : OK}
+{='Array' in [] ? KO : OK}
+{=('' . $dir_object) in $dir_object ? KO : OK}
 
-{in_array($resource, [('' . $resource)], true) ? KO : OK}
-{in_array($dir_object, [('' . $dir_object)], true) ? KO : OK}
+{$resource in [('' . $resource)] ? KO : OK}
+{$dir_object in [('' . $dir_object)] ? KO : OK}
 
-{in_array(5, 125, true) ? KO : OK}
-{in_array(5, 125, true) ? OK : KO}
-{in_array(5, 125, true) ? KO : OK}
-{in_array(5, 125, true) ? OK : KO}
+{5 in 125 ? KO : OK}
+{5 in 125 ? OK : KO}
+{5 in 125 ? KO : OK}
+{5 in 125 ? OK : KO}
 
-{in_array(5.5, 125.5, true) ? KO : OK}
-{in_array(5.5, '125.5', true) ? OK : KO}
-{in_array('5.5', 125.5, true) ? KO : OK}
+{5.5 in 125.5 ? KO : OK}
+{5.5 in '125.5' ? OK : KO}
+{='5.5' in 125.5 ? KO : OK}
 
-{in_array($safe, [foo, bar], true) ? OK : KO}
-{in_array(fo, $safe, true) ? OK : KO}
+{$safe in [foo, bar] ? OK : KO}
+{=fo in $safe ? OK : KO}
 
-{in_array($foo->not, [not], true) ? OK : KO}
-{in_array((value|not), ['not value'], true) ? OK : KO}
+{$foo->not in [not] ? OK : KO}
+{=(value|not) in ['not value'] ? OK : KO}
 {=!in_array($foo->not, [not], true) ? KO : OK}
 {=!in_array((value|not), ['not value'], true) ? KO : OK}
 {=!in_array(value, ['not value'], true) ? OK : KO}
