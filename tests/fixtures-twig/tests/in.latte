@@ -33,12 +33,12 @@ Test: Twig supports the in operator
 {$resource ? OK : KO}
 {in_array($resource, (foo . $resource), true) ? KO : OK}
 {in_array($object, stdClass, true) ? KO : OK}
-{in_array([], Array, true) ? KO : OK}
+{in_array([], 'Array', true) ? KO : OK}
 {in_array($dir_object, (foo . $dir_object), true) ? KO : OK}
 
 {in_array(('' . $resource), $resource, true) ? KO : OK}
 {in_array(stdClass, $object, true) ? KO : OK}
-{in_array(Array, [], true) ? KO : OK}
+{in_array('Array', [], true) ? KO : OK}
 {in_array(('' . $dir_object), $dir_object, true) ? KO : OK}
 
 {in_array($resource, [('' . $resource)], true) ? KO : OK}

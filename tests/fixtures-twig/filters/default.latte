@@ -1,42 +1,42 @@
 Test: "default" filter
 
 Variable:
-{=($definedVar ?? default) === default ? ko : ok}
-{=($zeroVar ?? default) === default ? ko : ok}
-{=($emptyVar ?? default) === default ? ok : ko}
-{=($nullVar ?? default) === default ? ok : ko}
-{=($undefinedVar ?? default) === default ? ok : ko}
+{=($definedVar ?? 'default') === 'default' ? ko : ok}
+{=($zeroVar ?? 'default') === 'default' ? ko : ok}
+{=($emptyVar ?? 'default') === 'default' ? ok : ko}
+{=($nullVar ?? 'default') === 'default' ? ok : ko}
+{=($undefinedVar ?? 'default') === 'default' ? ok : ko}
 Array access:
-{=($nested->definedVar ?? default) === default ? ko : ok}
-{=($nested->definedVar ?? default) === default ? ko : ok}
-{=($nested->zeroVar ?? default) === default ? ko : ok}
-{=($nested->emptyVar ?? default) === default ? ok : ko}
-{=($nested->nullVar ?? default) === default ? ok : ko}
-{=($nested->undefinedVar ?? default) === default ? ok : ko}
-{=($nested->undefinedVar ?? default) === default ? ok : ko}
-{=($undefined->undefined ?? default) === default ? ok : ko}
-{=($undefinedVar->foo ?? default) === default ? ok : ko}
+{=($nested->definedVar ?? 'default') === 'default' ? ko : ok}
+{=($nested->definedVar ?? 'default') === 'default' ? ko : ok}
+{=($nested->zeroVar ?? 'default') === 'default' ? ko : ok}
+{=($nested->emptyVar ?? 'default') === 'default' ? ok : ko}
+{=($nested->nullVar ?? 'default') === 'default' ? ok : ko}
+{=($nested->undefinedVar ?? 'default') === 'default' ? ok : ko}
+{=($nested->undefinedVar ?? 'default') === 'default' ? ok : ko}
+{=($undefined->undefined ?? 'default') === 'default' ? ok : ko}
+{=($undefinedVar->foo ?? 'default') === 'default' ? ok : ko}
 Plain values:
-{=((defined|default:default)) === default ? ko : ok}
-{=((0|default:default)) === default ? ko : ok}
-{=((''|default:default)) === default ? ok : ko}
-{=((null|default:default)) === default ? ok : ko}
+{=((defined|default:'default')) === 'default' ? ko : ok}
+{=((0|default:'default')) === 'default' ? ko : ok}
+{=((''|default:'default')) === 'default' ? ok : ko}
+{=((null|default:'default')) === 'default' ? ok : ko}
 Precedence:
 {=o . ($nullVar ?? k)}
 {=o . ($nested->nullVar ?? k)}
 Object methods:
-{=($object->foo ?? default) === default ? ko : ok}
-{=($object->undefinedMethod ?? default) === default ? ok : ko}
-{=($object->getFoo() ?? default) === default ? ko : ok}
-{=($object->getFoo(a) ?? default) === default ? ko : ok}
-{=($object->undefinedMethod() ?? default) === default ? ok : ko}
-{=($object->undefinedMethod(a) ?? default) === default ? ok : ko}
+{=($object->foo ?? 'default') === 'default' ? ko : ok}
+{=($object->undefinedMethod ?? 'default') === 'default' ? ok : ko}
+{=($object->getFoo() ?? 'default') === 'default' ? ko : ok}
+{=($object->getFoo(a) ?? 'default') === 'default' ? ko : ok}
+{=($object->undefinedMethod() ?? 'default') === 'default' ? ok : ko}
+{=($object->undefinedMethod(a) ?? 'default') === 'default' ? ok : ko}
 Deep nested:
-{=($nested->undefinedVar->foo->bar ?? default) === default ? ok : ko}
-{=($nested->definedArray[0] ?? default) === default ? ko : ok}
-{=($nested->definedArray[0] ?? default) === default ? ko : ok}
-{=($nested->undefinedVar[0] ?? default) === default ? ok : ko}
-{=($undefined->undefined[0] ?? default) === default ? ok : ko}
-{=($object->self->foo ?? default) === default ? ko : ok}
-{=($object->self->undefinedMethod ?? default) === default ? ok : ko}
-{=($object->undefinedMethod->self ?? default) === default ? ok : ko}
+{=($nested->undefinedVar->foo->bar ?? 'default') === 'default' ? ok : ko}
+{=($nested->definedArray[0] ?? 'default') === 'default' ? ko : ok}
+{=($nested->definedArray[0] ?? 'default') === 'default' ? ko : ok}
+{=($nested->undefinedVar[0] ?? 'default') === 'default' ? ok : ko}
+{=($undefined->undefined[0] ?? 'default') === 'default' ? ok : ko}
+{=($object->self->foo ?? 'default') === 'default' ? ko : ok}
+{=($object->self->undefinedMethod ?? 'default') === 'default' ? ok : ko}
+{=($object->undefinedMethod->self ?? 'default') === 'default' ? ok : ko}
