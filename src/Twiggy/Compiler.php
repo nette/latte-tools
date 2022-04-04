@@ -198,6 +198,8 @@ class Compiler
 
 	public function isSymbol(string $value): bool
 	{
-		return (bool) preg_match('~^\w+(?:-+\w+)*\z~', $value);
+		$keywords = ['and', 'array', 'clone', 'default', 'in', 'instanceof', 'new', 'or', 'return', 'xor',
+			'empty', 'fn', 'function', 'isset', 'list', 'match', 'use', ];
+		return preg_match('~^\w+(?:-+\w+)*\z~', $value) && !in_array(strtolower($value), $keywords, true);
 	}
 }
