@@ -189,10 +189,10 @@ class LattePrinter extends PrettyPrinterAbstract
 					return "<<<$label\n" . $escaped . "\n$label"
 						. $this->docStringEndToken;
 				}
-			/* break missing intentionally */
-			// break omitted
-			case Scalar\String_::KIND_DOUBLE_QUOTED:
-				return '"' . $this->escapeString($node->value, '"') . '"';
+				/* break missing intentionally */
+				// break omitted
+				case Scalar\String_::KIND_DOUBLE_QUOTED:
+					return '"' . $this->escapeString($node->value, '"') . '"';
 		}
 
 		throw new \Exception('Invalid string kind');
