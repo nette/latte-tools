@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 /*
@@ -16,6 +15,9 @@ namespace LatteTools\Twiggy;
 
 use LatteTools\Twiggy\Node\Node;
 
+/**
+ * @author Fabien Potencier <fabien@symfony.com>
+ */
 class Compiler
 {
 	private $lastLine;
@@ -26,7 +28,14 @@ class Compiler
 	private $sourceLine;
 	private $varNameSalt = 0;
 
-
+	private function addQuote(string $value): string
+	{
+		$escaped = addcslashes($value, "\x00..\x1F");
+		return $value === $escaped
+			? "'" . $value . "'"
+			: '"' . $escaped . '"';
+	}
+	
 	public function __construct(Environment $env)
 	{
 		$this->env = $env;
@@ -125,10 +134,22 @@ class Compiler
 	public function string(string $value)
 	{
 		if (!$this->isSymbol($value)) {
-			$escaped = addcslashes($value, "\x00..\x1F");
-			$value = $value === $escaped
-				? "'" . $value . "'"
-				: '"' . $escaped . '"';
+			$value = $this->addQuote($value);
+		}
+		$this->source .= $value;
+		return $this;
+	}
+
+	/**
+	 * Adds a value to the compiled code, quoted if it is a string.
+	 *
+	 * @param mixed $value
+	 * @return $this
+	 */
+	public function quote($value)
+	{
+		if (is_string($value)) {
+			$value = $this->addQuote($value);
 		}
 		$this->source .= $value;
 		return $this;
@@ -172,7 +193,6 @@ class Compiler
 				}
 				$this->repr($v);
 			}
-
 			$this->raw(']');
 		} else {
 			$this->string($value);
@@ -198,8 +218,6 @@ class Compiler
 
 	public function isSymbol(string $value): bool
 	{
-		$keywords = ['and', 'array', 'clone', 'default', 'in', 'instanceof', 'new', 'or', 'return', 'xor',
-			'empty', 'fn', 'function', 'isset', 'list', 'match', 'use', ];
-		return preg_match('~^\w+(?:-+\w+)*\z~', $value) && !in_array(strtolower($value), $keywords, true);
+		return (bool) preg_match('~^\w+(?:-+\w+)*\z~', $value);
 	}
 }

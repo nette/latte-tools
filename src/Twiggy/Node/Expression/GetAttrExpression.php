@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 /*
@@ -15,6 +14,7 @@ declare(strict_types=1);
 namespace LatteTools\Twiggy\Node\Expression;
 
 use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Template;
 
 class GetAttrExpression extends AbstractExpression
 {
@@ -48,18 +48,24 @@ class GetAttrExpression extends AbstractExpression
 			$compiler->raw('isset(');
 		}
 
-		$property = !$attr instanceof ConstantExpression || !is_int($attr->getAttribute('value'));
+		$property = !$attr instanceof ConstantExpression || $type !== Template::ARRAY_CALL;
 
 		$compiler->subcompile($this->getNode('node'))
 			->raw($property ? '->' : '[');
 
 		if ($attr instanceof ConstantExpression) {
-			$compiler->raw($attr->getAttribute('value'));
+			$value = $attr->getAttribute('value');
+			if ($property) {
+				$compiler->raw($value);
+			} else {
+				$compiler->quote($value);
+			}
 		} else {
 			$compiler
 				->raw('{')
 				->subcompile($this->getNode('attribute'))
-				->raw('}');
+				->raw('}')
+			;
 		}
 
 		if (!$property) {
