@@ -22,13 +22,13 @@ unsafe_br
 {unsafe_br()}
 
 unsafe_br()|raw
-{unsafe_br()}
+{unsafe_br()|noescape}
 
 safe_br()|escape
 {safe_br()}
 
 safe_br()|raw
-{safe_br()}
+{safe_br()|noescape}
 
 unsafe_br()|escape
 {unsafe_br()}
@@ -40,5 +40,3 @@ autoescape js
 
 safe_br
 {safe_br()}
-
-

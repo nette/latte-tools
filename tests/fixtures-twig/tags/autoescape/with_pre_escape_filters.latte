@@ -14,7 +14,7 @@ Test: "autoescape" tag applies escaping after calling filters, and before callin
 
 3. Don't escape safe values
 ( var|raw|nl2br )
-{$var|nl2br}
+{$var|noescape|nl2br}
 
 4. Don't escape safe values
 ( var|escape|nl2br|nl2br )
@@ -27,5 +27,3 @@ Test: "autoescape" tag applies escaping after calling filters, and before callin
 6. Still escape when using filters not declared safe
 ( var|escape|nl2br|upper|escape )
 {$var|nl2br|upper}
-
-

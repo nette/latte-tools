@@ -4,6 +4,6 @@ Test: "autoescape" tag do not applies escaping on filter arguments
 {$var|nl2br:'<br />'}
 {$var|nl2br:'<br />'}
 {$var|nl2br:$sep}
-{$var|nl2br:$sep}
+{$var|nl2br:($sep|noescape)}
 {$var|nl2br:$sep}
 

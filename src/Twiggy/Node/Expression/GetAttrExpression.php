@@ -48,7 +48,7 @@ class GetAttrExpression extends AbstractExpression
 			$compiler->raw('isset(');
 		}
 
-		$property = !$attr instanceof ConstantExpression || $type !== Template::ARRAY_CALL;
+		$property = !$attr instanceof ConstantExpression || ($type !== Template::ARRAY_CALL && !is_int($attr->getAttribute('value')));
 
 		$compiler->subcompile($this->getNode('node'))
 			->raw($property ? '->' : '[');

@@ -26,12 +26,12 @@ Test: "autoescape" tag does not apply escaping on literals
 {=false ? "\n" : false ? $someVar : '<br />'}
 
 6. Nested conditionals with a variable marked safe
-{=true ? true ? '<br />' : $someVar : "\n"}
-{=true ? false ? '<br />' : $someVar : "\n"}
-{=true ? true ? $someVar : '<br />' : "\n"}
-{=true ? false ? $someVar : '<br />' : "\n"}
-{=false ? "\n" : true ? $someVar : '<br />'}
-{=false ? "\n" : false ? $someVar : '<br />'}
+{=true ? true ? '<br />' : ($someVar|noescape) : "\n"}
+{=true ? false ? '<br />' : ($someVar|noescape) : "\n"}
+{=true ? true ? ($someVar|noescape) : '<br />' : "\n"}
+{=true ? false ? ($someVar|noescape) : '<br />' : "\n"}
+{=false ? "\n" : true ? ($someVar|noescape) : '<br />'}
+{=false ? "\n" : false ? ($someVar|noescape) : '<br />'}
 
 7. Without then clause
 {='<br />' ? '<br />' : $someVar}
