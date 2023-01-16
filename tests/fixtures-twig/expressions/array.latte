@@ -14,7 +14,7 @@ Test: Twig supports array notation
 {* nested arrays *}
 {var $a = [1, 2, [1, 2], [foo => [foo => bar]]]}
 {$a[2]|join:','}
-{$a[3]->foo|join:','}
+{$a[3]['foo']|join:','}
 
 {* works even if [] is used inside the array *}
 {=[$foo->{$bar}]|join:','}
@@ -33,9 +33,9 @@ Test: Twig supports array notation
 {$ary|join:','}
 
 {* ArrayAccess *}
-{$array_access->a}
+{$array_access['a']}
 
 {* array that does not exist *}
 {$does_not_exist[0] ?? ok}
 {$does_not_exist[0]->does_not_exist_either ?? ok}
-{$does_not_exist[0]->does_not_exist_either ?? ok}
+{$does_not_exist[0]['does_not_exist_either'] ?? ok}

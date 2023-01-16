@@ -7,8 +7,8 @@ Test: Twig supports the ?? operator
 {$foo->bar ?? KO}
 {$foo->missing ?? OK}
 {$foo->bar->baz->missing ?? OK}
-{$foo->bar ?? KO}
-{$foo->missing ?? OK}
+{$foo['bar'] ?? KO}
+{$foo['missing'] ?? OK}
 {$nope ?? $nada ?? OK}
 {1 + $nope ?? $nada ?? 2}
 {=(1 + $nope ?? 3) + $nada ?? 2}

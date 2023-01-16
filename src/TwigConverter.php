@@ -13,7 +13,7 @@ class TwigConverter
 	public function __construct()
 	{
 		$loader = new Twiggy\Loader\ArrayLoader;
-		$twiggy = new Twiggy\Environment($loader, ['cache' => false]);
+		$twiggy = new Twiggy\Environment($loader, ['cache' => false, 'optimizations'=>2]);
 		$twiggy->addExtension(new Twiggy\Extra\Cache\CacheExtension);
 		$twiggy->addExtension(new Twiggy\Extra\Html\HtmlExtension);
 		$twiggy->addExtension(new Twiggy\Extension\DebugExtension);
@@ -37,7 +37,8 @@ class TwigConverter
 
 	private function postProcess(string $code): string
 	{
-		$code = preg_replace('~\bclass=(["\']){html_classes\((.*)\)}~i', 'n:class=$1$2', $code);
+		$code = \preg_replace('~\bclass=(["\']){html_classes\((.*)\)}~i', 'n:class=$1$2', $code);
+		$code = \str_replace(['{$_self}', '{block _'], ['{$this->getName()}', '{block b_'], $code);
 		return $code;
 	}
 }
