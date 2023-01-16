@@ -37,7 +37,8 @@ class TwigConverter
 
 	private function postProcess(string $code): string
 	{
-		$code = preg_replace('~\bclass=(["\']){html_classes\((.*)\)}~i', 'n:class=$1$2', $code);
+		$code = \preg_replace('~\bclass=(["\']){html_classes\((.*)\)}~i', 'n:class=$1$2', $code);
+		$code = \str_replace(['$_self', '{block _'], ['$this->getName()', '{block b_'], $code);
 		return $code;
 	}
 }
