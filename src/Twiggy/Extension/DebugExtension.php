@@ -38,25 +38,25 @@ namespace {
 use LatteTools\Twiggy\Environment;
 use LatteTools\Twiggy\Template;
 use LatteTools\Twiggy\TemplateWrapper;
-
-function twig_var_dump(Environment $env, $context, ...$vars)
-{
-	if (!$env->isDebug()) {
-		return;
-	}
-
-	ob_start();
-
-	if (!$vars) {
-		$vars = [];
-		foreach ($context as $key => $value) {
-			if (!$value instanceof Template && !$value instanceof TemplateWrapper) {
-				$vars[$key] = $value;
-			}
+if (!\function_exists('twig_var_dump')) {
+	function twig_var_dump(Environment $env, $context, ...$vars) {
+		if (!$env->isDebug()) {
+			return;
 		}
-	} else {
-	}
 
-	return ob_get_clean();
+		ob_start();
+
+		if (!$vars) {
+			$vars = [];
+			foreach ($context as $key => $value) {
+				if (!$value instanceof Template && !$value instanceof TemplateWrapper) {
+					$vars[$key] = $value;
+				}
+			}
+		} else {
+		}
+
+		return ob_get_clean();
+	}
 }
 }

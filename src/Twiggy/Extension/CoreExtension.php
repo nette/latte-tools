@@ -328,7 +328,7 @@ namespace {
 	use LatteTools\Twiggy\Template;
 	use LatteTools\Twiggy\TemplateWrapper;
 
-	if (!function_exists('twig_cycle')) {
+	if (!\function_exists('twig_cycle')) {
 		/**
 		 * Cycles over a value.
 		 *
