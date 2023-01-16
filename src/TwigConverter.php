@@ -13,7 +13,7 @@ class TwigConverter
 	public function __construct()
 	{
 		$loader = new Twiggy\Loader\ArrayLoader;
-		$twiggy = new Twiggy\Environment($loader, ['cache' => false]);
+		$twiggy = new Twiggy\Environment($loader, ['cache' => false, 'optimizations'=>2]);
 		$twiggy->addExtension(new Twiggy\Extra\Cache\CacheExtension);
 		$twiggy->addExtension(new Twiggy\Extra\Html\HtmlExtension);
 		$twiggy->addExtension(new Twiggy\Extension\DebugExtension);
