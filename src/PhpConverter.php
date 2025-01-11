@@ -68,6 +68,7 @@ class PhpConverter
 				{
 					if ($node instanceof Node\Stmt\Echo_
 						&& $node->exprs[0] instanceof Node\Expr\FuncCall
+						&& $node->exprs[0]->name instanceof Node\Name
 						&& $node->exprs[0]->name->toLowerString() === 'htmlspecialchars'
 					) {
 						$res = [];
