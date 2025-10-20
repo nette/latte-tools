@@ -50,7 +50,7 @@ class Error extends \Exception
 	 * @param int         $lineno  The template line where the error occurred
 	 * @param Source|null $source  The source context where the error occurred
 	 */
-	public function __construct(string $message, int $lineno = -1, Source $source = null, \Throwable $previous = null)
+	public function __construct(string $message, int $lineno = -1, ?Source $source = null, ?\Throwable $previous = null)
 	{
 		parent::__construct('', 0, $previous);
 
@@ -97,7 +97,7 @@ class Error extends \Exception
 	}
 
 
-	public function setSourceContext(Source $source = null): void
+	public function setSourceContext(?Source $source = null): void
 	{
 		if ($source === null) {
 			$this->sourceCode = $this->name = $this->sourcePath = null;

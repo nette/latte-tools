@@ -87,7 +87,7 @@ final class SandboxExtension extends AbstractExtension
 	}
 
 
-	public function checkMethodAllowed($obj, $method, int $lineno = -1, Source $source = null): void
+	public function checkMethodAllowed($obj, $method, int $lineno = -1, ?Source $source = null): void
 	{
 		if ($this->isSandboxed()) {
 			try {
@@ -102,7 +102,7 @@ final class SandboxExtension extends AbstractExtension
 	}
 
 
-	public function checkPropertyAllowed($obj, $method, int $lineno = -1, Source $source = null): void
+	public function checkPropertyAllowed($obj, $method, int $lineno = -1, ?Source $source = null): void
 	{
 		if ($this->isSandboxed()) {
 			try {
@@ -117,7 +117,7 @@ final class SandboxExtension extends AbstractExtension
 	}
 
 
-	public function ensureToStringAllowed($obj, int $lineno = -1, Source $source = null)
+	public function ensureToStringAllowed($obj, int $lineno = -1, ?Source $source = null)
 	{
 		if ($this->isSandboxed() && \is_object($obj) && method_exists($obj, '__toString')) {
 			try {

@@ -170,7 +170,7 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
 			&& $node->getAttribute('name') === 'include'
 			&& (!$node->getNode('arguments')->hasNode('with_context')
 				 || $node->getNode('arguments')->getNode('with_context')->getAttribute('value') !== false
-			   )
+			)
 		) {
 			$this->addLoopToAll();
 		}
@@ -179,12 +179,12 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
 		elseif ($node instanceof GetAttrExpression
 			&& (!$node->getNode('attribute') instanceof ConstantExpression
 				|| $node->getNode('attribute')->getAttribute('value') === 'parent'
-			   )
+			)
 			&& ($this->loops[0]->getAttribute('with_loop') === true
 				|| ($node->getNode('node') instanceof NameExpression
 					&& $node->getNode('node')->getAttribute('name') === 'loop'
-				   )
-			   )
+				)
+			)
 		) {
 			$this->addLoopToAll();
 		}

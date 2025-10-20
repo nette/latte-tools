@@ -18,7 +18,7 @@ use LatteTools\Twiggy\Compiler;
  */
 class ForLoopNode extends Node
 {
-	public function __construct(int $lineno, string $tag = null)
+	public function __construct(int $lineno, ?string $tag = null)
 	{
 		parent::__construct([], ['with_loop' => false, 'ifexpr' => false, 'else' => false], $lineno, $tag);
 	}

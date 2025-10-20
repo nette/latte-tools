@@ -20,7 +20,7 @@ use LatteTools\Twiggy\Node\Node;
  */
 class BlockReferenceExpression extends AbstractExpression
 {
-	public function __construct(Node $name, ?Node $template, int $lineno, string $tag = null)
+	public function __construct(Node $name, ?Node $template, int $lineno, ?string $tag = null)
 	{
 		$nodes = ['name' => $name];
 		if ($template !== null) {
