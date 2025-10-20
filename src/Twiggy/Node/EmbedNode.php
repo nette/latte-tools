@@ -29,7 +29,7 @@ class EmbedNode extends IncludeNode
 		bool $only,
 		bool $ignoreMissing,
 		int $lineno,
-		string $tag = null,
+		?string $tag,
 		Node $body,
 		Node $parent,
 	) {

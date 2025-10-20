@@ -26,9 +26,9 @@ class Lexer
 
 	public const REGEX_NAME = '/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/A';
 	public const REGEX_NUMBER = '/[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/A';
-	public const REGEX_STRING = '/"([^#"\\\\]*(?:\\\\.[^#"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/As';
+	public const REGEX_STRING = '/"([^#"\\\]*(?:\\\.[^#"\\\]*)*)"|\'([^\'\\\]*(?:\\\.[^\'\\\]*)*)\'/As';
 	public const REGEX_DQ_STRING_DELIM = '/"/A';
-	public const REGEX_DQ_STRING_PART = '/[^#"\\\\]*(?:(?:\\\\.|#(?!\{))[^#"\\\\]*)*/As';
+	public const REGEX_DQ_STRING_PART = '/[^#"\\\]*(?:(?:\\\.|#(?!\{))[^#"\\\]*)*/As';
 	public const PUNCTUATION = '()[]{}?:.,|';
 	private $tokens;
 	private $code;

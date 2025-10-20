@@ -21,7 +21,7 @@ use LatteTools\Twiggy\Compiler;
  */
 class BlockReferenceNode extends Node implements NodeOutputInterface
 {
-	public function __construct(string $name, int $lineno, string $tag = null, Node $body)
+	public function __construct(string $name, int $lineno, ?string $tag, Node $body)
 	{
 		parent::__construct([], ['name' => $name, 'body' => $body], $lineno, $tag);
 	}

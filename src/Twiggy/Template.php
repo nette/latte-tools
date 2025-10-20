@@ -162,7 +162,7 @@ abstract class Template
 		array $context,
 		array $blocks = [],
 		$useBlocks = true,
-		self $templateContext = null,
+		?self $templateContext = null,
 	) {
 		if ($useBlocks && isset($blocks[$name])) {
 			$template = $blocks[$name][0];

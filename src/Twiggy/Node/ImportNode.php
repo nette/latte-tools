@@ -25,7 +25,7 @@ class ImportNode extends Node
 		AbstractExpression $expr,
 		AbstractExpression $var,
 		int $lineno,
-		string $tag = null,
+		?string $tag = null,
 		bool $global = true,
 	) {
 		parent::__construct(['expr' => $expr, 'var' => $var], ['global' => $global], $lineno, $tag);

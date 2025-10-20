@@ -34,7 +34,7 @@ class ForNode extends Node
 		Node $body,
 		?Node $else,
 		int $lineno,
-		string $tag = null,
+		?string $tag = null,
 	) {
 		$body = new Node([$body, $this->loop = new ForLoopNode($lineno, $tag)]);
 

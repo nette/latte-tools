@@ -12,117 +12,117 @@ declare(strict_types=1);
  */
 
 namespace LatteTools\Twiggy\Extra\Html {
-use LatteTools\Twiggy\Extension\AbstractExtension;
-use LatteTools\Twiggy\TwigFilter;
-use LatteTools\Twiggy\TwigFunction;
-use Symfony\Component\Mime\MimeTypes;
+	use LatteTools\Twiggy\Extension\AbstractExtension;
+	use LatteTools\Twiggy\TwigFilter;
+	use LatteTools\Twiggy\TwigFunction;
+	use Symfony\Component\Mime\MimeTypes;
 
-final class HtmlExtension extends AbstractExtension
-{
-	private $mimeTypes;
-
-
-	public function __construct(MimeTypes $mimeTypes = null)
+	final class HtmlExtension extends AbstractExtension
 	{
-		$this->mimeTypes = $mimeTypes;
-	}
+		private $mimeTypes;
 
 
-	public function getFilters(): array
-	{
-		return [
-			new TwigFilter('data_uri', [$this, 'dataUri']),
-		];
-	}
+		public function __construct(?MimeTypes $mimeTypes = null)
+		{
+			$this->mimeTypes = $mimeTypes;
+		}
 
 
-	public function getFunctions(): array
-	{
-		return [
-			new TwigFunction('html_classes', 'twig_html_classes'),
-		];
-	}
+		public function getFilters(): array
+		{
+			return [
+				new TwigFilter('data_uri', [$this, 'dataUri']),
+			];
+		}
 
 
-	/**
-	 * Creates a data URI (RFC 2397).
-	 *
-	 * Length validation is not performed on purpose, validation should
-	 * be done before calling this filter.
-	 *
-	 * @return string The generated data URI
-	 */
+		public function getFunctions(): array
+		{
+			return [
+				new TwigFunction('html_classes', 'twig_html_classes'),
+			];
+		}
 
 
-	public function dataUri(string $data, string $mime = null, array $parameters = []): string
-	{
-		$repr = 'data:';
+		/**
+		 * Creates a data URI (RFC 2397).
+		 *
+		 * Length validation is not performed on purpose, validation should
+		 * be done before calling this filter.
+		 *
+		 * @return string The generated data URI
+		 */
 
-		if ($mime === null) {
-			if ($this->mimeTypes === null) {
-				$this->mimeTypes = new MimeTypes;
-			}
 
-			$tmp = tempnam(sys_get_temp_dir(), 'mime');
+		public function dataUri(string $data, ?string $mime = null, array $parameters = []): string
+		{
+			$repr = 'data:';
 
-			file_put_contents($tmp, $data);
-
-			try {
-				if (null === $mime = $this->mimeTypes->guessMimeType($tmp)) {
-					$mime = 'text/plain';
+			if ($mime === null) {
+				if ($this->mimeTypes === null) {
+					$this->mimeTypes = new MimeTypes;
 				}
 
-			} finally {
-				@unlink($tmp);
+				$tmp = tempnam(sys_get_temp_dir(), 'mime');
+
+				file_put_contents($tmp, $data);
+
+				try {
+					if (null === $mime = $this->mimeTypes->guessMimeType($tmp)) {
+						$mime = 'text/plain';
+					}
+
+				} finally {
+					@unlink($tmp);
+				}
 			}
+
+			$repr .= $mime;
+
+			foreach ($parameters as $key => $value) {
+				$repr .= ';' . $key . '=' . rawurlencode($value);
+			}
+
+			if (str_starts_with($mime, 'text/')) {
+				$repr .= ',' . rawurlencode($data);
+
+			} else {
+				$repr .= ';base64,' . base64_encode($data);
+			}
+
+			return $repr;
 		}
-
-		$repr .= $mime;
-
-		foreach ($parameters as $key => $value) {
-			$repr .= ';' . $key . '=' . rawurlencode($value);
-		}
-
-		if (str_starts_with($mime, 'text/')) {
-			$repr .= ',' . rawurlencode($data);
-
-		} else {
-			$repr .= ';base64,' . base64_encode($data);
-		}
-
-		return $repr;
 	}
-}
 }
 
 namespace {
-use LatteTools\Twiggy\Error\RuntimeError;
+	use LatteTools\Twiggy\Error\RuntimeError;
 
-function twig_html_classes(...$args): string
-{
-	$classes = [];
+	function twig_html_classes(...$args): string
+	{
+		$classes = [];
 
-	foreach ($args as $i => $arg) {
-		if (\is_string($arg)) {
-			$classes[] = $arg;
+		foreach ($args as $i => $arg) {
+			if (\is_string($arg)) {
+				$classes[] = $arg;
 
-		} elseif (\is_array($arg)) {
-			foreach ($arg as $class => $condition) {
-				if (!\is_string($class)) {
-					throw new RuntimeError(sprintf('The html_classes function argument %d (key %d) should be a string, got "%s".', $i, $class, \gettype($class)));
+			} elseif (\is_array($arg)) {
+				foreach ($arg as $class => $condition) {
+					if (!\is_string($class)) {
+						throw new RuntimeError(sprintf('The html_classes function argument %d (key %d) should be a string, got "%s".', $i, $class, \gettype($class)));
+					}
+
+					if (!$condition) {
+						continue;
+					}
+
+					$classes[] = $class;
 				}
-
-				if (!$condition) {
-					continue;
-				}
-
-				$classes[] = $class;
+			} else {
+				throw new RuntimeError(sprintf('The html_classes function argument %d should be either a string or an array, got "%s".', $i, \gettype($arg)));
 			}
-		} else {
-			throw new RuntimeError(sprintf('The html_classes function argument %d should be either a string or an array, got "%s".', $i, \gettype($arg)));
 		}
-	}
 
-	return implode(' ', array_unique($classes));
-}
+		return implode(' ', array_unique($classes));
+	}
 }

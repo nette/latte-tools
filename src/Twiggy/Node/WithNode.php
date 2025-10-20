@@ -21,7 +21,7 @@ use LatteTools\Twiggy\Node\Expression\ArrayExpression;
  */
 class WithNode extends Node
 {
-	public function __construct(Node $body, ?Node $variables, bool $only, int $lineno, string $tag = null)
+	public function __construct(Node $body, ?Node $variables, bool $only, int $lineno, ?string $tag = null)
 	{
 		$nodes = ['body' => $body];
 		if ($variables !== null) {

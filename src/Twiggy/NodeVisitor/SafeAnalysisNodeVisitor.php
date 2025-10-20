@@ -144,7 +144,7 @@ final class SafeAnalysisNodeVisitor implements NodeVisitorInterface
 	}
 
 
-	private function intersectSafe(array $a = null, array $b = null): array
+	private function intersectSafe(?array $a = null, ?array $b = null): array
 	{
 		if ($a === null || $b === null) {
 			return [];

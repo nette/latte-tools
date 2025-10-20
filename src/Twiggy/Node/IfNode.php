@@ -21,7 +21,7 @@ use LatteTools\Twiggy\Compiler;
  */
 class IfNode extends Node
 {
-	public function __construct(Node $tests, ?Node $else, int $lineno, string $tag = null)
+	public function __construct(Node $tests, ?Node $else, int $lineno, ?string $tag = null)
 	{
 		$nodes = ['tests' => $tests];
 		if ($else !== null) {

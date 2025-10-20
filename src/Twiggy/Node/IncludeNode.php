@@ -29,7 +29,7 @@ class IncludeNode extends Node implements NodeOutputInterface
 		bool $only,
 		bool $ignoreMissing,
 		int $lineno,
-		string $tag = null,
+		?string $tag = null,
 	) {
 		$nodes = ['expr' => $expr];
 		if ($variables !== null) {

@@ -172,7 +172,7 @@ final class ExtensionSet
 		}
 
 		foreach ($this->functions as $pattern => $function) {
-			$pattern = str_replace('\\*', '(.*?)', preg_quote($pattern, '#'), $count);
+			$pattern = str_replace('\*', '(.*?)', preg_quote($pattern, '#'), $count);
 
 			if ($count && preg_match('#^' . $pattern . '$#', $name, $matches)) {
 				array_shift($matches);
@@ -232,7 +232,7 @@ final class ExtensionSet
 		}
 
 		foreach ($this->filters as $pattern => $filter) {
-			$pattern = str_replace('\\*', '(.*?)', preg_quote($pattern, '#'), $count);
+			$pattern = str_replace('\*', '(.*?)', preg_quote($pattern, '#'), $count);
 
 			if ($count && preg_match('#^' . $pattern . '$#', $name, $matches)) {
 				array_shift($matches);
@@ -392,7 +392,7 @@ final class ExtensionSet
 		}
 
 		foreach ($this->tests as $pattern => $test) {
-			$pattern = str_replace('\\*', '(.*?)', preg_quote($pattern, '#'), $count);
+			$pattern = str_replace('\*', '(.*?)', preg_quote($pattern, '#'), $count);
 
 			if ($count) {
 				if (preg_match('#^' . $pattern . '$#', $name, $matches)) {

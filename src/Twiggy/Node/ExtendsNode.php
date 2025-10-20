@@ -18,7 +18,7 @@ use LatteTools\Twiggy\Node\Expression\AbstractExpression;
 
 class ExtendsNode extends Node
 {
-	public function __construct(AbstractExpression $expr, int $lineno, string $tag = null)
+	public function __construct(AbstractExpression $expr, int $lineno, ?string $tag = null)
 	{
 		parent::__construct(['expr' => $expr], [], $lineno, $tag);
 	}

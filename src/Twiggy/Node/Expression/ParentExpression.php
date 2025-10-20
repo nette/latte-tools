@@ -21,7 +21,7 @@ use LatteTools\Twiggy\Compiler;
  */
 class ParentExpression extends AbstractExpression
 {
-	public function __construct(string $name, int $lineno, string $tag = null)
+	public function __construct(string $name, int $lineno, ?string $tag = null)
 	{
 		parent::__construct([], ['output' => false, 'name' => $name], $lineno, $tag);
 	}

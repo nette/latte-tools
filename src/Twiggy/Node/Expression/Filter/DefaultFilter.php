@@ -33,7 +33,7 @@ class DefaultFilter extends FilterExpression
 		ConstantExpression $filterName,
 		Node $arguments,
 		int $lineno,
-		string $tag = null,
+		?string $tag = null,
 	) {
 		$default = new FilterExpression($node, new ConstantExpression('default', $node->getTemplateLine()), $arguments, $node->getTemplateLine());
 

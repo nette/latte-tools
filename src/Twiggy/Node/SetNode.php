@@ -20,7 +20,7 @@ use LatteTools\Twiggy\Compiler;
  */
 class SetNode extends Node implements NodeCaptureInterface
 {
-	public function __construct(bool $capture, Node $names, Node $values, int $lineno, string $tag = null)
+	public function __construct(bool $capture, Node $names, Node $values, int $lineno, ?string $tag = null)
 	{
 		parent::__construct(['names' => $names, 'values' => $values], ['capture' => $capture, 'safe' => false], $lineno, $tag);
 	}

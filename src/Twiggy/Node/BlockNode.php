@@ -21,7 +21,7 @@ use LatteTools\Twiggy\Compiler;
  */
 class BlockNode extends Node
 {
-	public function __construct(string $name, Node $body, int $lineno, Node $filter = null)
+	public function __construct(string $name, Node $body, int $lineno, ?Node $filter = null)
 	{
 		parent::__construct(['body' => $body], ['name' => $name, 'filter' => $filter], $lineno);
 	}
