@@ -1,0 +1,41 @@
+{* // Edge case 1: Multiple n:attr on same element (top-level) *}
+<input type="text" n:attr="value: $user->name, data-id: $user->id" class="field">
+{* // Edge case 2: Three conditional attributes *}<input n:attr="value: $a, data-x: $b, data-y: $c" />
+{* // Edge case 3: n:attr inside if block *}
+<input n:if="$show" n:attr="value: $val" />
+{* // Edge case 4: n:attr inside foreach *}
+<input n:foreach="$items as $item" n:attr="value: $item" />
+{* // Edge case 5: n:attr inside for loop *}
+<input n:for="$i = 0; $i < 10; $i++" n:attr="value: $arr[$i]" />
+{* // Edge case 6: n:attr inside while *}
+<input n:while="$cond" n:attr="value: $val" />
+{* // Edge case 7: Conditional attr followed by static attr *}
+<input n:attr="value: $val" name="static_name" class="input" />
+{* // Edge case 8: Empty condition (!empty vs isset) *}<input n:attr="value: $name" />
+{* // Edge case 9: Property access in conditional attr *}<input n:attr="value: $user->profile->name" />
+{* // Edge case 10: Array access in conditional attr   *}<input n:attr="value: $data['key']" />
+{* // Edge case 11: Mixed quotes - single quotes *}<input type='text' n:attr="value: $val" />
+{* // Edge case 12: n:if wrapping element with conditional attr *}
+<input n:if="$visible" n:attr="value: $data" />
+{* // Edge case 13: n:foreach wrapping element with conditional attr *}
+<input n:foreach="$list as $entry" n:attr="value: $entry->value" />
+{* // Edge case 14: Deeply nested - if inside foreach with conditional attr *}
+{foreach $users as $user}
+    <input n:if="$user->active" n:attr="value: $user->name" />
+{/foreach}
+{* // Edge case 15: Multiple conditional attrs inside nested structure *}
+<input n:if="$showForm" n:attr="value: $name, data-id: $id" />
+{* // Edge case 16: Conditional attr with method call *}
+<input n:attr="value: $obj->getValue()" />
+{* // Edge case 17: Conditional attr in elseif block *}
+<input n:if="$type === a" n:attr="value: $a" />
+<input n:elseif="$type === b" n:attr="value: $b" />
+{* // Edge case 18: Self-closing tag with conditional attr *}
+<br n:attr="value: $val" />
+{* // Edge case 19: Void element with conditional attr *}<img src="test.jpg" n:attr="alt: $alt" />
+{* // Edge case 20: Nested control structures with multiple attrs *}
+{foreach $groups as $group}
+    {if $group->visible}
+        <input n:foreach="$group->items as $item" n:attr="value: $item->val, data-group: $group->id" />
+    {/if}
+{/foreach}

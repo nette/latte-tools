@@ -1,0 +1,14 @@
+{* // Basic isset in value attribute *}
+<input type="text" name="established" n:attr="value: $company->established" class="dateEU">
+
+{* // !empty condition *}<input type="text" n:attr="value: $name" />
+
+{* // Multiple conditional attributes in same element *}<input type="text" n:attr="value: $user->name, data-id: $user->id" class="field">
+
+{* // With other non-conditional attributes *}<input type="text" name="field" n:attr="value: $val" placeholder="Enter value" class="input">
+
+{* // Property access on variable *}<div n:attr="data-info: $data->info">Content</div>
+
+{* // Array access *}<input n:attr="value: $arr['key']" />
+
+{* // Simple variable *}<input n:attr="value: $simple" />

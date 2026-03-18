@@ -1,0 +1,12 @@
+{* // Simple if with single HTML element *}
+<div n:if="$user" class='user'>{$user->name}</div>
+{* // If with else *}
+<div n:if="$error" class='error'>{$error}</div>
+<div n:else class='success'>Success!</div>
+{* // If with elseif *}
+<span n:if="$status === active" class='status-active'>Active</span>
+<span n:elseif="$status === pending" class='status-pending'>Pending</span>
+<span n:else class='status-inactive'>Inactive</span>
+{* // If with complex condition *}
+<button n:if="$user && $user->isAdmin() && $config[feature_enabled]">Admin Action</button>
+<p n:if="$showContent && $item">{$item->name}</p>

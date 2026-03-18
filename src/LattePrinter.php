@@ -1018,15 +1018,106 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	protected function pStmt_If(Stmt\If_ $node)
 	{
-		return '{if ' . $this->p($node->cond) . '}'
-			. $this->pStmts($node->stmts) . $this->nl
-			. ($node->elseifs ? ' ' . $this->pImplode($node->elseifs, ' ') : '')
-			. ($node->else !== null ? ' ' . $this->p($node->else) : '') . '{/if}';
+		// Check if we can generate n:if instead of {if...}
+		if ($this->canGenerateNAttribute($node)) {
+			return $this->pStmt_If_NAttribute($node);
+		}
+
+		// For regular if statements, we need to handle elseif/else specially
+		// to avoid generating empty strings when they're single HTML elements
+		$result = '{if ' . $this->p($node->cond) . '}' . $this->pStmts($node->stmts, true, true) . $this->nl;
+
+		// Handle elseif clauses
+		if ($node->elseifs) {
+			foreach ($node->elseifs as $elseif) {
+				$elseifOutput = $this->pStmt_ElseIf($elseif);
+				if ($elseifOutput !== '') {
+					$result .= ' ' . $elseifOutput;
+				}
+			}
+		}
+
+		// Handle else clause
+		if ($node->else !== null) {
+			$elseOutput = $this->pStmt_Else($node->else);
+			if ($elseOutput !== '') {
+				$result .= ' ' . $elseOutput;
+			}
+		}
+
+		$result .= '{/if}';
+		return $result;
+	}
+
+	/**
+	 * Check if an if statement can be converted to n:attribute
+	 */
+	protected function canGenerateNAttribute(Stmt\If_ $node): bool
+	{
+		// Must have a single HTML element OR a valid HTML pattern in the main block
+		if (!$this->isSingleHTMLElement($node->stmts) && !$this->isHTMLElementPattern($node->stmts)) {
+			return false;
+		}
+
+		// Check if elseif/else blocks are also suitable (single HTML, HTML pattern, or empty)
+		foreach ($node->elseifs as $elseif) {
+			if (!$this->isSingleHTMLElement($elseif->stmts) && !$this->isHTMLElementPattern($elseif->stmts) && count($elseif->stmts) > 0) {
+				return false;
+			}
+		}
+
+		if ($node->else !== null && !$this->isSingleHTMLElement($node->else->stmts) && !$this->isHTMLElementPattern($node->else->stmts) && count($node->else->stmts) > 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Generate n:if attribute for if statement
+	 */
+	protected function pStmt_If_NAttribute(Stmt\If_ $node): string
+	{
+		// Build n:if element from statements
+		$condition = $this->p($node->cond);
+		$result = $this->buildNAttributeElement($node->stmts, 'if', $condition);
+
+		if ($result === '') {
+			// Fallback to regular if statement
+			return '{if ' . $this->p($node->cond) . '}'
+				. $this->pStmts($node->stmts) . $this->nl
+				. ($node->elseifs ? ' ' . $this->pImplode($node->elseifs, ' ') : '')
+				. ($node->else !== null ? ' ' . $this->p($node->else) : '') . '{/if}';
+		}
+
+		// Handle elseif clauses
+		if ($node->elseifs) {
+			foreach ($node->elseifs as $elseif) {
+				$elseifCondition = $this->p($elseif->cond);
+				$result .= $this->nl . $this->buildNAttributeElement($elseif->stmts, 'elseif', $elseifCondition);
+			}
+		}
+
+		// Handle else clause
+		if ($node->else !== null) {
+			$result .= $this->nl . $this->buildNAttributeElement($node->else->stmts, 'else', '');
+		}
+
+		return $result;
 	}
 
 
 	protected function pStmt_ElseIf(Stmt\ElseIf_ $node)
 	{
+		// Check if we should skip this (when part of n:attribute conversion)
+		// We detect this by checking if the statement is a single HTML element or HTML pattern
+		// and if it's being printed as part of an if statement that could be n:attribute
+		// This is a heuristic - if it's a single HTML element/pattern, we assume it's part of n:attribute
+		if ($this->isSingleHTMLElement($node->stmts) || $this->isHTMLElementPattern($node->stmts)) {
+			// Return empty string - the parent pStmt_If_NAttribute will handle it
+			return '';
+		}
+
 		return '{elseif ' . $this->p($node->cond) . '}'
 			. $this->pStmts($node->stmts) . $this->nl;
 	}
@@ -1034,12 +1125,23 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	protected function pStmt_Else(Stmt\Else_ $node)
 	{
+		// Check if we should skip this (when part of n:attribute conversion)
+		if ($this->isSingleHTMLElement($node->stmts) || $this->isHTMLElementPattern($node->stmts)) {
+			// Return empty string - the parent pStmt_If_NAttribute will handle it
+			return '';
+		}
+
 		return '{else}' . $this->pStmts($node->stmts) . $this->nl;
 	}
 
 
 	protected function pStmt_For(Stmt\For_ $node)
 	{
+		// Check if we can generate n:for instead of {for...}
+		if ($this->canGenerateNAttributeFor($node)) {
+			return $this->pStmt_For_NAttribute($node);
+		}
+
 		return '{for '
 			. $this->pCommaSeparated($node->init) . ';' . (!empty($node->cond) ? ' ' : '')
 			. $this->pCommaSeparated($node->cond) . ';' . (!empty($node->loop) ? ' ' : '')
@@ -1048,19 +1150,128 @@ class LattePrinter extends PrettyPrinterAbstract
 	}
 
 
+	/**
+	 * Check if a for statement can be converted to n:attribute
+	 */
+	protected function canGenerateNAttributeFor(Stmt\For_ $node): bool
+	{
+		// Must have a single HTML element or HTML pattern in the body
+		return $this->isSingleHTMLElement($node->stmts) || $this->isHTMLElementPattern($node->stmts);
+	}
+
+
+	/**
+	 * Generate n:for attribute for for statement
+	 */
+	protected function pStmt_For_NAttribute(Stmt\For_ $node): string
+	{
+		// Build n:for loop expression
+		$loop = $this->pCommaSeparated($node->init) . ';' . (!empty($node->cond) ? ' ' : '')
+			. $this->pCommaSeparated($node->cond) . ';' . (!empty($node->loop) ? ' ' : '')
+			. $this->pCommaSeparated($node->loop);
+
+		// Build n:for element from statements
+		$result = $this->buildNAttributeElement($node->stmts, 'for', $loop);
+
+		if ($result === '') {
+			// Fallback to regular for statement
+			return '{for '
+				. $this->pCommaSeparated($node->init) . ';' . (!empty($node->cond) ? ' ' : '')
+				. $this->pCommaSeparated($node->cond) . ';' . (!empty($node->loop) ? ' ' : '')
+				. $this->pCommaSeparated($node->loop)
+				. '}' . $this->pStmts($node->stmts) . $this->nl . '{/for}';
+		}
+
+		return $result;
+	}
+
+
 	protected function pStmt_Foreach(Stmt\Foreach_ $node)
 	{
+		// Check if we can generate n:foreach instead of {foreach...}
+		if ($this->canGenerateNAttributeForeach($node)) {
+			return $this->pStmt_Foreach_NAttribute($node);
+		}
+
 		return '{foreach ' . $this->p($node->expr) . ' as '
 			. ($node->keyVar !== null ? $this->p($node->keyVar) . ' => ' : '')
 			. ($node->byRef ? '&' : '') . $this->p($node->valueVar) . '}'
 			. $this->pStmts($node->stmts) . $this->nl . '{/foreach}';
 	}
 
+	/**
+	 * Check if a foreach statement can be converted to n:attribute
+	 */
+	protected function canGenerateNAttributeForeach(Stmt\Foreach_ $node): bool
+	{
+		// Must have a single HTML element or HTML pattern in the body
+		return $this->isSingleHTMLElement($node->stmts) || $this->isHTMLElementPattern($node->stmts);
+	}
+
+	/**
+	 * Generate n:foreach attribute for foreach statement
+	 */
+	protected function pStmt_Foreach_NAttribute(Stmt\Foreach_ $node): string
+	{
+		// Build n:foreach loop expression
+		$loop = $this->p($node->expr) . ' as '
+			. ($node->keyVar !== null ? $this->p($node->keyVar) . ' => ' : '')
+			. ($node->byRef ? '&' : '') . $this->p($node->valueVar);
+
+		// Build n:foreach element from statements
+		$result = $this->buildNAttributeElement($node->stmts, 'foreach', $loop);
+
+		if ($result === '') {
+			// Fallback to regular foreach statement
+			return '{foreach ' . $this->p($node->expr) . ' as '
+				. ($node->keyVar !== null ? $this->p($node->keyVar) . ' => ' : '')
+				. ($node->byRef ? '&' : '') . $this->p($node->valueVar) . '}'
+				. $this->pStmts($node->stmts) . $this->nl . '{/foreach}';
+		}
+
+		return $result;
+	}
+
 
 	protected function pStmt_While(Stmt\While_ $node)
 	{
+		// Check if we can generate n:while instead of {while...}
+		if ($this->canGenerateNAttributeWhile($node)) {
+			return $this->pStmt_While_NAttribute($node);
+		}
+
 		return '{while ' . $this->p($node->cond) . '}'
 			. $this->pStmts($node->stmts) . $this->nl . '{/while}';
+	}
+
+
+	/**
+	 * Check if a while statement can be converted to n:attribute
+	 */
+	protected function canGenerateNAttributeWhile(Stmt\While_ $node): bool
+	{
+		// Must have a single HTML element or HTML pattern in the body
+		return $this->isSingleHTMLElement($node->stmts) || $this->isHTMLElementPattern($node->stmts);
+	}
+
+
+	/**
+	 * Generate n:while attribute for while statement
+	 */
+	protected function pStmt_While_NAttribute(Stmt\While_ $node): string
+	{
+		$condition = $this->p($node->cond);
+
+		// Build n:while element from statements
+		$result = $this->buildNAttributeElement($node->stmts, 'while', $condition);
+
+		if ($result === '') {
+			// Fallback to regular while statement
+			return '{while ' . $this->p($node->cond) . '}'
+				. $this->pStmts($node->stmts) . $this->nl . '{/while}';
+		}
+
+		return $result;
 	}
 
 
@@ -1087,14 +1298,81 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	protected function pStmt_TryCatch(Stmt\TryCatch $node)
 	{
+		// Check if we can generate n:try instead of {try...}
+		if ($this->canGenerateNAttributeTry($node)) {
+			return $this->pStmt_TryCatch_NAttribute($node);
+		}
+
 		return '{try' . $this->pStmts($node->stmts) . $this->nl
 			. ($node->catches ? ' ' . $this->pImplode($node->catches, ' ') : '')
 			. ($node->finally !== null ? ' ' . $this->p($node->finally) : '') . '{/try}';
 	}
 
 
+	/**
+	 * Check if a try-catch statement can be converted to n:attribute
+	 */
+	protected function canGenerateNAttributeTry(Stmt\TryCatch $node): bool
+	{
+		// Must have a single HTML element or HTML pattern in the try body
+		if (!$this->isSingleHTMLElement($node->stmts) && !$this->isHTMLElementPattern($node->stmts)) {
+			return false;
+		}
+
+		// Check if catch blocks are also suitable (single HTML, HTML pattern, or empty)
+		foreach ($node->catches as $catch) {
+			if (!$this->isSingleHTMLElement($catch->stmts) && !$this->isHTMLElementPattern($catch->stmts) && count($catch->stmts) > 0) {
+				return false;
+			}
+		}
+
+		if ($node->finally !== null && !$this->isSingleHTMLElement($node->finally->stmts) && !$this->isHTMLElementPattern($node->finally->stmts) && count($node->finally->stmts) > 0) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	/**
+	 * Generate n:try attribute for try-catch statement
+	 */
+	protected function pStmt_TryCatch_NAttribute(Stmt\TryCatch $node): string
+	{
+		// Build n:try element from statements
+		$result = $this->buildNAttributeElement($node->stmts, 'try', '');
+
+		if ($result === '') {
+			// Fallback to regular try statement
+			return '{try' . $this->pStmts($node->stmts) . $this->nl
+				. ($node->catches ? ' ' . $this->pImplode($node->catches, ' ') : '')
+				. ($node->finally !== null ? ' ' . $this->p($node->finally) : '') . '{/try}';
+		}
+
+		// Handle catch clauses
+		if ($node->catches) {
+			foreach ($node->catches as $catch) {
+				$result .= $this->nl . $this->buildNAttributeElement($catch->stmts, 'else', '');
+			}
+		}
+
+		// Handle finally clause
+		if ($node->finally !== null) {
+			$result .= $this->nl . $this->buildNAttributeElement($node->finally->stmts, 'else', '');
+		}
+
+		return $result;
+	}
+
+
 	protected function pStmt_Catch(Stmt\Catch_ $node)
 	{
+		// Check if we should skip this (when part of n:attribute conversion)
+		if ($this->isSingleHTMLElement($node->stmts) || $this->isHTMLElementPattern($node->stmts)) {
+			// Return empty string - the parent pStmt_TryCatch_NAttribute will handle it
+			return '';
+		}
+
 		return '{* catch (' . $this->pImplode($node->types, '|')
 			. ($node->var !== null ? ' ' . $this->p($node->var) : '')
 			. ') {' . $this->pStmts($node->stmts) . $this->nl . ' *}';
@@ -1103,6 +1381,12 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	protected function pStmt_Finally(Stmt\Finally_ $node)
 	{
+		// Check if we should skip this (when part of n:attribute conversion)
+		if ($this->isSingleHTMLElement($node->stmts) || $this->isHTMLElementPattern($node->stmts)) {
+			// Return empty string - the parent pStmt_TryCatch_NAttribute will handle it
+			return '';
+		}
+
 		return '{* finally {' . $this->pStmts($node->stmts) . $this->nl . ' *}';
 	}
 
@@ -1145,15 +1429,282 @@ class LattePrinter extends PrettyPrinterAbstract
 
 	// Other
 
-	protected function pStmt_Expression(Stmt\Expression $node)
+	protected function pStmt_InlineHTML(Stmt\InlineHTML $node)
 	{
-		if ($node->expr instanceof Expr\Assign && $node->expr->var instanceof Expr\Variable) {
-			return '{var ' . $this->p($node->expr) . '}';
+		return $node->value;
+	}
+
+
+	// n:attribute helpers
+
+	/**
+	 * Check if statements contain a single HTML element that can be wrapped with n:attribute
+	 */
+	protected function isSingleHTMLElement(array $stmts): bool
+	{
+		// Filter out Nop (whitespace) statements
+		$realStmts = array_filter($stmts, fn($s) => !$s instanceof Stmt\Nop);
+
+		if (count($realStmts) !== 1) {
+			return false;
 		}
-		if ($node->expr instanceof Expr\Include_) {
-			return '{include ' . $this->p($node->expr->expr) . '}';
+
+		$stmt = reset($realStmts);
+		return $stmt instanceof Stmt\InlineHTML;
+	}
+
+	/**
+	 * Build n:attribute element from AST statements
+	 * Constructs: <tag n:attr="value" original-attrs>inner-content</tag>
+	 */
+	protected function buildNAttributeElement(array $stmts, string $nAttrName, string $nAttrValue): string
+	{
+		// Filter out Nop statements
+		$relevantStmts = [];
+		foreach ($stmts as $stmt) {
+			if (!$stmt instanceof Stmt\Nop) {
+				$relevantStmts[] = $stmt;
+			}
 		}
-		return '{do ' . $this->p($node->expr) . '}';
+
+		if (count($relevantStmts) === 0) {
+			return '';
+		}
+
+		// Build the content by processing all statements
+		$content = '';
+		foreach ($relevantStmts as $stmt) {
+			if ($stmt instanceof Stmt\InlineHTML) {
+				$content .= $stmt->value;
+			} elseif ($stmt instanceof Stmt\Echo_) {
+				$content .= $this->pStmt_Echo($stmt);
+			} elseif ($stmt instanceof Stmt\Expression) {
+				$content .= $this->pStmt_Expression($stmt);
+			}
+		}
+
+		$content = trim($content);
+
+		// Parse the content to insert n:attribute at the right place
+		return $this->insertNAttributeIntoElement($content, $nAttrName, $nAttrValue);
+	}
+
+
+	/**
+	 * Insert n:attribute into HTML element content using character-by-character parsing
+	 */
+	protected function insertNAttributeIntoElement(string $content, string $nAttrName, string $nAttrValue): string
+	{
+		if ($content === '') {
+			return '';
+		}
+
+		$len = strlen($content);
+		$pos = 0;
+
+		// Skip whitespace at start
+		while ($pos < $len && ctype_space($content[$pos])) {
+			$pos++;
+		}
+
+		// Must start with <
+		if ($pos >= $len || $content[$pos] !== '<') {
+			return $content;
+		}
+
+		// Skip past <
+		$pos++;
+
+		// Skip whitespace
+		while ($pos < $len && ctype_space($content[$pos])) {
+			$pos++;
+		}
+
+		// Read tag name
+		$tagStart = $pos;
+		while ($pos < $len && (ctype_alnum($content[$pos]) || $content[$pos] === '-')) {
+			$pos++;
+		}
+		$tagName = substr($content, $tagStart, $pos - $tagStart);
+
+		if ($tagName === '') {
+			return $content;
+		}
+
+		// Build result: <tag + n:attribute + rest-of-element
+		$result = '<' . $tagName;
+
+		// Add n:attribute
+		if ($nAttrValue === '') {
+			$result .= ' n:' . $nAttrName;
+		} else {
+			$escapedValue = addcslashes($nAttrValue, '"');
+			$result .= ' n:' . $nAttrName . '="' . $escapedValue . '"';
+		}
+
+		// Append the rest of the element (from after tag name to end)
+		$result .= substr($content, $pos);
+
+		return $result;
+	}
+
+
+
+
+	/**
+	 * Check if statements form a single HTML element pattern (opening tag + content + closing tag)
+	 * Uses AST analysis instead of regex for robustness
+	 */
+	protected function isHTMLElementPattern(array $stmts): bool
+	{
+		if (count($stmts) < 1) {
+			return false;
+		}
+
+		// Filter out Nop (whitespace) statements
+		$realStmts = array_filter($stmts, fn($s) => !$s instanceof Stmt\Nop);
+
+		if (count($realStmts) < 1) {
+			return false;
+		}
+
+		// Collect relevant statements (InlineHTML at start/end, anything in between)
+		// First, find the first and last InlineHTML statements
+		$firstInlineIdx = null;
+		$lastInlineIdx = null;
+
+		foreach ($realStmts as $i => $stmt) {
+			if ($stmt instanceof Stmt\InlineHTML) {
+				if ($firstInlineIdx === null) {
+					$firstInlineIdx = $i;
+				}
+				$lastInlineIdx = $i;
+			}
+		}
+
+		if ($firstInlineIdx === null || $lastInlineIdx === null) {
+			return false;
+		}
+
+		$firstStmt = $stmts[$firstInlineIdx];
+		$lastStmt = $stmts[$lastInlineIdx];
+
+		// Extract tag name from first statement using AST-aware parsing
+		$firstHTML = ltrim($firstStmt->value);
+		$tagName = $this->extractTagNameFromStart($firstHTML);
+		if ($tagName === null) {
+			return false;
+		}
+
+		// Check if this is a self-closing (void) element
+		// These don't require closing tags
+		$voidElements = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+		if (in_array(strtolower($tagName), $voidElements, true)) {
+			// For void elements, check if the merged content forms a complete self-closing tag
+			// The content might contain '>' characters inside Latte tags like {$var->prop}
+			// So we check if it starts with <tagname and ends with >
+			$merged = $this->mergeStatementsToHTMLElement($stmts);
+			$merged = trim($merged);
+			return (bool) (preg_match('/^<' . preg_quote($tagName, '/') . '\b/i', $merged) && substr($merged, -1) === '>');
+		}
+
+		// Check if last statement contains matching closing tag
+		// The closing tag should be present, possibly followed by whitespace/comments
+		$lastHTML = trim($lastStmt->value);
+		$expectedClosing = '</' . $tagName . '>';
+		if (!preg_match('/<\/\s*' . preg_quote($tagName, '/') . '\s*>/i', $lastHTML)) {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	/**
+	 * Extract tag name from the start of HTML content
+	 * Returns null if content doesn't start with a valid HTML tag
+	 */
+	protected function extractTagNameFromStart(string $html): ?string
+	{
+		$html = ltrim($html);
+		if ($html === '' || $html[0] !== '<') {
+			return null;
+		}
+
+		// Skip past <
+		$pos = 1;
+		$len = strlen($html);
+
+		// Skip whitespace after <
+		while ($pos < $len && ctype_space($html[$pos])) {
+			$pos++;
+		}
+
+		// Read tag name
+		$tagName = '';
+		while ($pos < $len && (ctype_alnum($html[$pos]) || $html[$pos] === '-')) {
+			$tagName .= $html[$pos];
+			$pos++;
+		}
+
+		if ($tagName === '' || strtolower($tagName) === '!--') {
+			return null;
+		}
+
+		return $tagName;
+	}
+
+
+	/**
+	 * Merge multiple statements into a single HTML element string
+	 * Combines: <tag> + {content} + </tag> into <tag>{content}</tag>
+	 * Handles both simple 3-statement patterns and complex multi-statement patterns
+	 */
+	protected function mergeStatementsToHTMLElement(array $stmts): string
+	{
+		if (count($stmts) === 1 && $stmts[0] instanceof Stmt\InlineHTML) {
+			return $stmts[0]->value;
+		}
+
+		// Filter out Nop statements
+		$relevantStmts = [];
+		foreach ($stmts as $stmt) {
+			if (!$stmt instanceof Stmt\Nop) {
+				$relevantStmts[] = $stmt;
+			}
+		}
+
+		if (count($relevantStmts) === 1 && $relevantStmts[0] instanceof Stmt\InlineHTML) {
+			return $relevantStmts[0]->value;
+		}
+
+		// Build the full content by processing all statements in order
+		$result = '';
+		foreach ($relevantStmts as $stmt) {
+			if ($stmt instanceof Stmt\InlineHTML) {
+				$result .= $stmt->value;
+			} elseif ($stmt instanceof Stmt\Echo_) {
+				$result .= $this->pStmt_Echo($stmt);
+			} elseif ($stmt instanceof Stmt\Expression) {
+				$result .= $this->pStmt_Expression($stmt);
+			}
+		}
+
+		// Trim the result to clean up whitespace
+		return trim($result);
+	}
+
+
+	/**
+	 * Extract attributes from an opening HTML tag string
+	 */
+	protected function extractAttributesFromOpeningTag(string $html): string
+	{
+		// Match <tag attributes> or <tag attributes>... - stop at >
+		if (preg_match('/^<[a-zA-Z][a-zA-Z0-9]*\b([^>]*)>/', $html, $matches)) {
+			return trim($matches[1]);
+		}
+		return '';
 	}
 
 
@@ -1189,9 +1740,15 @@ class LattePrinter extends PrettyPrinterAbstract
 	}
 
 
-	protected function pStmt_InlineHTML(Stmt\InlineHTML $node)
+	protected function pStmt_Expression(Stmt\Expression $node)
 	{
-		return $node->value;
+		if ($node->expr instanceof Expr\Assign && $node->expr->var instanceof Expr\Variable) {
+			return '{var ' . $this->p($node->expr) . '}';
+		}
+		if ($node->expr instanceof Expr\Include_) {
+			return '{include ' . $this->p($node->expr->expr) . '}';
+		}
+		return '{do ' . $this->p($node->expr) . '}';
 	}
 
 
@@ -1207,7 +1764,7 @@ class LattePrinter extends PrettyPrinterAbstract
 	}
 
 
-	protected function pStmts(array $nodes, bool $indent = true): string
+	protected function pStmts(array $nodes, bool $indent = true, bool $trimFirstIndent = false): string
 	{
 		if ($indent) {
 			$this->indent();
@@ -1215,6 +1772,7 @@ class LattePrinter extends PrettyPrinterAbstract
 
 		$result = '';
 		$lastEcho = false;
+		$firstNode = true;
 		foreach ($nodes as $node) {
 			$comments = $node->getComments();
 			if ($comments) {
@@ -1224,9 +1782,25 @@ class LattePrinter extends PrettyPrinterAbstract
 				}
 			}
 
-			$result .= ($node instanceof Stmt\Echo_ || $node instanceof Stmt\InlineHTML || $lastEcho ? '' : $this->nl)
-				. $this->p($node);
-			$lastEcho = $node instanceof Stmt\Echo_ || $node instanceof Stmt\InlineHTML;
+			$nodeOutput = $this->p($node);
+
+			// Trim leading whitespace from the first InlineHTML node if requested
+			if ($trimFirstIndent && $firstNode && $node instanceof Stmt\InlineHTML) {
+				$nodeOutput = ltrim($nodeOutput);
+			}
+
+			// Determine if we need a newline before this node
+			$isCurrentEchoOrInline = $node instanceof Stmt\Echo_ || $node instanceof Stmt\InlineHTML;
+
+			// Always add newline for non-echo/inline nodes (closures, functions, etc. need this)
+			// Only skip newlines between consecutive Echo/InlineHTML nodes
+			if (!$isCurrentEchoOrInline || !$lastEcho || $firstNode) {
+				$result .= $this->nl;
+			}
+
+			$result .= $nodeOutput;
+			$lastEcho = $isCurrentEchoOrInline;
+			$firstNode = false;
 		}
 
 		if ($indent) {

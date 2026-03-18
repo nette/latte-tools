@@ -1,0 +1,5 @@
+{* // Simple while with single HTML element (only echo) *}
+{var $i = 0}
+<li n:while="$i < 10">Item {$i}</li>
+{* // While with complex condition *}
+<tr n:while="$row = $result->fetch()"><td>Row</td></tr>
