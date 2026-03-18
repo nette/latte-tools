@@ -1,0 +1,11 @@
+{* // Simple try with single HTML element *}
+<div n:try>Success content</div>
+<div n:else>Error occurred</div>
+{* // Try with else clause *}
+<span n:try>Loading...</span>
+<span n:else>Failed to load</span>
+{* // Nested try inside if (try should be converted to n:try) *}
+{if $showContent}
+    <p n:try>Content</p>
+    <p n:else>Error</p>
+{/if}

@@ -1,0 +1,10 @@
+{* // Simple foreach with single HTML element *}
+<li n:foreach="$items as $item">{$item->name}</li>
+{* // Foreach with key *}
+<div n:foreach="$users as $id => $user" class='user' data-id='{$id}'>{$user->name}</div>
+{* // Foreach with reference *}
+<span n:foreach="$items as &$item">{$item}</span>
+{* // Nested foreach (outer should not be converted, inner should) *}
+{foreach $categories as $category}
+    <p n:foreach="$category->items as $item">{$item->name}</p>
+{/foreach}

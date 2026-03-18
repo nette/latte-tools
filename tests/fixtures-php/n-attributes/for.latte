@@ -1,0 +1,8 @@
+{* // Simple for with single HTML element *}
+<li n:for="$i = 0; $i < 10; $i++">Item {$i}</li>
+{* // For with multiple conditions *}
+<span n:for="$i = 0, $j = 0; $i < 10 && $j < 5; $i++, $j++">{$i}-{$j}</span>
+{* // Nested for (outer should not be converted, inner should) *}
+{for $i = 0; $i < 3; $i++}
+    <td n:for="$j = 0; $j < 3; $j++">{$i},{$j}</td>
+{/for}

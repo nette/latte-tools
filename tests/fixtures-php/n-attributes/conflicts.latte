@@ -1,0 +1,17 @@
+{* // Test: n:attr should not duplicate if element already has n:attr (manual)
+// Note: This tests that the converter doesn't create duplicate n:attr
+// Scenario 1: Element with existing n:if and conditional attr *}
+<input n:if="$visible" n:attr="value: $val" />
+{* // Scenario 2: Element with existing n:foreach and conditional attr *}
+<input n:foreach="$items as $item" n:attr="value: $item->name" />
+{* // Scenario 3: Multiple conditional attrs with existing n: structure *}
+{foreach $users as $user}
+    <input n:if="$user->active" n:attr="value: $user->data, data-id: $user->id" />
+{/foreach}
+{* // Scenario 4: Conditional attr on element with multiple existing n: attrs
+// This shouldn't happen in practice, but test that we handle it gracefully
+// Scenario 5: Empty value handling *}
+<input n:attr="value: $emptyVal" />
+{* // Scenario 6: Null value handling *}<input n:attr="value: $nullVal" />
+{* // Scenario 7: Boolean value handling *}<input n:attr="checked: $isChecked" />
+{* // Scenario 8: Data attributes specifically *}<div n:attr="data-user-id: $userId, data-role: $role">

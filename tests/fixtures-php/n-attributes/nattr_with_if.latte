@@ -1,0 +1,114 @@
+{* // Extensive tests for n:attr combined with n:if on same element
+// These test various combinations of conditional attributes and control structures
+// Test 1: Single conditional attr with n:if *}
+<input n:if="$show" n:attr="value: $val" />
+{* // Test 2: Multiple conditional attrs with n:if *}
+<input n:if="$visible" n:attr="value: $name, data-id: $id" />
+{* // Test 3: n:if with data-* attributes *}
+{if $enabled}
+    <div n:attr="data-user: $user, data-role: $role">
+{/if}
+{* // Test 4: n:if with ARIA attributes *}
+{if $accessible}
+    <button n:attr="aria-label: $label, aria-describedby: $desc">
+{/if}
+{* // Test 5: n:if with mixed quote styles *}
+<input n:if="$mixed" type='text' n:attr="value: $val" />
+{* // Test 6: n:if with method call in conditional attr *}
+<input n:if="$showObj" n:attr="value: $obj->getValue()" />
+{* // Test 7: n:if with array access in conditional attr *}
+<input n:if="$showArray" n:attr="value: $arr['key']" />
+{* // Test 8: n:if with property chain in conditional attr *}
+<input n:if="$showChain" n:attr="value: $user->profile->name" />
+{* // Test 9: n:if with !empty() condition *}
+<input n:if="$showEmpty" n:attr="value: $name" />
+{* // Test 10: n:if with checked attribute (boolean) *}
+<input n:if="$showChecked" type="checkbox" n:attr="checked: $isChecked" />
+{* // Test 11: n:if with style attribute *}
+{if $showStyled}
+    <div n:attr="style: $style">
+{/if}
+{* // Test 12: n:if with class attribute *}
+{if $showClass}
+    <span n:attr="class: $className">
+{/if}
+{* // Test 13: n:if with src attribute (images) *}
+<img n:if="$showImage" n:attr="src: $src" />
+{* // Test 14: n:if with href attribute (links) *}
+{if $showLink}
+    <a n:attr="href: $url">
+{/if}
+{* // Test 15: n:if with multiple attrs including standard ones *}
+<input n:if="$showMultiple" type="text" name="field" n:attr="value: $val, placeholder: $ph" />
+{* // Test 16: n:if with self-closing tag and conditional attr *}
+<br n:if="$showBr" n:attr="data-info: $info" />
+{* // Test 17: n:if with void element and conditional attr *}
+<meta n:if="$showMeta" n:attr="content: $content" />
+{* // Test 18: n:if with title attribute *}
+{if $showTitle}
+    <abbr n:attr="title: $title">
+{/if}
+{* // Test 19: n:if with alt attribute (images) *}
+<img n:if="$showAlt" src="pic.jpg" n:attr="alt: $alt" />
+{* // Test 20: Complex scenario - n:if with n:foreach sibling (nested) *}
+{if $showComplex}
+    <input n:foreach="$items as $item" n:attr="value: $item->val" />
+{/if}
+{* // Test 21: n:if with disabled attribute *}
+{if $showDisabled}
+    <button n:attr="disabled: $isDisabled">
+{/if}
+{* // Test 22: n:if with readonly attribute *}
+<input n:if="$showReadonly" n:attr="readonly: $isReadonly" />
+{* // Test 23: n:if with selected attribute (dropdowns) *}
+{if $showSelected}
+    <option n:attr="selected: $isSelected">
+{/if}
+{* // Test 24: n:if with colspan attribute (tables) *}
+{if $showColspan}
+    <td n:attr="colspan: $span">
+{/if}
+{* // Test 25: n:if with rowspan attribute (tables) *}
+{if $showRowspan}
+    <td n:attr="rowspan: $span">
+{/if}
+{* // Test 26: n:if with target attribute (links) *}
+{if $showTarget}
+    <a n:attr="target: $target">
+{/if}
+{* // Test 27: n:if with rel attribute (links) *}
+{if $showRel}
+    <a n:attr="rel: $rel">
+{/if}
+{* // Test 28: n:if with type attribute (inputs) *}
+<input n:if="$showType" n:attr="type: $type" />
+{* // Test 29: n:if with name attribute *}
+<input n:if="$showName" n:attr="name: $name" />
+{* // Test 30: n:if with id attribute *}
+{if $showId}
+    <div n:attr="id: $id">
+{/if}
+{* // Test 31: n:if with maxlength attribute *}
+<input n:if="$showMaxlength" n:attr="maxlength: $max" />
+{* // Test 32: n:if with size attribute *}
+<input n:if="$showSize" n:attr="size: $size" />
+{* // Test 33: n:if with width attribute *}
+<img n:if="$showWidth" n:attr="width: $width" />
+{* // Test 34: n:if with height attribute *}
+<img n:if="$showHeight" n:attr="height: $height" />
+{* // Test 35: n:if with pattern attribute (validation) *}
+<input n:if="$showPattern" n:attr="pattern: $pattern" />
+{* // Test 36: n:if with min/max attributes *}
+<input n:if="$showRange" n:attr="min: $min, max: $max" />
+{* // Test 37: n:if with step attribute *}
+<input n:if="$showStep" n:attr="step: $step" />
+{* // Test 38: n:if with placeholder and value attrs *}
+<input n:if="$showBoth" n:attr="placeholder: $ph, value: $val" />
+{* // Test 39: n:if with formaction attribute (buttons) *}
+{if $showFormaction}
+    <button n:attr="formaction: $action">
+{/if}
+{* // Test 40: n:if with formmethod attribute *}
+{if $showFormmethod}
+    <button n:attr="formmethod: $method">
+{/if}
