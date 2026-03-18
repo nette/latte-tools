@@ -16,5 +16,9 @@ foreach (Nette\Utils\Finder::findFiles('*.twig')->from(__DIR__ . '/fixtures-twig
 	$expected = file_get_contents($expectedFile);
 
 	$res = $converter->convert($code);
+
+	$expected = preg_replace('/__internal_[a-f0-9]{64}/', '__internal_*', $expected);
+	$res = preg_replace('/__internal_[a-f0-9]{64}/', '__internal_*', $res);
+
 	Assert::match($expected, $res);
 }
