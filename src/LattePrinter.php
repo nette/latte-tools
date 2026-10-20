@@ -633,13 +633,11 @@ class LattePrinter extends PrettyPrinterAbstract
 	protected function pExpr_Cast_Double(Cast\Double $node)
 	{
 		$kind = $node->getAttribute('kind', Cast\Double::KIND_DOUBLE);
-		if ($kind === Cast\Double::KIND_DOUBLE) {
-			$cast = '(double)';
-		} elseif ($kind === Cast\Double::KIND_FLOAT) {
-			$cast = '(float)';
-		} elseif ($kind === Cast\Double::KIND_REAL) {
-			$cast = '(real)';
-		}
+		$cast = match ($kind) {
+			Cast\Double::KIND_FLOAT => '(float)',
+			Cast\Double::KIND_REAL => '(real)',
+			default => '(double)',
+		};
 		return $this->pPrefixOp(Cast\Double::class, $cast . ' ', $node->expr);
 	}
 
@@ -1366,7 +1364,7 @@ class LattePrinter extends PrettyPrinterAbstract
 
 
 	/**
-	 * @param Node[] $nodes
+	 * @param array<?Node> $nodes
 	 * @return bool
 	 */
 	protected function hasNodeWithComments(array $nodes)

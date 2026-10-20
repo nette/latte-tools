@@ -8,7 +8,7 @@ use function count;
 
 class PhpConverter
 {
-	/** @var Node\Stmt[] */
+	/** @var Node[] */
 	private $stmts;
 
 
@@ -35,7 +35,7 @@ class PhpConverter
 		$traverser = new NodeTraverser;
 		$traverser->addVisitor(
 			new class extends NodeVisitorAbstract {
-				public function leaveNode(Node $node)
+				public function leaveNode(Node $node): ?array
 				{
 					if ($node instanceof Node\Stmt\Echo_
 						&& count($node->exprs) > 1
@@ -47,6 +47,8 @@ class PhpConverter
 
 						return $res;
 					}
+
+					return null;
 				}
 			},
 		);
@@ -60,7 +62,7 @@ class PhpConverter
 		$traverser = new NodeTraverser;
 		$traverser->addVisitor(
 			new class extends NodeVisitorAbstract {
-				public function leaveNode(Node $node)
+				public function leaveNode(Node $node): ?array
 				{
 					if ($node instanceof Node\Stmt\Echo_
 						&& $node->exprs[0] instanceof Node\Expr\FuncCall
@@ -74,6 +76,8 @@ class PhpConverter
 
 						return $res;
 					}
+
+					return null;
 				}
 			},
 		);
@@ -87,13 +91,15 @@ class PhpConverter
 		$traverser = new NodeTraverser;
 		$traverser->addVisitor(
 			new class extends NodeVisitorAbstract {
-				public function leaveNode(Node $node)
+				public function leaveNode(Node $node): ?array
 				{
 					if ($node instanceof Node\Stmt\Echo_
 						&& $node->exprs[0] instanceof Node\Expr\BinaryOp\Concat
 					) {
 						return $this->explodeConcat($node->exprs[0]);
 					}
+
+					return null;
 				}
 
 
@@ -117,7 +123,7 @@ class PhpConverter
 		$traverser = new NodeTraverser;
 		$traverser->addVisitor(
 			new class extends NodeVisitorAbstract {
-				public function leaveNode(Node $node)
+				public function leaveNode(Node $node): ?Node
 				{
 					if ($node instanceof Node\Stmt\Echo_
 						&& ($node->exprs[0] instanceof Node\Scalar\String_
@@ -126,6 +132,8 @@ class PhpConverter
 					) {
 						return new Node\Stmt\InlineHTML((string) $node->exprs[0]->value);
 					}
+
+					return null;
 				}
 			},
 		);

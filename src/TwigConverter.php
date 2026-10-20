@@ -6,12 +6,13 @@ namespace LatteTools;
 class TwigConverter
 {
 	public Twiggy\Environment $twiggy;
+	private Twiggy\Loader\ArrayLoader $loader;
 
 
 	public function __construct()
 	{
-		$loader = new Twiggy\Loader\ArrayLoader;
-		$twiggy = new Twiggy\Environment($loader, ['cache' => false]);
+		$this->loader = new Twiggy\Loader\ArrayLoader;
+		$twiggy = new Twiggy\Environment($this->loader, ['cache' => false]);
 		$twiggy->addExtension(new Twiggy\Extra\Cache\CacheExtension);
 		$twiggy->addExtension(new Twiggy\Extra\Html\HtmlExtension);
 		$twiggy->addExtension(new Twiggy\Extension\DebugExtension);
@@ -25,9 +26,8 @@ class TwigConverter
 
 	public function convert(string $code): string
 	{
-		$loader = $this->twiggy->getLoader();
-		$loader->setTemplate('main', $code);
-		$code = $this->twiggy->compileSource($loader->getSourceContext('main'));
+		$this->loader->setTemplate('main', $code);
+		$code = $this->twiggy->compileSource($this->loader->getSourceContext('main'));
 		$code = $this->postProcess($code);
 		return $code;
 	}
