@@ -1,0 +1,33 @@
+use:
+	- nette
+	- modernizations
+
+typeAnalysis: phpstan
+
+paths:
+	- src
+	- tests
+	- php-to-latte.php
+	- twig-to-latte.php
+
+excludePaths:
+	- tests/fixtures-*
+	- src/Twiggy
+
+fileExtensions:
+	- php
+	- phpt
+
+imports: {grouping: {class: grouped}}
+
+overrides:
+	-
+		paths: [src]
+		nameResolution: certain
+		use:
+			- compilerOptimizations
+			- deprecations
+
+	- # the printer dispatches to methods named after the node classes, as PhpParser's PrettyPrinter does
+		paths: [src/LattePrinter.php]
+		naming: {method: keep}
