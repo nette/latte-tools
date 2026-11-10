@@ -18,3 +18,9 @@ foreach (Nette\Utils\Finder::findFiles('*.twig')->from(__DIR__ . '/fixtures-twig
 	$res = $converter->convert($code);
 	Assert::match($expected, $res);
 }
+
+Assert::exception(
+	fn() => $converter->convert('{{ 1 b-or 5 }}'),
+	LatteTools\Twiggy\Error\SyntaxError::class,
+	'Bitwise OR is not allowed in Latte%a%',
+);

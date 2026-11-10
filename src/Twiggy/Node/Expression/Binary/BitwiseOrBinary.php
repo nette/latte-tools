@@ -13,11 +13,12 @@
 namespace LatteTools\Twiggy\Node\Expression\Binary;
 
 use LatteTools\Twiggy\Compiler;
+use LatteTools\Twiggy\Error\SyntaxError;
 
 class BitwiseOrBinary extends AbstractBinary
 {
 	public function operator(Compiler $compiler): Compiler
 	{
-		throw new SyntaxError('Bitwise OR is not allowed in Latte.', $lineno);
+		throw new SyntaxError('Bitwise OR is not allowed in Latte.', $this->getTemplateLine(), $this->getSourceContext());
 	}
 }
