@@ -46,22 +46,16 @@ class GetAttrExpression extends AbstractExpression
 			$compiler->raw('isset(');
 		}
 
-		$property = !$attr instanceof ConstantExpression || !is_int($attr->getAttribute('value'));
+		$array = $type === 'array'
+			|| ($attr instanceof ConstantExpression && is_int($attr->getAttribute('value')));
 
-		$compiler->subcompile($this->getNode('node'))
-			->raw($property ? '->' : '[');
-
-		if ($attr instanceof ConstantExpression) {
-			$compiler->raw($attr->getAttribute('value'));
+		$compiler->subcompile($this->getNode('node'));
+		if ($array) {
+			$compiler->raw('[')->subcompile($attr)->raw(']');
+		} elseif ($attr instanceof ConstantExpression) {
+			$compiler->raw('->' . $attr->getAttribute('value'));
 		} else {
-			$compiler
-				->raw('{')
-				->subcompile($this->getNode('attribute'))
-				->raw('}');
-		}
-
-		if (!$property) {
-			$compiler->raw(']');
+			$compiler->raw('->{')->subcompile($attr)->raw('}');
 		}
 
 		if ($this->getAttribute('is_defined_test')) {
