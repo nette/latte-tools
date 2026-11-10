@@ -11,11 +11,11 @@ Test: "defined" support for macros
     OK
 {/if}
 
-{if method_exists($macros[__internal_c2d9f9a9e8b868d6b479e868d58395d8cbc54944fb9a32618a290652e926dd88], hello)}
+{if method_exists($macros[__internal_%h%], hello)}
     OK
 {/if}
 
-{if !method_exists($macros[__internal_c2d9f9a9e8b868d6b479e868d58395d8cbc54944fb9a32618a290652e926dd88], bar)}
+{if !method_exists($macros[__internal_%h%], bar)}
     OK
 {/if}
 
