@@ -12,7 +12,7 @@ Test: "autoescape" tag applies escaping after calling filters
 2. Don't escape escaper filter output
 ( var is escaped by |escape_and_nl2br, line-breaks are added,
   the output is not escaped, |raw is redundant )
-{$var|escape_and_nl2br}
+{$var|escape_and_nl2br|noescape}
 
 3. Explicit escape
 ( var is escaped by |escape_and_nl2br, line-breaks are added,
@@ -50,10 +50,10 @@ Test: "autoescape" tag applies escaping after calling filters
 9. Don't escape escaper filter output
 ( the output of |format is "<b>" ~ var ~ "</b>",
   the output is not escaped due to |raw filter at the end )
-{='<b>%s</b>'|format:$var}
+{='<b>%s</b>'|format:$var|noescape}
 
 10. Don't escape escaper filter output
 ( the output of |format is "<b>" ~ var ~ "</b>",
   the output is not escaped due to |raw filter at the end,
   the |raw filter on var is redundant )
-{='<b>%s</b>'|format:$var}
+{='<b>%s</b>'|format:$var|noescape}

@@ -114,12 +114,16 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
 
 
 	/**
-	 * Removes "raw" filters.
+	 * Removes "raw" filters, except the one applied to the printed value, which becomes |noescape.
 	 */
 	private function optimizeRawFilter(Node $node, Environment $env): Node
 	{
-		if ($node instanceof FilterExpression && $node->getNode('filter')->getAttribute('value') == 'raw') {
-			return $node->getNode('node');
+		if (!$node instanceof PrintNode) {
+			foreach ($node as $name => $child) {
+				if ($child instanceof FilterExpression && $child->getNode('filter')->getAttribute('value') === 'raw') {
+					$node->setNode($name, $child->getNode('node'));
+				}
+			}
 		}
 
 		return $node;
